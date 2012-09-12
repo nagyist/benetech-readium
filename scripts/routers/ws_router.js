@@ -9,13 +9,25 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 
 	openBook: function(key) {
 
-		// look up the book by its key in the global array or library data
-		var book_data = _.find(window.ReadiumLibraryData, function(obj) {
-			return obj.key === key;
+		// Ask the server for the book's data
+		var self = this;
+		$.ajax({
+			url: 'http://martinq-laptop.local:9000/bookInfo?title=' + key,
+			dataType: 'json',
+			success: function(data, textStatus, jqXHR) {
+				console.log(data);
+				self.initViewer(data);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(errorThrown);
+				self.initViewer(null);
+			}
 		});
+	},
 
+	initViewer: function(book_data) {
 		if(book_data) {
-			// initialze the viewer for that book
+			// initialize the viewer for that book
 			window._epub = new Readium.Models.EPUB(book_data);
 			window._epubController = new Readium.Models.EPUBController(_.extend({epub : window._epub}, book_data));
 			window._applicationView = new Readium.Views.ViewerApplicationView({
