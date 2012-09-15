@@ -158,15 +158,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// handle the base url first:
 		if(splitUrl[1]) {
 			var spine_pos = this.packageDocument.spineIndexFromHref(splitUrl[1]);
-			this.setSpinePos(spine_pos);
+			this.setSpinePos(spine_pos, false, splitUrl[2]);
 		}
 
-		// now try to handle the fragment if there was one,
-		if(splitUrl[2]) {
-			// just set observable property to broadcast event
-			// to anyone who cares
-			this.set({hash_fragment: splitUrl[2]});
-		}
 	},
 
 	getToc: function() {
@@ -248,16 +242,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		}
 	},
 
-	// Description: Sets the current spine position for the epub, checking if the spine
-	//   item is already rendered.
-	// Arguments (
-	//	 pos (integer): The index of the spine element to set as the current spine position
-	//	)
-	setSpinePos: function(pos, goToLastPageOfSection) {
-
+setSpinePos: function(pos, goToLastPageOfSection, goToHashFragmentId) {
 		// check for invalid spine position
 		if (pos < 0 || pos >= this.packageDocument.spineLength()) {
-			
 			return;
 		}
 
@@ -265,20 +252,23 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var spinePosIsRendered = spineItems.indexOf(pos) >=0 ? true : false;
 
 		// REFACTORING CANDIDATE: There is a somewhat hidden dependency here between the paginator
-		//   and the setting of the spine_position. The paginator re-renders based on the currently
-		//   set spine_position on this model; the paginator has a reference to this model, which is 
-		//   how it accesses the new spine_position. This would be clearer if the spine_position to set were passed 
-		//   explicitly to the paginator. 
+		//   and the setting of the spine_position. The pagination strategy selector re-renders based on the currently
+		//   set spine_position on this model. The pagination strategy selector has a reference to this model, which is 
+		//   how it accesses the new spine_position, through the "getCurrentSection" method. 
+		//   This would be clearer if the spine_position to set were passed explicitly to the paginator. 
 		this.set("spine_position", pos);
 
 		// REFACTORING CANDIDATE: This event should only be triggered for fixed layout sections
 		this.trigger("FXL_goToPage");
 
-		// Render the new spine position if it is not already rendered. 
+		// Render the new spine position if it is not already rendered.
 		if (!spinePosIsRendered) {
-
-			var renderedItems = this.paginator.renderSpineItems(goToLastPageOfSection);
+			var renderedItems = this.paginator.renderSpineItems(goToLastPageOfSection, goToHashFragmentId);
 			this.set("rendered_spine_items", renderedItems);
+		} else {
+			if (!this.isFixedLayout() && goToHashFragmentId) {
+				this.paginator.v.goToHashFragment(goToHashFragmentId);
+			}
 		}
 	},
 

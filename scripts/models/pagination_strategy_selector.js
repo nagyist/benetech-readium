@@ -25,7 +25,7 @@ Readium.Models.PaginationStrategySelector = Backbone.Model.extend({
 
 	// Description: Determine what the current spine item is and render it
 	//   Updates which spine items have been rendered in an array of rendered spine items
-	renderSpineItems: function(renderToLast) {
+	renderSpineItems: function(renderToLast, hashFragmentId) {
 		var book = this.model;
 		var that = this;
 		var rendered_spine_positions = [];
@@ -50,11 +50,10 @@ Readium.Models.PaginationStrategySelector = Backbone.Model.extend({
 		// A reflowable epub
 		else {
 
-			//this.v = new Readium.Views.ReflowablePaginationView({model: book, zoomer: this.zoomer});
 			this.v = new Readium.Views.InjectedReflowablePaginationView({model: book, zoomer: this.zoomer});
 		}
 
-		this.rendered_spine_positions = this.v.render(!!renderToLast);
+		this.rendered_spine_positions = this.v.render(!!renderToLast, hashFragmentId);
 		return this.rendered_spine_positions;
 	},
 

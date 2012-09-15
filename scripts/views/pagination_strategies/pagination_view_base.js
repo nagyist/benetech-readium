@@ -97,7 +97,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	destruct: function() {
 		this.pages.off("change:current_page", this.showCurrentPages);
 		this.model.off("change:font_size", this.setFontSize);
-		this.model.off("change:hash_fragment", this.goToHashFragment);
         this.mediaOverlayController.off("change:mo_text_id", this.highlightText);
         this.mediaOverlayController.off("change:active_mo", this.indicateMoIsPlaying);
 		this.resetEl();
@@ -111,7 +110,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 
 		var href = e.srcElement.attributes["href"].value;
 		if(href.match(/^http(s)?:/)) {
-			chrome.tabs.create({"url": href});
+			window.open(href);
 		} else {
 			this.model.goToHref(href);
 		}

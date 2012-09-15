@@ -29,36 +29,40 @@ Readium.Views.ReflowablePaginationView = Readium.Views.PaginationViewBase.extend
 		this.model.on("change:two_up", this.setUpMode, this);
 		this.model.on("change:two_up", this.adjustIframeColumns, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
-        this.model.on("change:hash_fragment", this.goToHashFragment, this);
         
 	},
 
-	render: function(goToLastPage) {
+	render: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		var json = this.model.getCurrentSection().toJSON();
 
 		// make everything invisible to prevent flicker
 		this.setUpMode();
 		this.$('#container').html( this.page_template(json) );
-		
-		this.$('#readium-flowing-content').on("load", function(e) {
-// Important: Firefox doesn't recognize e.srcElement, so this needs to be checked for whenever it's required.
-if (!e.srcElement) e.srcElement = this;
 
+		this.$('#readium-flowing-content').on("load", function(e) {
 			that.adjustIframeColumns();
 			that.iframeLoadCallback(e);
 			that.setFontSize();
 			that.injectTheme();
 			that.setNumPages();
 
-			if(goToLastPage) {
-				that.pages.goToLastPage();
+			if (hashFragmentId) {
+				that.goToHashFragment(hashFragmentId);
 			}
 			else {
-				that.pages.goToPage(1);
-			}		
+
+				if (goToLastPage) {
+
+					that.pages.goToLastPage();
+				}
+				else {
+
+					that.pages.goToPage(1);
+				}		
+			}
 		});
-		
+
 		return [this.model.get("spine_position")];
 	},
 
@@ -154,10 +158,10 @@ if (!e.srcElement) e.srcElement = this;
 	//   the corresponding elem and setting the page number on `this.model`
 	//   as precondition the hash fragment should identify an element in the
 	//   section rendered by this view
-	goToHashFragment: function() {
+	goToHashFragment: function(hashFragmentId) {
 
 		// this method is triggered in response to 
-		var fragment = this.model.get("hash_fragment");
+		var fragment = hashFragmentId;
 		if(fragment) {
 			var el = $("#" + fragment, this.getBody())[0];
 

@@ -29,24 +29,22 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.model.on("change:two_up", this.setUpMode, this);
 		this.model.on("change:two_up", this.adjustIframeColumns, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
-        this.model.on("change:hash_fragment", this.goToHashFragment, this);
         
 	},
 
-	render: function(goToLastPage) {
+	render: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		if (this.model.getCurrentSection().content == null) {
 			console.log('fetching content');
-			this.model.getCurrentSection().fetch({success:function(model, response) { that.renderInternal(goToLastPage);}});
+			this.model.getCurrentSection().fetch({success:function(model, response) { that.renderInternal(goToLastPage, hashFragmentId);}});
 		} else {
 			console.log('content already rendered');
-			console.log(this.model.getCurrentSection().content);
-			this.renderInternal(goToLastPage);
+			this.renderInternal(goToLastPage, hashFragmentId);
 		}
 		return [this.model.get("spine_position")];
 	},
 
-	renderInternal: function(goToLastPage) {
+	renderInternal: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		var json = this.model.getCurrentSection().toJSON();
 		var htmlBody = this.model.getCurrentSection().content;
@@ -56,7 +54,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.$('#container').html( this.page_template(json) );
 
 		this.$('#readium-flowing-content').on("load", function(e) {
-			console.log(htmlBody);
 
 			// Important: Firefox doesn't recognize e.srcElement, so this
 			// needs to be checked for whenever it's required.
@@ -68,11 +65,15 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			that.injectTheme();
 			that.setNumPages();
 
-			if(goToLastPage) {
-				that.pages.goToLastPage();
-			}
-			else {
-				that.pages.goToPage(1);
+			if (hashFragmentId) {
+				that.goToHashFragment(hashFragmentId);
+			} else {
+
+				if(goToLastPage) {
+					that.pages.goToLastPage();
+				} else {
+					that.pages.goToPage(1);
+				}
 			}
 		});
 	},
@@ -137,6 +138,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	//   that were registered on the model
 	destruct: function() {
 		
+		this.hideContent();
 		this.pages.off("change:current_page", this.pageChangeHandler);
 		this.model.off("change:toc_visible", this.windowSizeChangeHandler);
 		this.model.off("repagination_event", this.windowSizeChangeHandler);
@@ -169,10 +171,10 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	//   the corresponding elem and setting the page number on `this.model`
 	//   as precondition the hash fragment should identify an element in the
 	//   section rendered by this view
-	goToHashFragment: function() {
+	goToHashFragment: function(hashFragmentId) {
 
 		// this method is triggered in response to 
-		var fragment = this.model.get("hash_fragment");
+		var fragment = hashFragmentId;
 		if(fragment) {
 			var el = $("#" + fragment, this.getBody())[0];
 

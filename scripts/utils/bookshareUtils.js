@@ -70,16 +70,29 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	doc = null;
 };
 
-Readium.Models.PackageDocument.prototype.resolveUri = function(rel_uri) {
-	console.log('QQQ resolveUri: ' + rel_uri);
-	return rel_uri;
-};
-
 Readium.Models.PackageDocument.prototype.resolvePath = function(path) {
 	console.log('QQQ resolvePath: ' + path);
 	return path;
 };
 
 Readium.Models.PackageDocument.prototype.initialize = function(attributes, options) {
-		this.on('change:spine_position', this.onSpinePosChanged);
+	this.uri_obj = new URI(this.get('book').get('publication_root'));
+	this.on('change:spine_position', this.onSpinePosChanged);
+};
+
+Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
+	var spine = this.get("res_spine");
+	var h = new URI(this.resolveUri(href));
+	for(var i = 0; i < spine.length; i++) {
+		var path = spine.at(i).get("href");
+		var p = new URI(this.resolveUri(path));
+		if (
+			h.scheme === p.scheme &&
+			h.authority === p.authority &&
+			h.path === p.path
+			) {
+			return i;
+		}
+	}
+	return -1;
 };
