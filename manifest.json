@@ -14,7 +14,9 @@
       "tts",
       "*://www.bookshare.org/",
       "*://public.qa.bookshare.org/",
-      "*://public.staging.bookshare.org/"
+      "*://public.staging.bookshare.org/",
+      "*://martinq-laptop.local/",
+      "*://*.bookshare.org.s3.amazonaws.com/"
 	],
    "content_scripts": [
     {
