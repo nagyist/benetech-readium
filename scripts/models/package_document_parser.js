@@ -83,9 +83,6 @@ Readium.Models.PackageDocumentParser.prototype.parse = function(xml_content) {
     // parse the manifest into a proper collection
 	json.manifest = new Readium.Collections.ManifestItems(json.manifest, {packageDocument: this});
 
-	// create a map of all the media overlay objects
-	json.mo_map = this.resolveMediaOverlays(json.manifest);
-
 	// parse the spine into a proper collection
 	json.spine = this.parseSpineProperties(json.spine);
 
@@ -158,25 +155,6 @@ Readium.Models.PackageDocumentParser.prototype.parseSpineProperties = function(s
 		_.extend(spine[i], props);
 	}
 	return spine;
-};
-
-// resolve the url of smils on any manifest items that have a MO
-// attribute
-Readium.Models.PackageDocumentParser.prototype.resolveMediaOverlays = function(manifest) {
-	var that = this;
-    var momap = {};
-    
-    // create a bunch of media overlay objects
-    manifest.forEach( function(item) {
-		if(item.get("media_type") === "application/smil+xml") {
-            var url = that.resolveUri(item.get("href"));
-            var moObject = new Readium.Models.MediaOverlay();
-            moObject.setUrl(url);
-            moObject.fetch(); 
-            momap[item.id] = moObject;
-        }
-	});
-	return momap;
 };
 
 // parse the EPUB3 `page-progression-direction` attribute

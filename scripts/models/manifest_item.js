@@ -267,13 +267,6 @@ Readium.Models.SpineItem = Readium.Models.ManifestItem.extend({
 		return this.view;
 	},
     
-    hasMediaOverlay: function() {
-        return !!this.get("media_overlay") && !!this.getMediaOverlay();
-    },
-    
-    getMediaOverlay: function() {
-		return this.collection.getMediaOverlay(this.get("media_overlay"));
-    }
 });
 
 
@@ -296,8 +289,4 @@ Readium.Collections.Spine = Backbone.Collection.extend({
 	isBookFixedLayout: function() {
 		return this.packageDocument.get("book").isFixedLayout();
 	},
-
-	getMediaOverlay: function(id) {
-        return this.packageDocument.getMediaOverlayItem(id);
-    }
 });

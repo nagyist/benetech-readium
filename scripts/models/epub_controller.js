@@ -10,11 +10,6 @@
 //   that Backbone attributes (getting/setting) and the backbone attribute event model (events fired on attribute changes) should 
 //   the primary ways of interacting with this model.
 
-// REFACTORING CANDIDATE: hash_fragment now has two responsibilities with media overlays included in the source: To act as a broadcast
-//   attribute that triggers the view to go to a particular hash_fragment, as well as to do something for media overlays. It would
-//   probably make sense for the first reason to have a function make a direct call through the pagination strategy selector. 
-// Update (Marisa 20120814): right now it looks like hash_fragment is only monitored by the view, not MO.
-
 Readium.Models.EPUBController = Backbone.Model.extend({
 
 	// ------------------------------------------------------------------------------------ //
@@ -28,9 +23,6 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 		this.epub = this.get("epub");
         
-        this.set("media_overlay_controller", 
-            new Readium.Models.MediaOverlayController({epubController : this}));
-
 		// create a [`Paginator`](/docs/paginator.html) object used to initialize
 		// pagination strategies for the spine items of this book
 		this.paginator = new Readium.Models.PaginationStrategySelector({book: this});

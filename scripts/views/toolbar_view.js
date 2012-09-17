@@ -6,7 +6,6 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
-        this.model.on("change:spine_position", this.hideOrShowMoButton, this);
 	},
 
 	render: function() {
@@ -41,22 +40,12 @@ $('#nmOT').html(isNight ? 'Nightmode on' : 'Nightmode off');
 		return this;
 	},
 
-    hideOrShowMoButton: function() {
-        if (this.model.getCurrentSection().hasMediaOverlay()) {
-            $("#play-mo-btn").show();
-        }
-        else {
-            $("#play-mo-btn").hide();
-        }
-    },
-    
 	events: {
 		"click #hide-toolbar-button": "hide_toolbar",
 		"click #show-toolbar-button": "show_toolbar",
 		"click #fs-toggle-btn": "toggle_fs",
 		"click #toggle-toc-btn": "toggle_toc",
 		"click #nightmode-btn": "toggle_night_mode",
-		"click #play-mo-btn": "play_mo"
 	},
 
 	show_toolbar: function(e) {
@@ -90,13 +79,4 @@ $('#nmOT').html(isNight ? 'Nightmode on' : 'Nightmode off');
 		this.model.save();
 	},
 
-	play_mo: function() {
-        var moController = this.model.get("media_overlay_controller");
-		if (moController.get("active_mo")) {
-			moController.pauseMo();
-		}
-		else {
-			moController.playMo();
-		}
-	}
 });

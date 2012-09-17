@@ -50,7 +50,7 @@ window.BookshareUtils = {
 		} else {
 			return item.get('href');
 		}
-	},
+	}
 };
 
 Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'http://martinq-laptop.local:9000/getManifest?title=' + m.get('book').get('key');});

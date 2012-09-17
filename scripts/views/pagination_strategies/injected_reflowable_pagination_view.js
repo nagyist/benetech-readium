@@ -108,27 +108,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
         return visibleElms;
     },
     
-    // override
-	indicateMoIsPlaying: function () {
-		var moHelper = new Readium.Models.MediaOverlayViewHelper({epubController : this.model});
-		moHelper.renderReflowableMoPlaying(
-			this.model.get("current_theme"),
-			this.mediaOverlayController.get("active_mo"),
-			this
-		);
-	},
-
-    // override
-	highlightText: function () {
-		var moHelper = new Readium.Models.MediaOverlayViewHelper({epubController : this.model});
-		moHelper.renderReflowableMoFragHighlight(
-			this.model.get("current_theme"),
-			this,
-			this.mediaOverlayController.get("mo_text_id")
-		);
-	},
-    
-
 	// ------------------------------------------------------------------------------------ //
 	//  "PRIVATE" HELPERS                                                                   //
 	// ------------------------------------------------------------------------------------ //
@@ -163,7 +142,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
         if (this.model.get("two_up") == false || 
             (this.model.get("two_up") && page % 2 === 1)) {
                 // when we change the page, we have to tell MO to update its position
-                this.mediaOverlayController.reflowPageChanged();
+                // this.mediaOverlayController.reflowPageChanged();
         }
 	},
 

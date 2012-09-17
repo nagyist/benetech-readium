@@ -16,17 +16,11 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	initialize: function(options) {
 		this.zoomer = options.zoomer;
 		this.pages = new Readium.Models.ReadiumPagination({model : this.model});
-		this.mediaOverlayController = this.model.get("media_overlay_controller");
-        this.mediaOverlayController.setPages(this.pages);
-        this.mediaOverlayController.setView(this);
 
 		this.pages.on("change:current_page", this.showCurrentPages, this);
 
 		this.model.on("change:font_size", this.setFontSize, this);
 		this.model.on("change:two_up", this.pages.toggleTwoUp, this.pages);
-        
-        this.mediaOverlayController.on("change:mo_text_id", this.highlightText, this);
-        this.mediaOverlayController.on("change:active_mo", this.indicateMoIsPlaying, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
 	},
@@ -41,7 +35,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
         var trigs = this.parseTriggers(e.srcElement.contentDocument);
 		this.applyTriggers(e.srcElement.contentDocument, trigs);
 		$(e.srcElement).attr('title', Acc.page + ' - ' + Acc.title);
-        this.mediaOverlayController.pagesLoaded();
 	},
 	
     // Description: Activates a style set for the ePub, based on the currently selected theme. At present, 
@@ -97,8 +90,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	destruct: function() {
 		this.pages.off("change:current_page", this.showCurrentPages);
 		this.model.off("change:font_size", this.setFontSize);
-        this.mediaOverlayController.off("change:mo_text_id", this.highlightText);
-        this.mediaOverlayController.off("change:active_mo", this.indicateMoIsPlaying);
 		this.resetEl();
 	},
 

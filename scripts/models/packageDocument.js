@@ -188,12 +188,6 @@ Readium.Models.PackageDocument = Backbone.Model.extend({
 		return null;
 	},
 
-	getMediaOverlayItem: function(idref) {
-		// just look up the object in the mo_map
-		var map = this.get("mo_map");
-		return map && map[idref];
-	},
-
 	// combine the spine item data with the corresponding manifest
 	// data to build useful set of backbone objects
 	crunchSpine: function(spine, manifest) {
