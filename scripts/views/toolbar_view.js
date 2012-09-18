@@ -46,6 +46,7 @@ $('#nmOT').html(isNight ? 'Nightmode on' : 'Nightmode off');
 		"click #fs-toggle-btn": "toggle_fs",
 		"click #toggle-toc-btn": "toggle_toc",
 		"click #nightmode-btn": "toggle_night_mode",
+		"click #play-tts-btn": "play_tts"
 	},
 
 	show_toolbar: function(e) {
@@ -79,4 +80,11 @@ $('#nmOT').html(isNight ? 'Nightmode on' : 'Nightmode off');
 		this.model.save();
 	},
 
+	play_tts: function() {
+		if(this.model.ttsPlayer.get("tts_playing")) {
+			this.model.ttsPlayer.pause();
+		} else {
+			this.model.ttsPlayer.play();
+		}
+	}
 });

@@ -60,6 +60,10 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// If we encounter a new fixed layout section, we need to parse the 
 		// `<meta name="viewport">` to determine the size of the iframe
 		this.on("change:spine_position", this.setMetaSize, this);
+
+		if (window.hasOwnProperty('BeneSpeak')) {
+			this.ttsPlayer = new Readium.Models.TTSPlayer({controller: this});
+		}
 	},
 
 	// Description: Persists the attributes of this model
