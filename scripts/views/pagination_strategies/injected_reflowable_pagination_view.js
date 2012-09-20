@@ -388,60 +388,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.adjustIframeColumns();
 	},
 
-	// Rationale: sadly this is just a reprint of what is already in the
-	//   themes stylesheet. It isn't very DRY but the implementation is
-	//   cleaner this way
-	themes: {
-		"default-theme": {
-			"background-color": "white",
-			"color": "black",
-			"mo-color": "#777"
-		},
-
-		"vancouver-theme": {
-			"background-color": "#DDD",
-			"color": "#576b96",
-			"mo-color": "#777"
-		},
-
-		"ballard-theme": {
-			"background-color": "#576b96",
-			"color": "#DDD",
-			"mo-color": "#888"
-		},
-
-		"parchment-theme": {
-			"background-color": "#f7f1cf",
-			"color": "#774c27",
-			"mo-color": "#eebb22"
-		},
-
-		"night-theme": {
-			"background-color": "#141414",
-			"color": "white",
-			"mo-color": "#666"
-		}
-	},
-
-	injectTheme: function() {
-		var theme = this.model.get("current_theme");
-		if(theme === "default") theme = "default-theme";
-		$(this.getBody()).css({
-			"color": this.themes[theme]["color"],
-			"background-color": this.themes[theme]["background-color"]
-		});
-		
-		// stop flicker due to application for alternate style sheets
-		// just set content to be invisible
-		$("#flowing-wrapper").css("visibility", "hidden");
-		this.activateEPubStyle(this.getBody());
-
-		// wait for new stylesheets to parse before setting back to visible
-		setTimeout(function() {
-			$("#flowing-wrapper").css("visibility", "visible");	
-		}, 100);
-	},
-
 	setNumPages: function() {
 		var num = this.calcNumPages();
 		this.pages.set("num_pages", num);

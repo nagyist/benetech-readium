@@ -12,14 +12,16 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		// Ask the server for the book's data
 		var self = this;
 		$.ajax({
-			url: 'http://martinq-laptop.local:9000/bookInfo?title=' + key,
+			url: 'https://public.qa.bookshare.org/bookInfo?titleInstanceId=' + key,
 			dataType: 'json',
+    		crossDomain: true,
+			xhrFields: {
+				withCredentials: true
+			},    		
 			success: function(data, textStatus, jqXHR) {
-				console.log(data);
 				self.initViewer(data);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				console.log(errorThrown);
 				self.initViewer(null);
 			}
 		});

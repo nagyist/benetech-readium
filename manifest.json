@@ -15,8 +15,8 @@
       "*://www.bookshare.org/",
       "*://public.qa.bookshare.org/",
       "*://public.staging.bookshare.org/",
-      "*://martinq-laptop.local/",
-      "*://*.bookshare.org.s3.amazonaws.com/"
+      "*://*.bookshare.org.s3.amazonaws.com/",
+      "*://qa-bookshare-download-cache.s3.amazonaws.com/"
 	],
    "content_scripts": [
     {

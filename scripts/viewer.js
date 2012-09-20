@@ -14,10 +14,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
 		this.model.on("change:toc_visible", this.renderTocVisible, this);
 
-		this.optionsPresenter = new Readium.Models.OptionsPresenter({
-			book: this.model
-		});
-		this.optionsView = new Readium.Views.OptionsView({model: this.optionsPresenter});
+		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
 		this.optionsView.render();
 
 		// the top bar

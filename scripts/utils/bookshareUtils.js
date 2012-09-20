@@ -15,6 +15,9 @@ window.BookshareUtils = {
 		        	$.ajax({
 		        		'url': syncUrl,
 		        		'datatype': 'text',
+						'xhrFields': {
+							'withCredentials': true
+						},
 		        		'crossDomain': true,
 		        		'success': function(data, textStatus, jqXHR) { options.success(data); },
 		        		'error': function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); },
@@ -53,7 +56,7 @@ window.BookshareUtils = {
 	}
 };
 
-Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'http://martinq-laptop.local:9000/getManifest?title=' + m.get('book').get('key');});
+Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'https://public.qa.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key');});
 Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;});
 Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');});
 

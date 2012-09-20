@@ -18,8 +18,9 @@ Readium.Models.PaginationStrategySelector = Backbone.Model.extend({
 	// ------------------------------------------------------------------------------------ //	
 
 	initialize: function() {
-
+		var self = this;
 		this.model = this.get("book");
+		this.model.on("change:should_scroll", function() { self.renderSpineItems(); });
 		this.zoomer = new Readium.Views.FixedLayoutBookZoomer();
 	},
 
@@ -38,14 +39,10 @@ Readium.Models.PaginationStrategySelector = Backbone.Model.extend({
 		// Spine items as found in the package document can have attributes that override global settings for the ebook. This 
 		// requires checking/creating the correct pagination strategy for each spine item
 		var spineItem = book.getCurrentSection();
-		if (spineItem.isFixedLayout()) {
-
-			this.v = new Readium.Views.FixedPaginationView({model: book, zoomer: this.zoomer});
-		}
 		// A scrolling epub
-		else if (this.shouldScroll()) {
+		if (this.shouldScroll()) {
 
-				this.v = new Readium.Views.ScrollingPaginationView({model: book, zoomer: this.zoomer});
+				this.v = new Readium.Views.InjectedScrollingPaginationView({model: book, zoomer: this.zoomer});
 		}
 		// A reflowable epub
 		else {
@@ -57,13 +54,8 @@ Readium.Models.PaginationStrategySelector = Backbone.Model.extend({
 		return this.rendered_spine_positions;
 	},
 
-	// ------------------------------------------------------------------------------------ //
-	//  "PRIVATE" HELPERS                                                                   //
-	// ------------------------------------------------------------------------------------ //  
-
 	shouldScroll: function() {
-		var optionString = localStorage["READIUM_OPTIONS"];
-		var options = (optionString && JSON.parse(optionString) ) || {"singleton": {}};
-		return !options["singleton"]["paginate_everything"];
+		return !!this.model.get("should_scroll");
 	}
+
 });

@@ -66,6 +66,17 @@ templates['injected_reflowing_template'] = template(function (Handlebars,depth0,
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
   buffer += escapeExpression(stack1) + "\"\n			src=\"page.html\"\n			id=\"readium-flowing-content\">\n	</iframe>\n</div>";
   return buffer;});
+templates['injected_scrolling_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<div id=\"scrolling-wrapper\" class=\"scrolling-page-wrap\">\n	<div class=\"scrolling-page-margin\">\n\n		<iframe scrolling=\"yes\" \n				frameborder=\"0\" \n				marginwidth=\"0\" \n				marginheight=\"0\" \n				width=\"100%\" \n				height=\"100%\" \n				title=\"";
+  stack1 = depth0.data;
+  stack1 = stack1 == null || stack1 === false ? stack1 : stack1.title;
+  stack1 = typeof stack1 === functionType ? stack1() : stack1;
+  buffer += escapeExpression(stack1) + "\"\n				src=\"page.html\"\n				id='readium-scrolling-content'>\n		</iframe>\n	</div>\n</div>";
+  return buffer;});
 templates['library_item_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;

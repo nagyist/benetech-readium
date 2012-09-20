@@ -23,6 +23,13 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 		this.epub = this.get("epub");
         
+		// Load options from local storage
+		this.options = Readium.Models.ReadiumOptions.getInstance();
+
+		// apply options
+		this.options.set("controller", this);
+		this.options.applyOptions();
+
 		// create a [`Paginator`](/docs/paginator.html) object used to initialize
 		// pagination strategies for the spine items of this book
 		this.paginator = new Readium.Models.PaginationStrategySelector({book: this});
@@ -66,34 +73,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		}
 	},
 
-	// Description: Persists the attributes of this model
-	// Arguments (
-	//   attrs: doesn't appear to be used
-	//   options: 
-	//	)
-	// Rationale: Each epub unpacked and saved to the filesystem in Readium has a unique
-	//   key. "_epubViewProperties" is appended to this unique key to persist the read/write
-	//   attributes separately from the read-only attributes of the epub.
-	save: function(attrs, options) {
-		// TODO: this should be done properly with a backbone sync
-		var ops = {
-			success: function() {}
-		}
-		_.extend(ops,options);
-		var that = this;
-
-		// Set attributes required to persist the epub-specific viewer properties
-		this.set("updated_at", new Date());
-		this.set("key", this.epub.get("key") + "_epubViewProperties");
-
-		// Persist viewer properties
-		Lawnchair(function() {
-			this.save(that.toJSON(), ops.success);
-		});
-	},
-
 	defaults: {
-		"font_size": 10,
+    	"font_size": 10,
+    	"should_scroll": false,
     	"two_up": false,
     	"full_screen": false,
     	"toolbar_visible": true,
@@ -102,21 +84,6 @@ Readium.Models.EPUBController = Backbone.Model.extend({
     	"current_theme": "default-theme",
     	"current_margin": 3
   	},
-
-  	// Description: serialize this models state to `JSON` so that it can
-  	//   be persisted and restored
-  	toJSON: function() {
-
-  		// only save attrs that should be persisted:
-  		return {
-			"updated_at": this.get("updated_at"),
-			"current_theme": this.get("current_theme"),
-			"current_margin": this.get("current_margin"),
-			"two_up": this.get("two_up"),
-			"font_size": this.get("font_size"),
-			"key": this.get("key")
-		};
-	},
 
 	toggleFullScreen: function() {
 		var fullScreen = this.get("full_screen");
@@ -238,7 +205,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		}
 	},
 
-setSpinePos: function(pos, goToLastPageOfSection, goToHashFragmentId) {
+	setSpinePos: function(pos, goToLastPageOfSection, goToHashFragmentId) {
 		// check for invalid spine position
 		if (pos < 0 || pos >= this.packageDocument.spineLength()) {
 			return;
