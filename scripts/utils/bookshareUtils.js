@@ -14,7 +14,6 @@ window.BookshareUtils = {
 		        	console.log("syncing from " + syncUrl);
 		        	$.ajax({
 		        		'url': syncUrl,
-		        		'datatype': 'text',
 						'xhrFields': {
 							'withCredentials': true
 						},
