@@ -1493,6 +1493,34 @@ body {
     text-rendering: optimizelegibility;
     display: block; }
 
+#system-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #cccccc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, white));
+  background-image: -webkit-linear-gradient(top, #cccccc, white);
+  background-image: -moz-linear-gradient(top, #cccccc, white);
+  background-image: -ms-linear-gradient(top, #cccccc, white);
+  background-image: -o-linear-gradient(top, #cccccc, white);
+  background-image: linear-gradient(top, #cccccc, white); }
+  #system-message p {
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    text-align: left; }
+  #system-message div {
+    text-align: left; }
+  #system-message h3 {
+    line-height: 27px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0;
+    text-rendering: optimizelegibility;
+    display: block; }
+
 .scrolling-page-margin {
   background-color: #FFF;
   width: 50%;

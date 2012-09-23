@@ -77,6 +77,35 @@ templates['injected_scrolling_page_template'] = template(function (Handlebars,de
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
   buffer += escapeExpression(stack1) + "\"\n				src=\"page.html\"\n				id='readium-scrolling-content'>\n		</iframe>\n	</div>\n</div>";
   return buffer;});
+templates['integration_error'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<h3>An error has occurred</h3>\n<p>\nAn unexpected error has occurred while trying to obtain book information.\nPlease wait a few moments and try reloading this page. If the problem\npersists, please\n<a href=\"https://www.bookshare.org/contactUs\">contact Bookshare Support</a>.\n</p>\n";});
+templates['integration_error_401'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<h3>Please log in</h3>\n<p>\n	You do not appear to be logged in to Bookshare.\n	Please <a href=\"https://www.bookshare.org/\">click here</a>\n	to return to Bookshare and log in to your account.\n</p>";});
+templates['integration_error_403'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<h3>You do not have permission to view this title</h3>\n<p>\nYou do not have permission to access the requested title. If\nyou feel this message is in error please\n<a href=\"https://www.bookshare.org/contactUs\">contact Bookshare Support</a>.\n</p>\n";});
+templates['integration_error_404'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<h3>Title is not ready for web reading</h3>\n<p>\nThe title you have requested has not been prepared\nfor reading on the web. Please go to the \n<a href=\"https://www.bookshare.org/browse/book/";
+  foundHelper = helpers.key;
+  if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
+  else { stack1 = depth0.key; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
+  buffer += escapeExpression(stack1) + "\">title detail page</a>\nand click on the \"Read it in the browser\" link.\n</p>";
+  return buffer;});
 templates['library_item_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;

@@ -21,9 +21,9 @@
 			<div class="navbar-inner" id="top-bar">
 				<div class="container" style="width: 100%">
 
-					<a title="Readium Info" accesskey="i" class="brand" data-toggle="modal" href="#readium-info" id='bar-logo' role="button">
-						<img src="/images/top_bar/readium_logo.png" id="bar-logo-img" alt=""/>
-<span class="offscreenText">Readium Info</span>
+					<a title="Back to Bookshare.org" accesskey="i" class="brand" data-toggle="modal" href="#system-message" id='bar-logo' role="button">
+						<img src="/images/top_bar/bk-reader-logo.png" id="bar-logo-img" alt=""/>
+<span class="offscreenText">Back to Bookshare.org</span>
 					</a>
 
 					<ul class="nav pull-right">
@@ -123,7 +123,7 @@
 					<h2 id="setting-header-margins-legend" class="setting-header">MARGINS</h2>
 					<div role="radiogroup" aria-labelledby="setting-header-margins-legend" class="clearfix" id="margin-radio-wrapper">
 						<span aria-labelledby="margin-option-1-lbl" role="radio" id="margin-option-1" class="margin-radio clickable">
-<span id="margin-option-1-lbl" class="offscreenText">Verry Narrow</span>
+<span id="margin-option-1-lbl" class="offscreenText">Very Narrow</span>
 </span>
 						<span aria-labelledby="margin-option-2-lbl" role="radio" id="margin-option-2" class="margin-radio clickable">
 <span id="margin-option-2-lbl" class="offscreenText">Narrow</span>
@@ -150,8 +150,8 @@
 				<div>
 					<h2 id="setting-header-display-legend" class="setting-header">DISPLAY FORMAT</h2>
 					<div role="radiogroup" aria-labelledby="setting-header-display-legend" class="clearfix" id="pagination_mode">
-						<span role="radio" id="one-up-option" class="simple-radio clickable pagination-option">Single Page</span><br/>
-						<span role="radio" id="two-up-option" class="simple-radio clickable pagination-option">Facing Pages</span><br/>
+						<span role="radio" id="one-up-option" class="simple-radio clickable pagination-option">Single Page</span>
+						<span role="radio" id="two-up-option" class="simple-radio clickable pagination-option">Facing Pages</span>
 						<span role="radio" id="scrolling-option" class="simple-radio clickable pagination-option">Scrolling</span>
 					</div>
 				</div>
@@ -162,27 +162,17 @@
 			</div>
 			
 <div class="offscreenText"> Options End </div>
-		</div><!-- end le info modal -->
+		</div><!-- end le settings modal -->
 
+		<!-- le system modal -->
+		<div class="modal fade" id="system-message"  style="display: none">
+			<div class="offscreenText"> System Message Start </div>
+			<div id="system-message-content">
 
-		<div class="modal fade" id="readium-info"  style="display: none"><!-- le info modal -->
-<div class="offscreenText"> Info Start </div>
-			<div>
-				<img src="/images/info_modal/about_readium_logo.png" alt="About Readium logo">
 			</div>
-			<div>
-				<!-- UPDATE VERSION NUMBER -->
-				<h3 tabindex="-1" id="version-info">Version 0.5.0 Release Date 8.19.12</h3>
-			</div>
-			<p>
-				Readium<sup>TM</sup>, a project of the International Digital Publishing Forum (IDPF) and supporters, is an open source reference system and rendering engine for EPUB&reg; publications.  To learn more, visit the <a href="http://readium.org/">project homepage</a>. To date, the project development has been lead by <a href="http://evidentpoint.com/">Evident Point</a> and <a href="http://www.bluefirereader.com/">Bluefire Productions</a>. To contribute visit the <a href="https://github.com/readium/readium">github repository</a>
-				</p>
-			<div>
-				<img src="/images/info_modal/partner_logos.png" alt="Readium partner logos">
-			</div>
-<button class="offscreenText" data-dismiss="modal"> Close </button>
-<div class="offscreenText"> Info End </div>
-		</div><!-- end le info modal -->
+			<div class="offscreenText"> System Message End </div>
+		</div>
+		<!-- end le system modal -->
 		
 	    <script src="/lib/jquery-1.7.1.min.js" type="text/javascript" ></script>
 		<!-- This one file: contains a bunch of libs minified and concatenated together -->
