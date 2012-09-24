@@ -13,6 +13,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		var self = this;
 		$.ajax({
 			url: 'https://public.qa.bookshare.org/bookInfo?titleInstanceId=' + key,
+			dataType: 'json',
 			success: function(data, textStatus, jqXHR) {
 				self.initViewer(data);
 			},

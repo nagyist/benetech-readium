@@ -1,6 +1,6 @@
 window.BookshareUtils = {
 
-	makeSyncFunction: function(urlFunction) {
+	makeSyncFunction: function(urlFunction, dataType) {
 
 		return function(method, model, options) {
 			var syncUrl = urlFunction(model);
@@ -14,6 +14,7 @@ window.BookshareUtils = {
 		        	console.log("syncing from " + syncUrl);
 		        	$.ajax({
 		        		'url': syncUrl,
+		        		'dataType': dataType,
 						'xhrFields': {
 							'withCredentials': true
 						},
@@ -55,9 +56,9 @@ window.BookshareUtils = {
 	}
 };
 
-Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'https://public.qa.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key');});
-Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;});
-Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');});
+Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'https://public.qa.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key');}, 'xml');
+Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;}, 'xml');
+Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');}, 'xml');
 
 
 // overrides
