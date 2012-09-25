@@ -67,6 +67,7 @@ window.BookshareUtils = {
 
 	dismissSystemAlert: function() {
 		$('#system-message').modal('hide');
+		$('#system-message-content').html('');
 	}
 };
 
@@ -88,7 +89,6 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 };
 
 Readium.Models.PackageDocument.prototype.resolvePath = function(path) {
-	console.log('QQQ resolvePath: ' + path);
 	return path;
 };
 
