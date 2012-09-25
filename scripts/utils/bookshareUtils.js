@@ -53,6 +53,20 @@ window.BookshareUtils = {
 		} else {
 			return item.get('href');
 		}
+	},
+
+	resolveEnvironment: function(href) {
+		return ".qa";
+	},
+
+	raiseSystemAlert: function(key, params) {
+		var template = Handlebars.templates[key];
+		$('#system-message-content').html(template((params != null) ? params : {}));
+		$('#system-message').modal({backdrop: 'static', keyboard: false});
+	},
+
+	dismissSystemAlert: function() {
+		$('#system-message').modal('hide');
 	}
 };
 

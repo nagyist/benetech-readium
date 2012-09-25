@@ -36,7 +36,8 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		var that = this;
 		if (this.model.getCurrentSection().content == null) {
 			console.log('fetching content');
-			this.model.getCurrentSection().fetch({success:function(model, response) { that.renderInternal(goToLastPage, hashFragmentId);}});
+			BookshareUtils.raiseSystemAlert('loading_content');
+			this.model.getCurrentSection().fetch({success:function(model, response) { BookshareUtils.dismissSystemAlert(); that.renderInternal(goToLastPage, hashFragmentId);}});
 		} else {
 			console.log('content already rendered');
 			this.renderInternal(goToLastPage, hashFragmentId);

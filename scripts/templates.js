@@ -209,6 +209,12 @@ templates['library_items_template'] = template(function (Handlebars,depth0,helpe
 
 
   return "<div id='empty-message'>\n	<p id='empty-message-text' class='green'>\n		Add items to your</br>library here!\n	</p>\n	<img id='empty-arrow' src='/images/library/empty_library_arrow.png' alt='Try adding an ePUB' />\n</div>";});
+templates['loading_content'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  
+
+
+  return "<h3>Loading book content...</h3>\n<p style=\"text-align:center\">\n<img src=\"/images/progress_bar.gif\" alt=\"Loading content...\">\n</p>\n";});
 templates['ncx_nav_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression;
