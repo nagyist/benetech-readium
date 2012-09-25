@@ -10,13 +10,9 @@
    "minimum_chrome_version": "14",
    "name": "Bookshare.org EPUB 3 Reader",
    "permissions": [ 
-      "tabs",
       "tts",
-      "*://www.bookshare.org/",
-      "*://public.qa.bookshare.org/",
-      "*://public.staging.bookshare.org/",
-      "*://*.bookshare.org.s3.amazonaws.com/",
-      "*://qa-bookshare-download-cache.s3.amazonaws.com/"
+      "https://www.bookshare.org/",
+      "https://bookshare-download-cache.s3.amazonaws.com/"
 	],
    "content_scripts": [
     {
