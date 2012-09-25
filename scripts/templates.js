@@ -109,7 +109,7 @@ templates['integration_error_404'] = template(function (Handlebars,depth0,helper
   foundHelper = helpers.titleDetailPageUrl;
   if (foundHelper) { stack1 = foundHelper.call(depth0, {hash:{}}); }
   else { stack1 = depth0.titleDetailPageUrl; stack1 = typeof stack1 === functionType ? stack1() : stack1; }
-  buffer += escapeExpression(stack1) + "\">title detail page</a>\nand click on the \"Read it in the browser\" link.\n</p>";
+  buffer += escapeExpression(stack1) + "\">title detail page</a>\nand click on the \"Read Now\" link.\n</p>";
   return buffer;});
 templates['library_item_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;

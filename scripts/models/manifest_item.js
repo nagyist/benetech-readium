@@ -265,8 +265,7 @@ Readium.Models.SpineItem = Readium.Models.ManifestItem.extend({
 			
 		}
 		return this.view;
-	},
-    
+	}
 });
 
 
@@ -288,5 +287,5 @@ Readium.Collections.Spine = Backbone.Collection.extend({
 
 	isBookFixedLayout: function() {
 		return this.packageDocument.get("book").isFixedLayout();
-	},
+	}
 });

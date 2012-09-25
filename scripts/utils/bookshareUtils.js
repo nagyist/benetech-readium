@@ -22,7 +22,7 @@ window.BookshareUtils = {
 						},
 		        		'crossDomain': true,
 		        		'success': function(data, textStatus, jqXHR) { options.success(data); },
-		        		'error': function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); },
+		        		'error': function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); }
 		        	});
 		            break;
 		        case "create":

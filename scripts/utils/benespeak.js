@@ -233,7 +233,7 @@ var BeneSpeak = {
         } else if (tag == 'ul') {
             d.utterance += '\nEnd list. ';
         }
-    },
+    }
     
 };
 
