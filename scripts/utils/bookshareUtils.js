@@ -1,5 +1,7 @@
 window.BookshareUtils = {
 
+	environment: 'LIVE',
+
 	makeSyncFunction: function(urlFunction, dataType) {
 
 		return function(method, model, options) {
@@ -55,8 +57,29 @@ window.BookshareUtils = {
 		}
 	},
 
+	setEnvironment: function(href) {
+		var match = /(?:http|https)\:\/\/reader(\.\w*?){0,1}\.bookshare\.org\/viewer\.html/.exec(href);
+		if (match != null) {
+			if (match[1] == '.qa') { BookshareUtils.environment = 'QA'; }
+			else if (match[1] == '.staging') { BookshareUtils.environment = 'STAGING'; }
+			else if (match[1] == '.dev') { BookshareUtils.environment = 'DEV'; }
+		}
+	},
+
 	resolveEnvironment: function(href) {
-		return ".qa";
+		var uri = new URI(href);
+
+		if (uri.authority == 'www.bookshare.org') {
+			if (BookshareUtils.environment == 'QA') {
+				uri.authority = 'public.qa.bookshare.org';
+			} else if (BookshareUtils.environment == 'STAGING') {
+				uri.authority = 'public.staging.bookshare.org';
+			} else if (BookshareUtils.environment == 'DEV') {
+				uri.authority = 'public.dev.bookshare.org';
+			}
+		}
+
+		return uri.toString();
 	},
 
 	raiseSystemAlert: function(key, params) {
@@ -71,7 +94,7 @@ window.BookshareUtils = {
 	}
 };
 
-Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return 'https://public.qa.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key');}, 'xml');
+Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return BookshareUtils.resolveEnvironment('https://www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));}, 'xml');
 Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;}, 'xml');
 Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');}, 'xml');
 
