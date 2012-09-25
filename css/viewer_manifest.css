@@ -1558,6 +1558,13 @@ body {
     height: 80px;
     overflow: hidden;
     text-align: left; }
+  #viewer-settings-modal #options-heading {
+    text-align: left;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #777;
+    margin: 14px 0px 0px;
+    padding: 0px; }
   #viewer-settings-modal .setting-header {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
