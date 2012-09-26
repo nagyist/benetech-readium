@@ -2,6 +2,10 @@ window.BookshareUtils = {
 
 	environment: 'LIVE',
 
+	flatten: function(s) {
+		return s.replace(/\//g, "%2F");
+	},
+
 	makeSyncFunction: function(urlFunction, dataType) {
 
 		return function(method, model, options) {
@@ -42,11 +46,14 @@ window.BookshareUtils = {
 
 	resolveUrl: function(u) {
 		var normalized;
-		if (u.substring(0,2) == "..") {
-			normalized = u.substring(2);
+		if (u.substring(0,3) == "../") {
+			normalized = u.substring(3);
 		} else {
 			normalized = u;
 		}
+
+		normalized = BookshareUtils.flatten(normalized);
+
 		var manifest = window._epub.packageDocument.get('manifest');
 		var item = manifest.find(function(i) { var uu = new URI(i.get('href')); return (uu.path.indexOf(normalized) > -1);});
 		if (item == null) {
@@ -120,16 +127,18 @@ Readium.Models.PackageDocument.prototype.initialize = function(attributes, optio
 	this.on('change:spine_position', this.onSpinePosChanged);
 };
 
+// I don't like this at all; we should have a better matcher than an endsWith
 Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
 	var spine = this.get("res_spine");
 	var h = new URI(this.resolveUri(href));
 	for(var i = 0; i < spine.length; i++) {
 		var path = spine.at(i).get("href");
 		var p = new URI(this.resolveUri(path));
+		var hPath = BookshareUtils.flatten(h.path);
 		if (
 			h.scheme === p.scheme &&
 			h.authority === p.authority &&
-			h.path === p.path
+			p.path.substring(p.path.length - hPath.length) == hPath
 			) {
 			return i;
 		}

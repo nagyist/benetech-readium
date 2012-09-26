@@ -15,10 +15,12 @@ window.Readium = {
 
 $(function() {
 	// call the initialization code when the dom is loaded
-	if (chrome && chrome.extension) {
+	if (window.chrome && window.chrome.extension) {
 		BookshareUtils.setEnvironment(window.document.referrer);
 	} else {
 		BookshareUtils.setEnvironment(window.location.href);
 	}
+
+	$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/'));
 	window.Readium.Init();
 });
