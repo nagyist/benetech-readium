@@ -12,7 +12,11 @@
    "permissions": [ 
       "tts",
       "https://www.bookshare.org/",
-      "https://bookshare-download-cache.s3.amazonaws.com/"
+      "https://public.qa.bookshare.org/",
+      "https://public.staging.bookshare.org/",
+      "https://bookshare-download-cache.s3.amazonaws.com/",
+      "https://qa-bookshare-download-cache.s3.amazonaws.com/",
+      "https://staging-bookshare-download-cache.s3.amazonaws.com/"
 	],
    "content_scripts": [
     {
