@@ -4,7 +4,7 @@
 
 	@include linear-gradient(top, #CCCCCC, #FFFFFF);
 
-	p {
+	p, li {
 		margin: 0;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-size: 13px;
@@ -29,10 +29,10 @@
 
 	#chrome-extension-footer {
 		text-align: center;
-		background-color: #000;
-		padding: 5px 10px;
-		@include linear-gradient(top, #444, #222);
 		button {
+			background-color: #000;
+			padding: 5px 10px;
+			@include linear-gradient(top, #444, #222);
 			width: 135px;
 			margin: 5px;
 			padding: 5px;

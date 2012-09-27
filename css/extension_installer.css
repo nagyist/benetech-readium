@@ -9,7 +9,7 @@ Syntax error: Undefined mixin 'linear-gradient'.
 4: 
 5: 	@include linear-gradient(top, #CCCCCC, #FFFFFF);
 6: 
-7: 	p {
+7: 	p, li {
 8: 		margin: 0;
 9: 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 10: 		font-size: 13px;
@@ -59,4 +59,4 @@ css/sass/extension_installer.scss:5
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'linear-gradient'.\A         on line 5 of css/sass/extension_installer.scss, in `linear-gradient'\A         from line 5 of css/sass/extension_installer.scss\A \A 1: #chrome-extension-install {\A 2: 	text-align: center; \A 3: 	padding: 20px;\A 4: \A 5: 	@include linear-gradient(top, #CCCCCC, #FFFFFF);\A 6: \A 7: 	p {\A 8: 		margin: 0;\A 9: 		font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\A 10: 		font-size: 13px;"; }
+  content: "Syntax error: Undefined mixin 'linear-gradient'.\A         on line 5 of css/sass/extension_installer.scss, in `linear-gradient'\A         from line 5 of css/sass/extension_installer.scss\A \A 1: #chrome-extension-install {\A 2: 	text-align: center; \A 3: 	padding: 20px;\A 4: \A 5: 	@include linear-gradient(top, #CCCCCC, #FFFFFF);\A 6: \A 7: 	p, li {\A 8: 		margin: 0;\A 9: 		font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\A 10: 		font-size: 13px;"; }
