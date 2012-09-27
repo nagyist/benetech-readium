@@ -17,19 +17,33 @@ window.Readium = {
 
 			if (window.chrome && !window.chrome.app.isInstalled) {
 				var options = Readium.Models.ReadiumOptions.getInstance();
+				var myModal = $('#chrome-extension-install');
 				if (false == !!options.get('decline_extension')) {
 					$('#install-extension-but').click(
 						function(e) {
-							chrome.webstore.install();
+							chrome.webstore.install(
+								'https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo',
+								function() { window.location.reload(); },
+								function() {
+									console.log('install fialed');
+									$('#crx-install-instructions').hide();
+									$('#crx-install-fail').show();
+								}
+							);
 						});
 					$('#no-thanks-but').click(
 						function(e) {
 							options.set('decline_extension', true);
 							options.save();
-							$('#chrome-extension-install').modal('hide');
-							window.Readium.Start();
+							myModal.modal('hide');
 						});
-					$('#chrome-extension-install').modal();
+					$('#install-fail-but').click(
+						function(e) {
+							myModal.modal('hide');
+						});
+					// wire up Start to kick off after the dialog goes away
+					myModal.on('hide', window.Readium.Start);
+					myModal.modal();
 				} else {
 					this.Start();
 				}

@@ -1532,13 +1532,10 @@ body {
   background-image: -o-linear-gradient(top, #cccccc, white);
   background-image: linear-gradient(top, #cccccc, white); }
   #chrome-extension-install p, #chrome-extension-install li {
-    margin: 0;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 13px;
     line-height: 18px;
     color: #333;
-    text-align: left; }
-  #chrome-extension-install div {
     text-align: left; }
   #chrome-extension-install h3 {
     line-height: 27px;

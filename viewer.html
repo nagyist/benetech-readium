@@ -177,24 +177,53 @@
 		<!-- le install modal -->
 		<div class="modal fade" id="chrome-extension-install"  style="display: none">
 			<div class="offscreenText"> Install Chrome Extension Start </div>
-			<h3>Chrome Extension Available</h3>
-			<p>
-				To experience the full functionality of the Bookshare Web Reader, please
-				install our Chrome Extension. With this extension, you will be able to:
-			</p>
-			<ul>
-				<li>See highlighting at the sentence and word level</li>
-				<li>Listen to the high-quality Text-to-Speech voice, synchronized with the text</li>
-			</ul>
-			<p>
-				Users requiring screen readers are encouraged to install this extension.
-				By selecting "No Thanks" you'll prevent this message from appearing again,
-				yet can always opt to install the extension from within the Bookshare Web Reader
-				if desired, and you can always remove it as well.
-			</p>
-			<div id="chrome-extension-footer" class="clearfix">
-				<button class='btn btn-inverse' id="no-thanks-but">NO THANKS</button>
-				<button class='btn btn-inverse' id="install-extension-but">INSTALL NOW</button>
+			<div id="crx-install-instructions">
+				<h3>Chrome Extension Available</h3>
+				<p>
+					To experience the full functionality of the Bookshare Web Reader, please
+					install our Chrome Extension. With this extension, you will be able to:
+				</p>
+				<ul>
+					<li>See highlighting at the sentence and word level</li>
+					<li>Listen to the high-quality Text-to-Speech voice, synchronized with the text</li>
+				</ul>
+				<p>
+					Users requiring screen readers are encouraged to install this extension.
+					By selecting "No Thanks" you'll prevent this message from appearing again,
+					yet can always opt to install the extension from within the Bookshare Web Reader
+					if desired, and you can always remove it as well.
+				</p>
+				<p>
+					<em>
+					During this testing period, you must be logged into a registered Google
+					account to download and install the Chrome extension. To register your
+					Google account for this extension, please contact 
+					<a href="mailto:marchn@benetech.org?Subject=Bookshare%20Web%20Reader%20Beta">March Natividad</a>
+					with your Google Account details.
+					</em>
+				</p>
+				<div>
+					<button class='btn btn-inverse' id="no-thanks-but">NO THANKS</button>
+					<button class='btn btn-inverse' id="install-extension-but">INSTALL NOW</button>
+				</div>
+			</div>
+			<div id="crx-install-fail" style="display:none">
+				<h3>Installation unsuccessful</h3>
+				<p>
+					The Chrome extension was not installed. Please make sure that:
+				</p>
+				<ul>
+					<li>You are logged in to your Google Account</li>
+					<li>Your account has been registered to test the extension</li>
+				</ul>
+				<p>
+					Please contact
+					<a href="mailto:marchn@benetech.org?Subject=Bookshare%20Web%20Reader%20Beta">March Natividad</a>
+					to have your account registered.					
+				</p>
+				<div>
+					<button class='btn btn-inverse' id="install-fail-but">CONTINUE</button>
+				</div>
 			</div>
 			<div class="offscreenText"> Install Chrome Extension End </div>
 		</div>
