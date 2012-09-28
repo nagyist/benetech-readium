@@ -23,9 +23,11 @@ window.Readium = {
 						function(e) {
 							chrome.webstore.install(
 								'https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo',
-								function() { window.location.reload(); },
 								function() {
-									console.log('install fialed');
+									$('#crx-install-instructions').hide();
+									$('#crx-install-success').show();
+								},
+								function() {
 									$('#crx-install-instructions').hide();
 									$('#crx-install-fail').show();
 								}
@@ -37,9 +39,13 @@ window.Readium = {
 							options.save();
 							myModal.modal('hide');
 						});
-					$('#install-fail-but').click(
+					$('#crx-install-fail-but').click(
 						function(e) {
 							myModal.modal('hide');
+						});
+					$('#crx-install-success-but').click(
+						function(e) {
+							window.location.reload();
 						});
 					// wire up Start to kick off after the dialog goes away
 					myModal.on('hide', window.Readium.Start);
