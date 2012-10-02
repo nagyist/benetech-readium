@@ -37,19 +37,6 @@ $("#row-view-btn").attr('aria-pressed', 'true');
 				$('#library-items-container').addClass("row-view").removeClass("block-view")
 			});
 
-$('#bar-logo').attr('aria-pressed', 'false');
-$('#readium-info').on('shown', function(){
-$('#version-info').focus();
-setTimeout(function(){
-$('#bar-logo').attr('aria-pressed', 'true');
-}, 1);
-})
-.on('hidden', function(){
-setTimeout(function(){
-$('#bar-logo').attr('aria-pressed', 'false').focus();
-}, 1);
-});
-
 $('#options-btn').attr('aria-pressed', 'false');
 $('#readium-options-modal').on('shown', function(){
 $('#options-heading').focus();

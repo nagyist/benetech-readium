@@ -26,20 +26,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 		this.addGlobalEventHandlers();
 
-$('#bar-logo').attr('aria-pressed', 'false');
-$('#readium-info').on('shown', function(){
-$('#version-info').focus();
-setTimeout(function(){
-$('#bar-logo').attr('aria-pressed', 'true');
-}, 1);
-})
-.on('hidden', function(){
-setTimeout(function(){
-$('#bar-logo').attr('aria-pressed', 'false').focus();
-}, 1);
-});
-
-Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
+		Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
 
 	},
 
