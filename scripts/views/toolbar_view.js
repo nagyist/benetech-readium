@@ -72,12 +72,15 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	toggle_night_mode: function() {
 		var current_theme = this.model.get("current_theme");
 		if(current_theme === "night-theme") {
-			this.model.set("current_theme", "default-theme");
-		}
-		else {
+			if (this.model.get("day_theme")) {
+				this.model.set("current_theme", this.model.get("day_theme"));
+			} else {
+				this.model.set("current_theme", "default-theme");
+			}
+		} else {
+			this.model.set("day_theme", this.model.get("current_theme"));
 			this.model.set("current_theme", "night-theme");
 		}
-		this.model.save();
 	},
 
 	play_tts: function() {

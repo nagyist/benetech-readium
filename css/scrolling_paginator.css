@@ -1,7 +1,5 @@
 .scrolling-page-margin {
   background-color: #FFF;
-  width: 50%;
-  height: 100%;
-  margin: 0 auto;
-  margin-top: 1%;
-  height: 90%; }
+  text-align: center;
+  width: 100%;
+  padding: 0px 30px 0px 30px; }

@@ -1,4 +1,3 @@
-
 Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBase.extend({
 
 	// ------------------------------------------------------------------------------------ //
@@ -122,7 +121,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.pages.off("change:current_page", this.pageChangeHandler);
 		this.model.off("change:toc_visible", this.windowSizeChangeHandler);
 		this.model.off("repagination_event", this.windowSizeChangeHandler);
-		this.model.off("change:current_theme", this.windowSizeChangeHandler);
+		this.model.off("change:current_theme", this.injectTheme);
 		this.model.off("change:two_up", this.setUpMode);
 		this.model.off("change:two_up", this.adjustIframeColumns);
 		this.model.off("change:current_margin", this.marginCallback);
