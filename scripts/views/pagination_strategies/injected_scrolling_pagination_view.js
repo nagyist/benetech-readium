@@ -9,9 +9,6 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		Readium.Views.PaginationViewBase.prototype.initialize.call(this, options);
 		this.page_template = Handlebars.templates.injected_scrolling_page_template;
 
-		// make sure we have proper vendor prefixed props for when we need them
-		this.stashModernizrPrefixedProps();
-
 		// if this book does right to left pagination we need to set the
 		// offset on the right
 		if(this.model.epub.get("page_prog_dir") === "rtl") {
