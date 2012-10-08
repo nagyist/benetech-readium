@@ -85,7 +85,6 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	// thus we cannot use relative size for the iframe and must set abs 
 	// pixel size
 	setFrameSize: function() {
-		console.log($('#readium-scrolling-content').attr('left'));
 		var width = this.getFrameWidth().toString() + "px";
 		var height = this.getFrameHeight().toString() + "px";
 
@@ -121,8 +120,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	},
 
 	goToHashFragment: function(hashFragmentId) {
-		// stub for now
-		return;
+		this.$('#readium-scrolling-content')[0].contentDocument.location.hash = hashFragmentId;
 	},
 	// ------------------------------------------------------------------------------------ //
 	//  "PRIVATE" HELPERS                                                                   //
