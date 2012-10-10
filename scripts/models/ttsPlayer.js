@@ -4,7 +4,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         "always_speak": ['ol', 'ul', 'dl', 'table'],
         "tts_playing": false,
         "curentElement": null,
-        "bufferSize": 5000,
+        "bufferSize": 5000
     },
     
     initialize: function() {
