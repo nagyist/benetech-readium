@@ -250,6 +250,10 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		return this.$('#readium-flowing-content').contents()[0].documentElement;
 	},
 
+	getFrame: function() {
+		return this.$('#readium-flowing-content')[0];
+	},
+
 	hideContent: function() {
 		$("#flowing-wrapper").css("opacity", "0");
 	},

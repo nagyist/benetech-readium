@@ -69,6 +69,10 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		return this.$('#readium-scrolling-content').contents()[0].documentElement;
 	},
 
+	getFrame: function() {
+		return this.$('#readium-scrolling-content')[0];
+	},
+
 	setFontSize: function() {
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
@@ -111,6 +115,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	getFrameHeight: function() {
 		return $('#scrolling-wrapper').height();
 	},
+
 	windowSizeChangeHandler: function() {
 		this.adjustIframe();
 	},
@@ -122,6 +127,24 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	goToHashFragment: function(hashFragmentId) {
 		this.$('#readium-scrolling-content')[0].contentDocument.location.hash = hashFragmentId;
 	},
+
+	keepInCenter: function(elem) {
+		var f = this.getFrame();
+		var h = this.getFrameHeight();
+		var top = Number(elem.style.top.replace('px', ''));
+		var bottom = top + Number(elem.style.height.replace('px', ''));
+
+		// continuous scrolling
+		f.contentWindow.scrollTo(0, top - Math.round(0.3 * h));
+
+		// pagey scrolling
+		/*
+		if (bottom - f.contentWindow.scrollY > h) {
+			f.contentWindow.scrollTo(0, top);
+		}
+		*/
+	},
+
 	// ------------------------------------------------------------------------------------ //
 	//  "PRIVATE" HELPERS                                                                   //
 	// ------------------------------------------------------------------------------------ //

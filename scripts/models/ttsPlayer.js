@@ -4,7 +4,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         "always_speak": ['ol', 'ul', 'dl', 'table'],
         "tts_playing": false,
         "curentElement": null,
-        "bufferSize": 5000
+        "bufferSize": 5000,
     },
     
     initialize: function() {
@@ -131,18 +131,23 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             
             if (event.type == 'word') {
                 
-                data.xOffset = data._getOffset(data.document.documentElement.style.left);
-                data.yOffset = data._getOffset(data.document.documentElement.style.top);
-                
+                if (self.controller.options.get('pagination_mode') == 'scrolling') {
+                    data.xOffset = self.controller.paginator.v.getFrame().contentWindow.scrollX;
+                    data.yOffset = self.controller.paginator.v.getFrame().contentWindow.scrollY;
+                } else {
+                    data.xOffset = data._getOffset(data.document.documentElement.style.left);
+                    data.yOffset = data._getOffset(data.document.documentElement.style.top);
+                }
+
+                var sentenceIndex = data.sentenceAt(event.charIndex);
+                if (sentenceIndex >= 0) {
+                    data.highlightSentence(sentenceIndex);
+                }
+
                 var wordIndex = data.wordAt(event.charIndex);
                 if (wordIndex >= 0) {
                     data.highlightWord(wordIndex);
                     self._updatePagePosition(data);
-                }
-                
-                var sentenceIndex = data.sentenceAt(event.charIndex);
-                if (sentenceIndex >= 0) {
-                    data.highlightSentence(sentenceIndex);
                 }
                 
             } else if (event.type == 'interrupted' || event.type == 'end') {
@@ -161,6 +166,10 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
                 if (!v.pages.isPageVisible(pageNum)) {
                     v.pages.goToPage(pageNum);
                 }
+            }
+        } else {
+            if (data._wordRects.length > 0) {
+                v.keepInCenter(data._wordRects[0]);
             }
         }
     },
