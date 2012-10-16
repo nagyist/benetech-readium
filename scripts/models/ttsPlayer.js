@@ -146,7 +146,15 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
 
                 var wordIndex = data.wordAt(event.charIndex);
                 if (wordIndex >= 0) {
-                    data.highlightWord(wordIndex);
+                    var containingElement = data.words[wordIndex].range.startContainer.parentElement;
+
+                    // Handle image highlighting for prodnote voicing
+                    var aside = self._getEnclosingAside(containingElement);
+                    if (aside != null && aside.getAttribute('epub:type') == "annotation") {
+                        self._highlightImageGroup(aside);
+                    } else {
+                        data.highlightWord(wordIndex);
+                    }
                     self._updatePagePosition(data);
                 }
                 
@@ -182,6 +190,35 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         }
     },
     
+    _getEnclosingAside: function(el) {
+        var n = el;
+        while (n != null) {
+            if (n.tagName.toLowerCase() == "aside") {
+                break;
+            } else {
+                n = n.parentElement;
+            }
+        }
+        return n;
+    },
+
+    _highlightImageGroup: function(el) {
+        this.data.clearWordHighlight();
+        var container = el.parentElement;
+        var rects = container.getClientRects();
+        for (var i = 0; i < rects.length; i++) {
+            var div = this.data.document.createElement('div');
+            this.data.document.body.appendChild(div);
+            div.className = 'ttsImgHL';
+            div.style.position = 'absolute';
+            div.style.top = (rects[i].top + window.scrollY + this.data.yOffset) + 'px';
+            div.style.left = (rects[i].left + window.scrollX + this.data.xOffset) + 'px';
+            div.style.width = rects[i].width + 'px';
+            div.style.height = rects[i].height + 'px';
+            this.data._wordRects.push(div);
+        }
+    },
+
     _logPath: function(el) {
         var n = el;
         var s = "";

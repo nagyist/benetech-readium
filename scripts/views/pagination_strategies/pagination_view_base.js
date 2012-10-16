@@ -224,7 +224,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		if(head) {
 		    style = doc.createElement("style");
 			style.type = "text/css";
-			style.innerHTML = ".ttsSentHL { background-color: #DDDDDD; z-index: -2; }\n.ttsWordHL { background-color: #99CCFF; z-index: -1;}";
+			style.innerHTML = ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #DDDDDD; z-index: -2; }\n.ttsWordHL { background-color: #99CCFF; z-index: -1;}";
 			head.appendChild(style);
 		}
     },
