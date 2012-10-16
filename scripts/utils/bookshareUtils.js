@@ -111,6 +111,7 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	var doc = $(htmlContent);
 	doc.find('head [href]').each(function(i, el) { this.setAttribute('href', BookshareUtils.resolveUrl(this.getAttribute('href'))); });
 	doc.find('[src]').each(function(i, el) { this.setAttribute('src', BookshareUtils.resolveUrl(this.getAttribute('src'))); });
+	doc.find('aside[epub\\\:type=annotation]').each(function(i, el) { el.style.display = "none"; });
 	this.content = doc[0].documentElement.innerHTML;
 
 	// clean up
