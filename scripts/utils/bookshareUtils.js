@@ -112,14 +112,7 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	doc.find('head [href]').each(function(i, el) { this.setAttribute('href', BookshareUtils.resolveUrl(this.getAttribute('href'))); });
 	doc.find('[src]').each(function(i, el) { this.setAttribute('src', BookshareUtils.resolveUrl(this.getAttribute('src'))); });
 	doc.find('aside[epub\\\:type=annotation]').each(function(i, el) { el.style.display = "none"; });
-	//this.content = doc[0].documentElement.innerHTML;
-	this.content = doc[0];
-
-	// clean up
-	/*
-	doc[0].removeChild(doc[0].documentElement);
-	doc = null;
-	*/
+	this.content = doc[0].documentElement;
 };
 
 Readium.Models.PackageDocument.prototype.resolvePath = function(path) {
