@@ -37,7 +37,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	renderInternal: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		var json = this.model.getCurrentSection().toJSON();
-		var htmlBody = this.model.getCurrentSection().content;
+		var srcDoc = this.model.getCurrentSection().content;
 
 		this.$('#container').html( this.page_template(json) );
 
@@ -46,7 +46,8 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			// Important: Firefox doesn't recognize e.srcElement, so this
 			// needs to be checked for whenever it's required.
 			if (!e.srcElement) e.srcElement = this;
-			e.srcElement.contentDocument.documentElement.innerHTML = htmlBody;
+			e.srcElement.contentDocument.documentElement.appendChild(srcDoc.head.cloneNode(true));
+			e.srcElement.contentDocument.documentElement.appendChild(srcDoc.body.cloneNode(true));
 			that.adjustIframe();
 			that.iframeLoadCallback(e);
 			that.setFontSize();

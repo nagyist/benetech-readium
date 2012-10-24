@@ -1561,7 +1561,7 @@ body {
       margin: 5px;
       padding: 5px; }
 
-.scrolling-page-margin {
+#scrolling-wrapper {
   background-color: #FFF;
   text-align: center;
   width: 100%;
