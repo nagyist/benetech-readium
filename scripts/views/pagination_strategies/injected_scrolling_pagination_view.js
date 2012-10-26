@@ -58,7 +58,9 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			} else {
 
 				if(goToLastPage) {
-					that.getFrame().contentWindow.scrollTo(0, that.getFrameHeight);
+					setTimeout(function() {
+						that.getFrame().contentWindow.scrollBy(0, that.getBody().scrollHeight);
+					}, 150);
 				} else {
 					that.getFrame().contentWindow.scrollTo(0, 0);
 				}
