@@ -98,6 +98,48 @@ window.BookshareUtils = {
 	dismissSystemAlert: function() {
 		$('#system-message').modal('hide');
 		$('#system-message-content').html('');
+	},
+
+	findTopElement: function(viewObject) {
+		var contentFrame = viewObject.getFrame();
+
+		if (viewObject.model.epub.get("page_prog_dir") == "rtl") {
+			var plumbLine = (2 * parseInt(contentFrame.width.replace('px', ''), 10)) / 3;
+		} else {
+			var plumbLine = parseInt(contentFrame.width.replace('px', ''), 10) / 3;
+		}
+
+		var result = null;
+		var height = parseInt(contentFrame.height.replace('px', ''), 10);
+		var contentDoc = contentFrame.contentDocument;
+		var y = 0;
+
+		result = contentDoc.elementFromPoint(plumbLine, y);
+		while (y < height && result != null && result.tagName.toLowerCase() == 'html') {
+			y = y + 10;
+			result = contentDoc.elementFromPoint(plumbLine, y);
+		}
+		return result;
+	},
+
+	getSelectorForNearestElementWithId: function(element) {
+		var result = null;
+		if (element.getAttribute('id') != null) {
+			result = element.tagName + '#' + element.getAttribute('id');
+		} else {
+			// check preceding siblings, then parent
+			if (element.previousElementSibling != null) {
+				result = this.getSelectorForNearestElementWithId(element.previousElementSibling);
+			} else if (element.parent != null) {
+				result = this.getSelectorForNearestElementWithId(element.parent);
+			}
+		}
+		return result;
+	},
+
+	findNearestTocElementId: function(element) {
+		var result = null;
+		return result;
 	}
 };
 

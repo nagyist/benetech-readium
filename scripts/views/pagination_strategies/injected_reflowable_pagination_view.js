@@ -28,7 +28,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.model.on("change:two_up", this.setUpMode, this);
 		this.model.on("change:two_up", this.adjustIframeColumns, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
-        
 	},
 
 	render: function(goToLastPage, hashFragmentId) {
@@ -131,20 +130,15 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	},
 
 	// REFACTORING CANDIDATE: I think this is actually part of the public interface
-	goToPage: function(page) {
-        // check to make sure we're not already on that page
-        if (this.model.get("current_page") != undefined && this.model.get("current_page").indexOf(page) != -1) {
-            return;
-        }
+	goToPage: function(page, updateFocusedElement) {
 		var offset = this.calcPageOffset(page).toString() + "px";
 		$(this.getBody()).css(this.offset_dir, "-" + offset);
 		this.showContent();
-        
-        if (this.model.get("two_up") == false || 
-            (this.model.get("two_up") && page % 2 === 1)) {
-                // when we change the page, we have to tell MO to update its position
-                // this.mediaOverlayController.reflowPageChanged();
-        }
+
+		if (!!updateFocusedElement) {
+			var el = BookshareUtils.findTopElement(this);
+			this.model.set('focused_element', BookshareUtils.getSelectorForNearestElementWithId(el));
+		}
 	},
 
 	// Description: navigate to a url hash fragment by calculating the page of
@@ -168,9 +162,12 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 				el = el.children[0];
 			}
 
+			this.model.set("focused_element", BookshareUtils.getSelectorForNearestElementWithId(el));
 			var page = this.getElemPageNumber(el);
             if (page > 0) {
-                this.pages.goToPage(page);	
+				this.hideContent();
+            	var that = this;
+				setTimeout(function() { that.goToPage(page); }, 150);
 			}
 		}
 		// else false alarm no work to do
@@ -180,9 +177,9 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
 
-		// the content size has changed so recalc the number of 
-		// pages
+		// the content size has changed so recalc position
 		this.setNumPages();
+		this.goToFocusedElement();
 	},
 
 	// Description: we are using experimental styles so we need to 
@@ -239,8 +236,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		$(this.getBody()).css( this.getBodyColumnCss() );
 
 		this.setNumPages();
-		var page = this.pages.get("current_page")[0] || 1;
-		this.goToPage(page);
+		this.goToFocusedElement();
 	},
 
 	// This is now part of the public interface
@@ -381,7 +377,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
         var that = this;
 		this.hideContent();
 		setTimeout(function() {
-			that.goToPage(that.pages.get("current_page")[0]);
+			that.goToPage(that.pages.get("current_page")[0], true);
 		}, 150);
 	},
 
@@ -396,5 +392,17 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	setNumPages: function() {
 		var num = this.calcNumPages();
 		this.pages.set("num_pages", num);
+	},
+
+	goToFocusedElement: function() {
+		var page = this.pages.get("current_page")[0] || 1;
+		if (this.model.get("focused_element") != null) {
+			var focEl = $(this.getBody()).find(this.model.get("focused_element"));
+			if (focEl.length > 0) {
+				page = this.getElemPageNumber(focEl[0]);
+			}
+		}
+		this.goToPage(page);
 	}
+
 });
