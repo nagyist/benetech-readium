@@ -83,7 +83,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
     	"rendered_spine_items": [],
     	"current_theme": "default-theme",
     	"current_margin": 3,
-    	"focused_element": null
+    	"reading_position": null
   	},
 
 	toggleFullScreen: function() {

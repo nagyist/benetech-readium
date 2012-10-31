@@ -2,6 +2,8 @@ window.BookshareUtils = {
 
 	environment: 'LIVE',
 
+	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
+
 	flatten: function(s) {
 		return s.replace(/\//g, "%2F");
 	},
@@ -17,7 +19,6 @@ window.BookshareUtils = {
 
 			switch (method) {
 		        case "read":
-		        	console.log("syncing from " + syncUrl);
 		        	$.ajax({
 		        		'url': syncUrl,
 		        		'dataType': dataType,
@@ -57,7 +58,6 @@ window.BookshareUtils = {
 		var manifest = window._epub.packageDocument.get('manifest');
 		var item = manifest.find(function(i) { var uu = new URI(i.get('href')); return (uu.path.indexOf(normalized) > -1);});
 		if (item == null) {
-			console.log(u);
 			return null;
 		} else {
 			return item.get('href');
@@ -115,7 +115,7 @@ window.BookshareUtils = {
 		var y = 0;
 
 		result = contentDoc.elementFromPoint(plumbLine, y);
-		while (y < height && result != null && result.tagName.toLowerCase() == 'html') {
+		while (y < height && result != null && this.POSITION_TRACKING_EXCLUSIONS.indexOf(result.tagName.toLowerCase()) > -1) {
 			y = y + 10;
 			result = contentDoc.elementFromPoint(plumbLine, y);
 		}
@@ -130,8 +130,8 @@ window.BookshareUtils = {
 			// check preceding siblings, then parent
 			if (element.previousElementSibling != null) {
 				result = this.getSelectorForNearestElementWithId(element.previousElementSibling);
-			} else if (element.parent != null) {
-				result = this.getSelectorForNearestElementWithId(element.parent);
+			} else if (element.parentElement != null && this.POSITION_TRACKING_EXCLUSIONS.indexOf(element.parentElement.tagName.toLowerCase()) == -1) {
+				result = this.getSelectorForNearestElementWithId(element.parentElement);
 			}
 		}
 		return result;

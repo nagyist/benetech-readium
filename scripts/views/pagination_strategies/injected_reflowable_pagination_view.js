@@ -33,11 +33,9 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	render: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		if (this.model.getCurrentSection().content == null) {
-			console.log('fetching content');
 			BookshareUtils.raiseSystemAlert('loading_content');
 			this.model.getCurrentSection().fetch({success:function(model, response) { BookshareUtils.dismissSystemAlert(); that.renderInternal(goToLastPage, hashFragmentId);}});
 		} else {
-			console.log('content already rendered');
 			this.renderInternal(goToLastPage, hashFragmentId);
 		}
 		return [this.model.get("spine_position")];
@@ -68,9 +66,10 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			if (hashFragmentId) {
 				that.goToHashFragment(hashFragmentId);
 			} else {
-
 				if(goToLastPage) {
 					that.pages.goToLastPage();
+				} else if (that.model.get('reading_position') != null) {
+					that.goToReadingPosition();
 				} else {
 					that.pages.goToPage(1);
 				}
@@ -130,14 +129,14 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	},
 
 	// REFACTORING CANDIDATE: I think this is actually part of the public interface
-	goToPage: function(page, updateFocusedElement) {
+	goToPage: function(page, updateReadingPosition) {
 		var offset = this.calcPageOffset(page).toString() + "px";
 		$(this.getBody()).css(this.offset_dir, "-" + offset);
 		this.showContent();
 
-		if (!!updateFocusedElement) {
+		if (!!updateReadingPosition) {
 			var el = BookshareUtils.findTopElement(this);
-			this.model.set('focused_element', BookshareUtils.getSelectorForNearestElementWithId(el));
+			this.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
 		}
 	},
 
@@ -162,7 +161,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 				el = el.children[0];
 			}
 
-			this.model.set("focused_element", BookshareUtils.getSelectorForNearestElementWithId(el));
+			this.model.set("reading_position", BookshareUtils.getSelectorForNearestElementWithId(el));
 			var page = this.getElemPageNumber(el);
             if (page > 0) {
 				this.hideContent();
@@ -179,7 +178,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 		// the content size has changed so recalc position
 		this.setNumPages();
-		this.goToFocusedElement();
+		this.goToReadingPosition();
 	},
 
 	// Description: we are using experimental styles so we need to 
@@ -236,7 +235,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		$(this.getBody()).css( this.getBodyColumnCss() );
 
 		this.setNumPages();
-		this.goToFocusedElement();
+		this.goToReadingPosition();
 	},
 
 	// This is now part of the public interface
@@ -394,12 +393,15 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.pages.set("num_pages", num);
 	},
 
-	goToFocusedElement: function() {
+	goToReadingPosition: function() {
 		var page = this.pages.get("current_page")[0] || 1;
-		if (this.model.get("focused_element") != null) {
-			var focEl = $(this.getBody()).find(this.model.get("focused_element"));
+		if (this.model.get("reading_position") != null) {
+			var focEl = $(this.getBody()).find(this.model.get("reading_position"));
 			if (focEl.length > 0) {
-				page = this.getElemPageNumber(focEl[0]);
+				var targetPage = this.getElemPageNumber(focEl[0]);
+				if (! isNaN(targetPage)) {
+					page = targetPage;
+				}
 			}
 		}
 		this.goToPage(page);

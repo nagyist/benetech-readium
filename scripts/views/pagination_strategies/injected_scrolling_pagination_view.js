@@ -18,16 +18,20 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			this.offset_dir = "left";
 		}
 
+		this.trackScrolling = true;
+
 		this.model.on("change:toc_visible", this.windowSizeChangeHandler, this);
 		this.model.on("repagination_event", this.windowSizeChangeHandler, this);
 		this.model.on("change:current_theme", this.injectTheme, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
+
 	},
 
 	render: function(goToLastPage, hashFragmentId) {
 		var that = this;
 		if (this.model.getCurrentSection().content == null) {
-			this.model.getCurrentSection().fetch({success:function(model, response) { that.renderInternal(goToLastPage, hashFragmentId);}});
+			BookshareUtils.raiseSystemAlert('loading_content');
+			this.model.getCurrentSection().fetch({success:function(model, response) { BookshareUtils.dismissSystemAlert(); that.renderInternal(goToLastPage, hashFragmentId);}});
 		} else {
 			this.renderInternal(goToLastPage, hashFragmentId);
 		}
@@ -52,6 +56,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			that.iframeLoadCallback(e);
 			that.setFontSize();
 			that.injectTheme();
+			that.getFrame().contentWindow.onscroll = that.makeScrollHandler();
 
 			if (hashFragmentId) {
 				that.goToHashFragment(hashFragmentId);
@@ -61,6 +66,8 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 					setTimeout(function() {
 						that.getFrame().contentWindow.scrollBy(0, that.getBody().scrollHeight);
 					}, 150);
+				} else if (that.model.get('reading_position') != null) {
+					that.goToReadingPosition();
 				} else {
 					that.getFrame().contentWindow.scrollTo(0, 0);
 				}
@@ -79,6 +86,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	setFontSize: function() {
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
+		this.goToReadingPosition();
 	},
 
 	adjustIframe: function() {
@@ -86,6 +94,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		var $frame = this.$('#readium-scrolling-content');
 
 		this.setFrameSize();
+		this.goToReadingPosition();
 	},
 
 	// Rationale: on iOS frames are automatically expanded to fit the content dom
@@ -148,6 +157,27 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		*/
 	},
 
+	goToReadingPosition: function() {
+		if (this.model.get("reading_position") != null) {
+			var focEl = $(this.getBody()).find(this.model.get("reading_position"));
+			if (focEl.length > 0) {
+				this.trackScrolling = false;
+				this.getFrame().contentWindow.scrollBy(0, focEl[0].getClientRects()[0].top);
+				this.trackScrolling = true;
+			}
+		}
+	},
+
+	makeScrollHandler: function() {
+		var that = this;
+		return function(evt) {
+			if (that.trackScrolling) {
+				var el = BookshareUtils.findTopElement(that);
+				that.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
+			}
+		};
+	},
+
 	// ------------------------------------------------------------------------------------ //
 	//  "PRIVATE" HELPERS                                                                   //
 	// ------------------------------------------------------------------------------------ //
@@ -160,6 +190,9 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.model.off("repagination_event", this.windowSizeChangeHandler);
 		this.model.off("change:current_theme", this.injectTheme);
 		this.model.off("change:current_margin", this.marginCallback);
+
+		// remove the scroll handler
+		this.getFrame().contentWindow.onscroll = null;
 
 		// call the super destructor
 		Readium.Views.PaginationViewBase.prototype.destruct.call(this);
