@@ -71,7 +71,7 @@ templates['injected_scrolling_page_template'] = template(function (Handlebars,de
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div id=\"scrolling-wrapper\" class=\"scrolling-page-wrap\">\n	<iframe scrolling=\"yes\" \n			frameborder=\"0\" \n			marginwidth=\"0\" \n			marginheight=\"0\" \n			width=\"100%\" \n			height=\"100%\" \n			title=\"";
+  buffer += "<div id=\"scrolling-wrapper\">\n	<iframe scrolling=\"yes\" \n			frameborder=\"0\" \n			marginwidth=\"0\" \n			marginheight=\"0\" \n			width=\"100%\" \n			height=\"100%\" \n			title=\"";
   stack1 = depth0.data;
   stack1 = stack1 == null || stack1 === false ? stack1 : stack1.title;
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
