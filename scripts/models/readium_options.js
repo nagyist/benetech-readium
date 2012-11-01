@@ -39,7 +39,10 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 	},
 
 	resetOptions: function() {
+		// save the controller reference
+		var controller = this.get("controller");
 		this.fetch();
+		this.set("controller", controller);
 	}
 }, {
 	getInstance: function() {
