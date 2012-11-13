@@ -19,7 +19,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 
 		this.pages.on("change:current_page", this.showCurrentPages, this);
 
-		this.model.on("change:font_size", this.setFontSize, this);
+		this.model.on("change:font_size", this.fontSizeCallback, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
 	},
@@ -89,7 +89,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	//   that were registered on the model
 	destruct: function() {
 		this.pages.off("change:current_page", this.showCurrentPages);
-		this.model.off("change:font_size", this.setFontSize);
+		this.model.off("change:font_size", this.fontSizeCallback);
 		this.resetEl();
 	},
 

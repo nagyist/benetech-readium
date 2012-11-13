@@ -134,7 +134,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		$(this.getBody()).css(this.offset_dir, "-" + offset);
 		this.showContent();
 
-		if (!!updateReadingPosition) {
+		if (!!updateReadingPosition && !!this.model.get('track_position')) {
 			var el = BookshareUtils.findTopElement(this);
 			this.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
 		}
@@ -178,7 +178,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 		// the content size has changed so recalc position
 		this.setNumPages();
-		this.goToReadingPosition();
 	},
 
 	// Description: we are using experimental styles so we need to 
@@ -235,7 +234,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		$(this.getBody()).css( this.getBodyColumnCss() );
 
 		this.setNumPages();
-		this.goToReadingPosition();
 	},
 
 	// This is now part of the public interface
@@ -382,10 +380,17 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 	windowSizeChangeHandler: function() {
 		this.adjustIframeColumns();
+		this.goToReadingPosition();
 	},
     
 	marginCallback: function() {
 		this.adjustIframeColumns();
+		this.goToReadingPosition();
+	},
+
+	fontSizeCallback: function() {
+		this.setFontSize();
+		this.goToReadingPosition();
 	},
 
 	setNumPages: function() {

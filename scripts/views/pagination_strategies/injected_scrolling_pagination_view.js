@@ -58,20 +58,21 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			that.injectTheme();
 			that.getFrame().contentWindow.onscroll = that.makeScrollHandler();
 
-			if (hashFragmentId) {
-				that.goToHashFragment(hashFragmentId);
-			} else {
+			setTimeout(
+				function() {
+					if (hashFragmentId) {
+						that.goToHashFragment(hashFragmentId);
+					} else {
 
-				if(goToLastPage) {
-					setTimeout(function() {
-						that.getFrame().contentWindow.scrollBy(0, that.getBody().scrollHeight);
-					}, 150);
-				} else if (that.model.get('reading_position') != null) {
-					that.goToReadingPosition();
-				} else {
-					that.getFrame().contentWindow.scrollTo(0, 0);
-				}
-			}
+						if(goToLastPage) {
+							that.getFrame().contentWindow.scrollBy(0, that.getBody().scrollHeight);
+						} else if (that.model.get('reading_position') != null) {
+							that.goToReadingPosition();
+						} else {
+							that.getFrame().contentWindow.scrollTo(0, 0);
+						}
+					}
+				}, 250);
 		});
 	},
 
@@ -86,7 +87,6 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	setFontSize: function() {
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
-		this.goToReadingPosition();
 	},
 
 	adjustIframe: function() {
@@ -94,7 +94,6 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		var $frame = this.$('#readium-scrolling-content');
 
 		this.setFrameSize();
-		this.goToReadingPosition();
 	},
 
 	// Rationale: on iOS frames are automatically expanded to fit the content dom
@@ -130,10 +129,17 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 
 	windowSizeChangeHandler: function() {
 		this.adjustIframe();
+		this.goToReadingPosition();
 	},
     
 	marginCallback: function() {
 		this.adjustIframe();
+		this.goToReadingPosition();
+	},
+
+	fontSizeCallback: function() {
+		this.setFontSize();
+		this.goToReadingPosition();
 	},
 
 	goToHashFragment: function(hashFragmentId) {
@@ -147,7 +153,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		var bottom = top + Number(elem.style.height.replace('px', ''));
 
 		// continuous scrolling
-		f.contentWindow.scrollTo(0, top - Math.round(0.3 * h));
+		f.contentWindow.scrollTo(0, top - Math.round(0.25 * h));
 
 		// pagey scrolling
 		/*
@@ -171,8 +177,8 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	makeScrollHandler: function() {
 		var that = this;
 		return function(evt) {
-			if (that.trackScrolling) {
-				var el = BookshareUtils.findTopElement(that);
+			if (that.trackScrolling && that.model.get('track_position')) {
+				var el = BookshareUtils.findTopElement(that, 0.3);
 				that.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
 			}
 		};

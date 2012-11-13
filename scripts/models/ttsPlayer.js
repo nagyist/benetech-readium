@@ -1,11 +1,13 @@
 Readium.Models.TTSPlayer = Backbone.Model.extend({
     
     defaults: {
-        "always_speak": ['ol', 'ul', 'dl', 'table'],
         "tts_playing": false,
-        "curentElement": null,
+        "currentElement": null,
         "bufferSize": 5000
     },
+
+    ALWAYS_SPEAK: ['ol', 'ul', 'dl', 'table'],
+    FATAL_EVENTS: ['cancelled', 'error'],
     
     initialize: function() {
         this.controller = this.get('controller');
@@ -17,114 +19,105 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     },
     
     play: function() {
-        var self = this;
-        self.set('tts_playing', true);
-        self.speakNextElement();
-    },
-    
-    resume: function() {
         this.set('tts_playing', true);
-        return;
-    },
-    
-    pause: function() {
-        console.log("Pausing TTS.");
-        this.set('tts_playing', false);
-        self.data = null;
-        chrome.tts.stop();
+        this.controller.set('track_position', false);
+        this.speak();
     },
     
     stop: function() {
-        console.log("Stopping TTS.");
         this.set('tts_playing', false);
         this.set('currentElement', null);
-        self.data = null;
+        this.controller.set('track_position', true);
+        this.data = null;
         chrome.tts.stop();
     },
     
-    speakNextElement: function() {
-        if (this.get('tts_playing')) {
-            var self = this;
-            self.seekToNextElement();
-            var el = self.get('currentElement');
-            if (el != null) {
-                self.data = BeneSpeak.generateSpeechData(el);
-                chrome.tts.speak(self.data.utterance,
-                    {
-                        'rate' : 1.25,
-                        'desiredEventTypes' : ['word'],
-                        'onEvent' : self._createCallbackHandler(self)
-                    });
-            } else {
-                self.pause();
-            }
+    speak: function() {
+        var self = this;
+        var el = self._getCurrentElement();
+        if (el != null) {
+            self.data = BeneSpeak.generateSpeechData(el);
+            chrome.tts.speak(self.data.utterance,
+                {
+                    'rate' : 1.25,
+                    'desiredEventTypes' : ['word'],
+                    'onEvent' : self._createCallbackHandler(self)
+                });
+        } else {
+            // we've reached the end of the speakable content
+            // resume position tracking
+            this.controller.set('track_position', true);
         }
     },
     
-    seekToNextElement: function() {
+    advanceReadingPosition: function() {
         var self = this;
-        var nextEl = null;
-        var el = self.get('currentElement');
-        var bodyEl = self.controller.paginator.v.getBody().ownerDocument.body;
-        if (el == null) {
-            el = bodyEl.children[0];
+        var nextElement = self._getNextElement(self._getCurrentElement());
+
+        while ((nextElement != null) && nextElement.textContent.trim().length == 0) {
+            nextElement = self._getNextElement(nextElement);
+            if ((nextElement != null) && (nextElement.textContent.trim().length > 0) && self._hasBlockLevelChildrenOnly(nextElement)) {
+                nextElement = nextElement.children[0];
+            }
         }
-        
-        console.log("Starting from ...");
-        self._logPath(el);
-        do {
-            if (!self._shouldPlay(el) && el.children.length > 0) {
-                console.log("Found a child");
-                el = el.children[0];
-            } else if (el.nextElementSibling != null) {
-                console.log("Found a sibling");
-                el = el.nextElementSibling;
+
+        self._setCurrentElement(nextElement);
+    },
+
+    _setCurrentElement: function(el) {
+        var self = this;
+        self.set('currentElement', el);
+        if (el.getAttribute('id') != null) {
+            self.controller.set('reading_position', el.tagName.toLowerCase() + '#' + el.getAttribute('id'));
+        }
+    },
+
+    _getCurrentElement: function() {
+        var self = this;
+        if (self.get('currentElement') != null) {
+            return self.get('currentElement');
+        } else {
+            var selector = self.controller.get("reading_position");
+            var bodyEl = self.controller.paginator.v.getBody().ownerDocument.body;
+            var el = $(bodyEl).find(selector);
+            if (el.length == 0) {
+                return bodyEl.children[0];
             } else {
-                while (el.parentElement != null) {
-                    console.log("Climbing up.")
-                    el = el.parentElement;
-                    
-                    if (el.nextElementSibling != null) {
-                        console.log("... and forward")
-                        el = el.nextElementSibling;
-                        break;
-                    }
-                    
-                    if (el.tagName.toLowerCase() == 'body') {
-                        console.log('Climbed out to body; terminate.');
-                        el = null;
-                        break;
-                    }                     
+                return el[0];
+            }
+        }
+    },
+
+    _getNextElement: function(el) {
+        if (el.nextElementSibling != null) {
+            return el.nextElementSibling;
+        } else if (el.parentElement != null) {
+            return this._getNextElement(el.parentElement);
+        } else {
+            return null;
+        }
+    },
+    
+    _hasBlockLevelChildrenOnly: function(el) {
+        // we should descend if the current element's children
+        // are only block-level elements and empty text nodes.
+        // returns true if it's safe to descend
+        if (el.hasChildNodes() == true) {
+            var limit = el.children.length;
+            for (var i = 0; i < limit; i++) {
+                var child = el.children[i];
+                if (child.nodeType == Node.TEXT_NODE && child.textContent.trim().length > 0) {
+                    return false;
+                } else if (!BeneSpeak._isBlockElement(child)) {
+                    return false;
                 }
             }
-            if (el == null) {
-                break;
-            }
-            self._logPath(el);
-        } while (! self._shouldPlay(el));
-        
-        self.set('currentElement', el);
-    },
-    
-    _shouldPlay: function(el) {
-        if (this.get('always_speak').indexOf(el.tagName.toLowerCase()) != -1) {
-            console.log(el.tagName + ' must always be spoken');
             return true;
-        } else if (el.textContent.trim().length == 0) {
-            console.log(el.tagName + ' is empty.');
-            return false;
-        } else if (el.textContent.trim().length < this.get('bufferSize')) {
-            console.log(el.tagName + ' content is smaller than buffer size');
-            return true;
-        } else if (el.children.length > 1) {
-            console.log(el.tagName + ' content is larger than buffer size and has more than one child');
-            return false;
         } else {
-            console.log(el.tagName + ' content is larger than buffer size but cannot be broken down further');
-            return true;
+            return false;
         }
     },
-    
+
     _createCallbackHandler: function(self) {
         var data = self.data;
         return function(event) {
@@ -158,10 +151,24 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
                     self._updatePagePosition(data);
                 }
                 
-            } else if (event.type == 'interrupted' || event.type == 'end') {
+            } else if (event.type == 'end') {
                 data.clearWordHighlight();
                 data.clearSentenceHighlight();
-                self.speakNextElement();
+                if (self._getNextElement(self._getCurrentElement()) != null) {
+                    self.advanceReadingPosition();
+                    self.speak();
+                } else {
+                    self.stop();
+                }
+            } else if (event.type == 'interrupted') {
+                data.clearWordHighlight();
+                data.clearSentenceHighlight();
+                self.stop();
+            } else if (self.FATAL_EVENTS.indexOf(event.type) >= 0) {
+                console.log("A TTS Error was encountered.");
+                data.clearWordHighlight();
+                data.clearSentenceHighlight();
+                self.stop();
             }
         };        
     },
@@ -226,6 +233,5 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             s = n.tagName + "/" + s;
             n = n.parentElement;
         }
-        console.log(s);
     }
 });

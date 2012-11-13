@@ -85,7 +85,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 
 	play_tts: function() {
 		if(this.model.ttsPlayer.get("tts_playing")) {
-			this.model.ttsPlayer.pause();
+			this.model.ttsPlayer.stop();
 		} else {
 			this.model.ttsPlayer.play();
 		}
