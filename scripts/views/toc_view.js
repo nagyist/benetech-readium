@@ -20,12 +20,29 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 		e.preventDefault();
 		href = $(e.currentTarget).attr("href");
 		this.model.handleLink(href);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
+
+		// handle the base url first:
+		if(splitUrl[1]) {
+			this.setFocus(splitUrl[2]);
+		}
 	},
 
 	closeToc: function(e) {
 		e.preventDefault();
 		this.model.hide();
-	}
+	}, 
+
+	setFocus: function(goToId) {
+		var contentsFrame = $(window._epubController.paginator.v.getFrame());
+		contentsFrame.focus();
+		var elementToFocusOn = contentsFrame.contents().find("#"+goToId);
+		if ($(elementToFocusOn).length > 0) {
+			setTimeout(function() {
+				elementToFocusOn.attr('tabindex', '-1').focus();
+			}, 500);
+		}
+	},
 
 });
 

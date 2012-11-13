@@ -118,27 +118,15 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// URL's with hash fragments require special treatment, so
 		// first thing is to split off the hash frag from the rest
 		// of the url:
-		var splitUrl = href.match(/([^#]*)(?:#(.*))?/);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
 
 		// handle the base url first:
 		if(splitUrl[1]) {
 			var spine_pos = this.packageDocument.spineIndexFromHref(splitUrl[1]);
 			var goToId = splitUrl[2];
 			this.setSpinePos(spine_pos, false, goToId);
-			this.setFocus(goToId);
 		}
 
-	},
-
-	setFocus: function(goToId) {
-		var contentsFrame = $(this.paginator.v.getFrame());
-		contentsFrame.focus();
-		var elementToFocusOn = contentsFrame.contents().find("#"+goToId);
-		if ($(elementToFocusOn).length > 0) {
-			setTimeout(function() {
-				elementToFocusOn.attr('tabindex', '-1').focus();
-			}, 500);
-		}
 	},
 
 	getToc: function() {
