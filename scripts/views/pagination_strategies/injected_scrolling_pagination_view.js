@@ -177,7 +177,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	makeScrollHandler: function() {
 		var that = this;
 		return function(evt) {
-			if (that.trackScrolling && that.model.get('track_position')) {
+			if (that.trackScrolling && !!that.model.get('track_position')) {
 				var el = BookshareUtils.findTopElement(that, 0.3);
 				that.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
 			}

@@ -21,13 +21,16 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			this.offset_dir = "left";
 		}
 
+		this.trackPosition = true;
+
 		this.pages.on("change:current_page", this.pageChangeHandler, this);
 		this.model.on("change:toc_visible", this.windowSizeChangeHandler, this);
 		this.model.on("repagination_event", this.windowSizeChangeHandler, this);
 		this.model.on("change:current_theme", this.injectTheme, this);
 		this.model.on("change:two_up", this.setUpMode, this);
-		this.model.on("change:two_up", this.adjustIframeColumns, this);
+		this.model.on("change:two_up", this.windowSizeChangeHandler, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
+        
 	},
 
 	render: function(goToLastPage, hashFragmentId) {
@@ -66,12 +69,22 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			if (hashFragmentId) {
 				that.goToHashFragment(hashFragmentId);
 			} else {
+
 				if(goToLastPage) {
 					that.pages.goToLastPage();
 				} else if (that.model.get('reading_position') != null) {
 					that.goToReadingPosition();
 				} else {
 					that.pages.goToPage(1);
+					// NOTE: current model pre-sets the current_page value to
+					// spine pos + 1, so for first spine item, the prior line
+					// did not actually fire a current_page event to trigger
+					// the pageChangeHandler. We force page display manually.
+					// This is not necessary in vanilla Readium because the
+					// local goToPage calls are inline with adjustIframeColumns,
+					// which we have factored out in order to make sequence of
+					// events/page changes/reading position updates more explicit
+					that.goToPage(1); 
 				}
 			}
 		});
@@ -122,21 +135,24 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.model.off("repagination_event", this.windowSizeChangeHandler);
 		this.model.off("change:current_theme", this.injectTheme);
 		this.model.off("change:two_up", this.setUpMode);
-		this.model.off("change:two_up", this.adjustIframeColumns);
+		this.model.off("change:two_up", this.windowSizeChangeHandler);
 		this.model.off("change:current_margin", this.marginCallback);
 		// call the super destructor
 		Readium.Views.PaginationViewBase.prototype.destruct.call(this);
 	},
 
 	// REFACTORING CANDIDATE: I think this is actually part of the public interface
-	goToPage: function(page, updateReadingPosition) {
+	goToPage: function(page) {
+
 		var offset = this.calcPageOffset(page).toString() + "px";
 		$(this.getBody()).css(this.offset_dir, "-" + offset);
 		this.showContent();
-
-		if (!!updateReadingPosition && !!this.model.get('track_position')) {
-			var el = BookshareUtils.findTopElement(this);
-			this.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
+        
+        // record position
+		if (this.trackPosition && !!this.model.get('track_position')) {
+			var selector = BookshareUtils.getSelectorForNearestElementWithId(BookshareUtils.findTopElement(this));
+			this.model.set('reading_position', selector);
+			console.log("goToPage setting reading position to " + selector);
 		}
 	},
 
@@ -145,7 +161,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	//   as precondition the hash fragment should identify an element in the
 	//   section rendered by this view
 	goToHashFragment: function(hashFragmentId) {
-
 		// this method is triggered in response to 
 		var fragment = hashFragmentId;
 		if(fragment) {
@@ -161,12 +176,16 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 				el = el.children[0];
 			}
 
-			this.model.set("reading_position", BookshareUtils.getSelectorForNearestElementWithId(el));
 			var page = this.getElemPageNumber(el);
+
+			if (this.trackPosition && !!this.model.get("track_position")) {
+				var selector = BookshareUtils.getSelectorForNearestElementWithId(el);
+				this.model.set('reading_position', selector);
+				console.log("goToHashFragment setting reading position to " + selector);
+			}
+
             if (page > 0) {
-				this.hideContent();
-            	var that = this;
-				setTimeout(function() { that.goToPage(page); }, 150);
+                this.pages.goToPage(page);	
 			}
 		}
 		// else false alarm no work to do
@@ -176,7 +195,8 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
 
-		// the content size has changed so recalc position
+		// the content size has changed so recalc the number of 
+		// pages
 		this.setNumPages();
 	},
 
@@ -232,7 +252,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		// it is important for us to make sure there is no padding or
 		// margin on the <html> elem, or it will mess with our column code
 		$(this.getBody()).css( this.getBodyColumnCss() );
-
 		this.setNumPages();
 	},
 
@@ -354,7 +373,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			shift = this.page_width - shift;
 		}
 		// less the amount we already shifted to get to cp
-		shift -= parseInt(this.getBody().style[this.offset_dir], 10); 
+		shift -= parseInt(this.getBody().style[this.offset_dir] || 0, 10); 
 		return Math.ceil( shift / (this.page_width + this.gap_width) );
 	},
 
@@ -372,10 +391,37 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 	pageChangeHandler: function() {
         var that = this;
-		this.hideContent();
-		setTimeout(function() {
-			that.goToPage(that.pages.get("current_page")[0], true);
-		}, 150);
+
+        // pfeh, ugly. If trackPosition is false, any changes to
+        // current_page are for bookkeeping while trying to maintain
+        // reading position.
+        if (this.trackPosition) {
+			this.hideContent();
+
+			setTimeout(function() {
+				that.goToPage(that.pages.get("current_page")[0]);
+				that.trackPosition = true;
+			}, 150);
+		}
+	},
+
+	goToReadingPosition: function() {
+		var page = this.pages.get("current_page")[0] || 1;
+
+		var focEl = $(this.getBody()).find(this.model.get("reading_position"));
+		if (focEl.length > 0) {
+			var focElPage = this.getElemPageNumber(focEl[0]);
+			if (! isNaN(focElPage) && focElPage > 0) {
+				page = focElPage;
+			}
+		}
+
+		this.trackPosition = false;
+		// set model's page properly
+		this.pages.goToPage(page);
+		// manually go to page directly
+		this.goToPage(page);
+		this.trackPosition = true;
 	},
 
 	windowSizeChangeHandler: function() {
@@ -396,20 +442,5 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	setNumPages: function() {
 		var num = this.calcNumPages();
 		this.pages.set("num_pages", num);
-	},
-
-	goToReadingPosition: function() {
-		var page = this.pages.get("current_page")[0] || 1;
-		if (this.model.get("reading_position") != null) {
-			var focEl = $(this.getBody()).find(this.model.get("reading_position"));
-			if (focEl.length > 0) {
-				var targetPage = this.getElemPageNumber(focEl[0]);
-				if (! isNaN(targetPage)) {
-					page = targetPage;
-				}
-			}
-		}
-		this.goToPage(page);
 	}
-
 });

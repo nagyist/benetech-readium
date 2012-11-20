@@ -63,6 +63,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// accross a `spine_item` boundary. We need to cache thier new position
 		// and 
 		this.on("change:spine_position", this.savePosition, this);
+		this.on("change:spine_position", this.clearReadingPosition, this);
 
 		// If we encounter a new fixed layout section, we need to parse the 
 		// `<meta name="viewport">` to determine the size of the iframe
@@ -170,6 +171,12 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 	savePosition: function() {
 		Readium.Utils.setCookie(this.epub.get("key"), this.get("spine_position"), 365);
+	},
+
+	// should clear reading position when traversing spine items, since
+	// selectors are only valid within a given XHTML file
+	clearReadingPosition: function() {
+		this.set('reading_position', null);
 	},
 
 	resolvePath: function(path) {
