@@ -185,7 +185,10 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			}
 
             if (page > 0) {
-                this.pages.goToPage(page);	
+            	this.trackPosition = false;
+                this.pages.goToPage(page);
+                this.goToPage(page);
+            	this.trackPosition = true;
 			}
 		}
 		// else false alarm no work to do
@@ -400,7 +403,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 			setTimeout(function() {
 				that.goToPage(that.pages.get("current_page")[0]);
-				that.trackPosition = true;
 			}, 150);
 		}
 	},
