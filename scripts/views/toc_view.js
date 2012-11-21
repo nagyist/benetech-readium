@@ -42,7 +42,7 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 				elementToFocusOn.attr('tabindex', '-1').focus();
 			}, 500);
 		}
-	},
+	}
 
 });
 
