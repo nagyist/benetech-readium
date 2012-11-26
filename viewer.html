@@ -107,16 +107,30 @@
 <div class="offscreenText"> Options Start </div>
 				<h1 tabindex="-1" id="options-heading">Viewer Options:</h1>
 			<div id='settings-margin'>
-				<div id="preview-text">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque dui, congue a suscipit non, feugiat eu urna. Donec tempus, nunc vel rutrum posuere, quam magna imperdiet elit, eget facilisis mauris tellus non eros. Cras in felis sed orci aliquam sagittis. Cras adipiscing rhoncus justo commodo sodales. Phasellus vel mauris vel ipsum semper feugiat at ut sapien. Mauris consectetur aliquam aliquam. Nunc viverra dictum enim sit amet cursus.
-
-					Proin adipiscing rutrum ante. Vivamus tristique nisl quis neque viverra facilisis. Maecenas quis quam risus, at lacinia quam. Maecenas imperdiet, eros quis vulputate rutrum, metus neque sollicitudin libero, vel lobortis elit nisl sit amet lectus. Proin metus elit, mollis in fringilla sit amet, fermentum et odio. Sed sapien metus, consequat a bibendum et, eleifend eu mi. Praesent interdum lorem non risus sollicitudin vitae viverra nisi accumsan. Donec felis odio, tempus quis venenatis ac, auctor vitae sapien. Aenean quis nisl risus. Nulla sed pellentesque mauris.
+				<h2 class="setting-header">FONT SIZE</h2>
+				<div class="clearfix">
+					<span id="font-size-icon"></span>
+					<select name="font-size-input" id="font-size-input">
+						<option value="8">Small</option>
+						<option value="10">Normal</option>
+						<option value="16">Large</option>
+						<option value="22">Extra-Large</option>
+					</select>
 				</div>
 				<div>
-					<h2 class="setting-header">FONT SIZE</h2>
-					<div class="clearfix">
-						<span id="font-size-icon"></span>
-						<input type="range" id="font-size-input" min="1" max="20" title="Font size"/>
+					<h2 id="setting-header-color-legend" class="setting-header">TEXT AND BACKGROUND COLOR</h2>
+					<div role="radiogroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="clearfix">
+						<span role="radio" id="default-theme-option" class="theme-option default-theme clickable">Black and White</span>
+						<span role="radio" id="night-theme-option" class="theme-option night-theme clickable">Arabian Nights</span>
+						<span role="radio" id="parchment-theme-option" class="theme-option parchment-theme clickable">Sands of Dune</span>
+					</div>
+				</div>				
+				<div>
+					<h2 id="setting-header-display-legend" class="setting-header">DISPLAY FORMAT</h2>
+					<div role="radiogroup" aria-labelledby="setting-header-display-legend" class="clearfix" id="pagination_mode">
+						<span role="radio" id="one-up-option" class="simple-radio clickable pagination-option">Single Page</span>
+						<span role="radio" id="two-up-option" class="simple-radio clickable pagination-option">Facing Pages</span>
+						<span role="radio" id="scrolling-option" class="simple-radio clickable pagination-option">Scrolling</span>
 					</div>
 				</div>
 				<div>
@@ -139,26 +153,10 @@
 </span>
 					</div>
 				</div>
-				<div>
-					<h2 id="setting-header-color-legend" class="setting-header">TEXT AND BACKGROUND COLOR</h2>
-					<div role="radiogroup" aria-labelledby="setting-header-color-legend" id="theme-radio-group" class="clearfix">
-						<span role="radio" id="default-theme-option" class="theme-option default-theme clickable">Black and White</span>
-						<span role="radio" id="night-theme-option" class="theme-option night-theme clickable">Arabian Nights</span>
-						<span role="radio" id="parchment-theme-option" class="theme-option parchment-theme clickable">Sands of Dune</span>
-					</div>
-				</div>
-				<div>
-					<h2 id="setting-header-display-legend" class="setting-header">DISPLAY FORMAT</h2>
-					<div role="radiogroup" aria-labelledby="setting-header-display-legend" class="clearfix" id="pagination_mode">
-						<span role="radio" id="one-up-option" class="simple-radio clickable pagination-option">Single Page</span>
-						<span role="radio" id="two-up-option" class="simple-radio clickable pagination-option">Facing Pages</span>
-						<span role="radio" id="scrolling-option" class="simple-radio clickable pagination-option">Scrolling</span>
-					</div>
-				</div>
 			</div>
 			<div id="settings-form-footer" class="clearfix">
 				<button accesskey="c" class='btn btn-inverse' id="cancel-settings-but">Cancel</button>
-				<button accesskey="s" class='btn btn-inverse' id="save-settings-but">Save Settings</button>
+				<button accesskey="s" class='btn btn-inverse' id="save-settings-but">Save</button>
 			</div>
 			
 <div class="offscreenText"> Options End </div>

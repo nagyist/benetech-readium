@@ -3,7 +3,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	el: '#viewer-settings-modal',
 
 	initialize: function() {
-		this.model.on("change:current_theme", this.renderTheme, this);
 		this.model.on("change:pagination_mode", this.renderPagination, this);
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
 		this.model.on("change:font_size", this.renderFontSize, this);
@@ -58,15 +57,9 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	},
 
 	render: function() {
-		this.renderTheme();
 		this.renderPagination();
 		this.renderMarginRadio();
 		this.renderFontSize();
-		return this;
-	},
-
-	renderTheme: function() {
-		this.$('#preview-text')[0].className = this.model.get("current_theme");
 		return this;
 	},
 
@@ -88,9 +81,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	renderFontSize: function() {
 		var val = this.model.get("font_size");
 		var size = (val / 10).toString() + "em";
-
-		// apply the size to the preview text area
-		this.$('#preview-text').css("font-size", size);
 
 		// set the value of the slider
 		this.$("#font-size-input").val(val);

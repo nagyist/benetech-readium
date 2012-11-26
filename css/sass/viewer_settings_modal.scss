@@ -12,15 +12,6 @@
 		}
 	}
 
-	#preview-text {
-		border: 1px solid #777;
-		@include border-radius(2px);
-		padding: 5px;
-		height: 80px;
-		overflow: hidden;
-		text-align: left;
-	}
-
 	#options-heading {
 		text-align: left;
 		font-family: Helvetica,Arial,sans-serif;
