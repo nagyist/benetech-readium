@@ -152,7 +152,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		if (this.trackPosition && !!this.model.get('track_position')) {
 			var selector = BookshareUtils.getSelectorForNearestElementWithId(BookshareUtils.findTopElement(this));
 			this.model.set('reading_position', selector);
-			console.log("goToPage setting reading position to " + selector);
 		}
 	},
 
@@ -181,7 +180,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			if (this.trackPosition && !!this.model.get("track_position")) {
 				var selector = BookshareUtils.getSelectorForNearestElementWithId(el);
 				this.model.set('reading_position', selector);
-				console.log("goToHashFragment setting reading position to " + selector);
 			}
 
             if (page > 0) {
