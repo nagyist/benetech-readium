@@ -70,6 +70,8 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 							that.goToReadingPosition();
 						} else {
 							that.getFrame().contentWindow.scrollTo(0, 0);
+							// force call on scroll handler
+							that.getFrame().contentWindow.onscroll();
 						}
 					}
 				}, 250);
@@ -107,6 +109,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.$('#readium-scrolling-content').attr("height", height);
 		this.$('#readium-scrolling-content').css("width", width);
 		this.$('#readium-scrolling-content').css("height", height);
+		this.getBody().style.overflowX = "hidden"; // prevents x-scrolling
 	},
 
 	getFrameWidth: function() {

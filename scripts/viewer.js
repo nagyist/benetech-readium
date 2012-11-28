@@ -100,14 +100,18 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	},
 
 	renderTocVisible: function() {
-var vis = this.model.get("toc_visible");
-$('#toggle-toc-btn').attr('aria-pressed', vis ? 'true' : 'false');
+		var vis = this.model.get("toc_visible");
+		$('#toggle-toc-btn').attr('aria-pressed', vis ? 'true' : 'false');
 		this.$el.toggleClass("show-readium-toc", vis);
-if (vis) setTimeout(function(){
-$('#readium-toc').find('h1, h2').first()
-.attr('tabindex', '-1').focus();
-}, 500);
-else $('#toggle-toc-btn').focus();
+		var that = this;
+		if (vis) {
+			setTimeout( function() {
+				that.toc.model.updateTocHighlight();
+				that.$el.find(that.toc.model.get("toc_highlight_selector")).focus();
+			}, 50);
+		} else {
+			$('#toggle-toc-btn').focus();
+		}
 		return this;
 	},
 

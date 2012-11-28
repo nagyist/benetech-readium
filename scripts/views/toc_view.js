@@ -42,7 +42,7 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 				elementToFocusOn.attr('tabindex', '-1').focus();
 			}, 500);
 		}
-	}
+	},
 
 });
 
@@ -74,7 +74,15 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	render: function() {
 		this.$('#toc-body').html( this.model.get("body").html() );
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
+		this.renderTocHighlight();
 		return this;
-	}
+	},
 
+	renderTocHighlight: function() {
+		var selector = this.model.get("toc_highlight_selector");
+		if (selector) {
+			this.$('#toc-body').find(selector).addClass("tocHighlight");
+			this.$('#toc-body').find(selector)[0].scrollIntoViewIfNeeded();
+		}
+	}
 });

@@ -7,6 +7,7 @@ Readium.Models.Toc = Backbone.Model.extend({
 		this.book = options.book;
 		this.book.on("change:toc_visible", this.setVisibility, this);
 		this.book.on("change:toolbar_visible", this.setTocVis, this);
+		this.book.on("change:reading_position", this.updateTocHighlight, this);
 	},
 
 	handleLink: function(href) {
@@ -24,6 +25,23 @@ Readium.Models.Toc = Backbone.Model.extend({
 	setTocVis: function() {
 		if(!this.book.get("toolbar_visible")) {
 			this.book.set("toc_visible", false);
+		}
+	},
+
+	// stub for base class
+	findNearestTocItemSelector: function(element) {
+		return null;
+	},
+
+	updateTocHighlight: function() {
+		var vis = !!this.book.get("toc_visible");
+		if (vis) {
+			var rp = this.book.get("reading_position");
+			var contentBody = this.book.paginator.v.getBody();
+			var el = $(contentBody).find(rp);
+			if (el.length > 0) {
+				this.set('toc_highlight_selector', this.findNearestTocItemSelector(el[0]));
+			}
 		}
 	},
 
@@ -95,7 +113,33 @@ Readium.Models.XhtmlToc = Readium.Models.Toc.extend({
 		}
 		json.title = $('title', xmlDom).text();
 		json.body = $('body', xmlDom);
+
+		// save the IDs for quick lookups later
+		json.toc_ids = [];
+		$(json.body).find("nav[epub\\:type='toc'] a[href*='#']").each(
+			function(idx, e) {
+				json.toc_ids.push(e.getAttribute("href").split("#")[1]);
+			}
+		);
+
 		return json;
+	},
+
+	findNearestTocItemSelector: function(element) {
+		var result = null;
+		if (element != null) {
+			var elId = element.getAttribute("id");
+			if (this.get("toc_ids").indexOf(elId) > -1) {
+				result = "a[href$='#" + elId + "']";
+			} else {
+				if (element.previousElementSibling != null) {
+					result = this.findNearestTocItemSelector(element.previousElementSibling);
+				} else if (element.parentElement != null) {
+					result = this.findNearestTocItemSelector(element.parentElement);
+				}
+			}
+		}
+		return result;
 	},
 
 	TocView: function() {

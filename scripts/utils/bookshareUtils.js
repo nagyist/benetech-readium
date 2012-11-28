@@ -137,11 +137,6 @@ window.BookshareUtils = {
 		return result;
 	},
 
-	findNearestTocElementId: function(element) {
-		var result = null;
-		return result;
-	},
-
 	getSplitUrl: function(href) {
 		return href.match(/([^#]*)(?:#(.*))?/);
 	}
