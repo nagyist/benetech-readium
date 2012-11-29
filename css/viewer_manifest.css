@@ -1564,7 +1564,8 @@ body {
 #scrolling-wrapper {
   text-align: center;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  padding: 0px; }
 
 #viewer-settings-modal {
   text-align: center;
