@@ -80,7 +80,9 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	render: function() {
 		this.$('#toc-body').html( this.model.get("body").html() );
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
-		this.renderTocHighlight();
+		if (this.model.get("visible")) {
+			this.renderTocHighlight();
+		}
 		return this;
 	},
 
