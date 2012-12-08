@@ -28,14 +28,36 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 		Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
 
+		// map fullscreen methods
+		var that = this;
+		for (var i = 0; i < Modernizr._domPrefixes.length; i++) {
+			if (document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'] != null) {
+				this.requestFullscreen = document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'];
+				this.cancelFullscreen = document[Modernizr._domPrefixes[i] + 'CancelFullScreen'];
+				this.getFullscreenElement = function() { return document[Modernizr._domPrefixes[i] + 'FullscreenElement']};
+				$(document).bind(
+					Modernizr._domPrefixes[i] + 'fullscreenchange',
+					function () {
+						if (that.getFullscreenElement() == null) {
+							that.model.set("full_screen", false);
+						} else {
+							that.model.set("full_screen", true);
+						}
+					}
+				);
+				break;
+			}
+		}
+
+
 	},
 
 	toggleFullscreen: function() {
 		if(this.model.get("full_screen")) {
-			document.documentElement.webkitRequestFullScreen();	
+			this.requestFullscreen.call(document.documentElement);
 		}
 		else {
-			document.webkitCancelFullScreen();				
+			this.cancelFullscreen.call(document);
 		}
 	},
 
