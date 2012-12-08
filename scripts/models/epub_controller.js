@@ -22,9 +22,15 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var that = this;
 
 		this.epub = this.get("epub");
-        
+
 		// Load options from local storage
 		this.options = Readium.Models.ReadiumOptions.getInstance();
+
+		// use modernizr to detect css column support
+		this.set("columns_supported", Modernizr.testProp(Modernizr.prefixed('column-width')));
+		if (!this.get("columns_supported")) {
+			this.options.set("pagination_mode", "scrolling");
+		}
 
 		// apply options
 		this.options.set("controller", this);

@@ -8,6 +8,13 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.model.on("change:font_size", this.renderFontSize, this);
 
 		var that = this;
+
+		// hide inapplicable settings when pagination not available
+		if (!this.model.get("columns_supported")) {
+			$('#setting-header-display-legend').toggle(false);
+			$('#pagination_mode').toggle(false);
+		}
+
 		Acc.rg = {
 			theme: new Acc.RadioGroup('theme-radio-group', ' .' + this.model.get("current_theme"),
 				function(el){
