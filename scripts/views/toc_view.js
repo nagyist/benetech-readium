@@ -9,7 +9,8 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 
 	events: {
 		"click a": "handleClick",
-		"click #close-toc-button": "closeToc"
+		"click #close-toc-button": "closeToc",
+		"keyup #close-toc-button": "closeToc"
 	},
 
 	setVisibility: function() {
@@ -29,8 +30,10 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 	},
 
 	closeToc: function(e) {
-		e.preventDefault();
-		this.model.hide();
+		if (e.type == "click" || (e.type == "keyup" && e.keyCode == 13)) {
+			e.preventDefault();
+			this.model.hide();
+		}
 	}, 
 
 	setFocus: function(goToId) {
