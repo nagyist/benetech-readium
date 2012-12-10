@@ -10,7 +10,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		var that = this;
 
 		// hide inapplicable settings when pagination not available
-		if (!this.model.get("columns_supported")) {
+		if (!this.model.get("controller").get("columns_supported")) {
 			$('#setting-header-display-legend').toggle(false);
 			$('#pagination_mode').toggle(false);
 		}
