@@ -34,7 +34,16 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 			if (document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'] != null) {
 				this.requestFullscreen = document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'];
 				this.cancelFullscreen = document[Modernizr._domPrefixes[i] + 'CancelFullScreen'];
-				this.getFullscreenElement = function() { return document[Modernizr._domPrefixes[i] + 'FullscreenElement']};
+
+				// god I hate inconsistent camelcase
+				var fsElName = Modernizr._domPrefixes[i];
+				if (document[fsElName + 'FullscreenElement'] !== undefined) {
+					fsElName = fsElName + 'FullscreenElement';
+				} else if (document[fsElName + 'FullScreenElement'] !== undefined) {
+					fsElName = fsElName + 'FullScreenElement';
+				}
+				this.getFullscreenElement = function() { return document[fsElName]};
+
 				$(document).bind(
 					Modernizr._domPrefixes[i] + 'fullscreenchange',
 					function () {
