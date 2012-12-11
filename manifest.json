@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "description": "A reader for Bookshare.org EPUB 3 files.",
+  "description": "THIS IS A DEMO APP FOR BETA USERS ONLY.",
    
    "icons": {
       "128": "images/booksharelogo.png"
    },
 
    "minimum_chrome_version": "14",
-   "name": "Bookshare.org EPUB 3 Reader",
+   "name": "Bookshare Project Overlook Beta",
    "permissions": [ 
       "tts",
       "https://www.bookshare.org/",
@@ -39,5 +39,5 @@
     "lib/mathjax/extensions/MathEvents.js",
     "lib/images/MenuArrow-15.png"
    ],
-   "version": "0.1.5"
+   "version": "0.1.5.1"
 }
