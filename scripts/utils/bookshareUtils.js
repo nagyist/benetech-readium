@@ -153,6 +153,16 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	doc.find('head [href]').each(function(i, el) { this.setAttribute('href', BookshareUtils.resolveUrl(this.getAttribute('href'))); });
 	doc.find('[src]').each(function(i, el) { this.setAttribute('src', BookshareUtils.resolveUrl(this.getAttribute('src'))); });
 	doc.find('aside[epub\\\:type=annotation]').each(function(i, el) { el.style.display = "none"; });
+
+	// handle page numbers that use title to store their values
+	doc.find('[epub\\\:type=pagebreak]').each(
+		function(i, el) {
+			$(el).addClass("bksPageNumber");
+			if (el.textContent == "" && el.getAttribute('title') != "") {
+				el.textContent = el.getAttribute('title');
+			}
+		});
+
 	this.content = doc[0].documentElement;
 };
 
