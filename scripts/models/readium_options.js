@@ -7,6 +7,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 	defaults: {
 		hijack_epub_urls: false,
 		verbose_unpacking: true,
+		display_page_numbers: true,
 		font_size: 10,
 		current_margin: 3,
 		current_theme: "default-theme",		
@@ -20,9 +21,10 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 
 		// set everything but two_up
 		controller.set({
-			"font_size": 		this.get("font_size"),
-			"current_theme": 	this.get("current_theme"),
-			"current_margin": 	this.get("current_margin")
+			"font_size": 			this.get("font_size"),
+			"display_page_numbers":	this.get("display_page_numbers"),
+			"current_theme": 		this.get("current_theme"),
+			"current_margin": 		this.get("current_margin")
 		});
 
 		if (this.get("pagination_mode") == 'scrolling') {

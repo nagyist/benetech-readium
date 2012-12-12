@@ -1568,7 +1568,7 @@ body {
   padding: 0px; }
 
 #viewer-settings-modal {
-  text-align: center;
+  text-align: left;
   width: 352px;
   margin: -326px 0 0 -176px;
   background-color: white;
@@ -1681,7 +1681,14 @@ body {
     display: block;
     text-align: left;
     margin: 3px 0px; }
+  #viewer-settings-modal .checkbox {
+    font-family: Helvetica,Arial,sans-serif;
+    color: #111;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 400; }
   #viewer-settings-modal #settings-form-footer {
+    text-align: center;
     background-color: #000;
     padding: 5px 10px;
     background-color: #444444;

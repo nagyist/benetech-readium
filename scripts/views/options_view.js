@@ -67,6 +67,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.renderPagination();
 		this.renderMarginRadio();
 		this.renderFontSize();
+		this.renderDisplayPageNumbers();
 		return this;
 	},
 
@@ -93,10 +94,15 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.$("#font-size-input").val(val);
 	},
 
+	renderDisplayPageNumbers: function() {
+		this.$("#display-page-numbers")[0].checked = this.model.get("display_page_numbers");
+	},
+
 	events: {
     	"click .theme-option": 			"selectTheme",
     	"click .margin-radio": 			"selectMargin",
     	"click .pagination-option": 	"selectPagination",
+    	"change #display-page-numbers":	"clickDisplayPageNumbers",
     	"click #cancel-settings-but": 	"cancelSettings",
 		"click #save-settings-but": 	"applySettings",
     	"change #font-size-input": 		"extractFontSize"
@@ -138,6 +144,10 @@ Readium.Views.OptionsView = Backbone.View.extend({
   		if(id === "two-up-option" ) this.model.set("pagination_mode", 'facing');
   		if(id === "scrolling-option" ) this.model.set("pagination_mode", 'scrolling');
 		e.stopPropagation();
+  	},
+
+  	clickDisplayPageNumbers: function(e) {
+  		this.model.set("display_page_numbers", e.srcElement.checked);
   	},
 
   	cancelSettings: function(e) {

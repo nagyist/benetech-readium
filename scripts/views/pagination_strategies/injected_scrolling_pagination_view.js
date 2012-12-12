@@ -140,6 +140,11 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.goToReadingPosition();
 	},
 
+	pageNumberCallback: function() {
+		this.togglePageNumbers();
+		this.goToReadingPosition();
+	},
+
 	fontSizeCallback: function() {
 		this.setFontSize();
 		this.goToReadingPosition();

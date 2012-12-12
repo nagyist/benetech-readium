@@ -434,6 +434,12 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.goToReadingPosition();
 	},
 
+	pageNumberCallback: function() {
+		this.togglePageNumbers();
+		this.adjustIframeColumns();
+		this.goToReadingPosition();
+	},
+
 	fontSizeCallback: function() {
 		this.setFontSize();
 		this.goToReadingPosition();

@@ -18,7 +18,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.pages = new Readium.Models.ReadiumPagination({model : this.model});
 
 		this.pages.on("change:current_page", this.showCurrentPages, this);
-
+		this.model.on("change:display_page_numbers", this.pageNumberCallback, this);
 		this.model.on("change:font_size", this.fontSizeCallback, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
@@ -90,6 +90,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	//   that were registered on the model
 	destruct: function() {
 		this.pages.off("change:current_page", this.showCurrentPages);
+		this.model.off("change:display_page_numbers", this.pageNumberCallback, this);
 		this.model.off("change:font_size", this.fontSizeCallback);
 		this.resetEl();
 	},
@@ -214,6 +215,10 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			e.preventDefault();
 			that.pages.goLeft();
 		});
+	},
+
+	togglePageNumbers: function () {
+		$(this.getBody()).find(".bksPageNumber").css("display", (this.model.get("display_page_numbers") ? "": "none"));
 	},
 
 	// inject styles into iframe

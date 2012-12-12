@@ -82,6 +82,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 	defaults: {
     	"font_size": 10,
+    	"display_page_numbers": true,
     	"should_scroll": false,
     	"two_up": false,
     	"full_screen": false,
