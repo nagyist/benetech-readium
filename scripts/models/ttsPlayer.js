@@ -54,14 +54,23 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         var self = this;
         var nextElement = self._getNextElement(self._getCurrentElement());
 
-        while ((nextElement != null) && nextElement.textContent.trim().length == 0) {
+        while (!self._isReadable(nextElement)) {
             nextElement = self._getNextElement(nextElement);
             if ((nextElement != null) && (nextElement.textContent.trim().length > 0) && self._hasBlockLevelChildrenOnly(nextElement)) {
                 nextElement = nextElement.children[0];
             }
         }
-
         self._setCurrentElement(nextElement);
+    },
+
+    _isReadable: function(el) {
+        // a little kludgy -- this will still end up reading elements that are hidden
+        // via display:none in class rather than style attribute
+        return (
+            (el != null) &&
+            (el.textContent.trim().length > 0) &&
+            ((el.style.display != "none") || (el.getAttribute("epub:type") == "annotation"))
+            );
     },
 
     _setCurrentElement: function(el) {
@@ -103,12 +112,12 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         // are only block-level elements and empty text nodes.
         // returns true if it's safe to descend
         if (el.hasChildNodes() == true) {
-            var limit = el.children.length;
+            var limit = el.childNodes.length;
             for (var i = 0; i < limit; i++) {
-                var child = el.children[i];
+                var child = el.childNodes[i];
                 if (child.nodeType == Node.TEXT_NODE && child.textContent.trim().length > 0) {
                     return false;
-                } else if (!BeneSpeak._isBlockElement(child)) {
+                } else if (child.nodeType != Node.TEXT_NODE && !BeneSpeak._isBlockElement(child)) {
                     return false;
                 }
             }

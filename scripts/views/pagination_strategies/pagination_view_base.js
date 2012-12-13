@@ -31,6 +31,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.addSwipeHandlers( $(e.srcElement).contents() );
         this.injectHighlightStyles(e.srcElement);
         this.injectPageNumberStyles(e.srcElement);
+        this.togglePageNumbers();
         this.injectMathJax(e.srcElement);
         this.injectLinkHandler(e.srcElement);
         var trigs = this.parseTriggers(e.srcElement.contentDocument);
