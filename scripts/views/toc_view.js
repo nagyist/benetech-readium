@@ -9,7 +9,8 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 
 	events: {
 		"click a": "handleClick",
-		"click #close-toc-button": "closeToc"
+		"click #close-toc-button": "closeToc",
+		"keyup #close-toc-button": "closeToc"
 	},
 
 	setVisibility: function() {
@@ -20,17 +21,49 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 		e.preventDefault();
 		href = $(e.currentTarget).attr("href");
 		this.model.handleLink(href);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
+
+		// handle the base url first:
+		if(splitUrl[1]) {
+			this.setFocus(splitUrl[2]);
+		}
 	},
 
 	handleSelect : function (e) {
 		var href = e.val;
 		this.model.handleLink(href);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
+
+		// handle the base url first:
+		if(splitUrl[1]) {
+			this.setFocus(splitUrl[2]);
+		}
 	},
 
 	closeToc: function(e) {
-		e.preventDefault();
-		this.model.hide();
+		if (e.type == "click" || (e.type == "keyup" && e.keyCode == 13)) {
+			e.preventDefault();
+			this.model.hide();
+		}
+	}, 
+
+	setFocus: function(goToId) {
+		var contentsFrame = $(window._epubController.paginator.v.getFrame());
+		contentsFrame.focus();
+		var elementToFocusOn = contentsFrame.contents().find("#"+goToId);
+		if ($(elementToFocusOn).length > 0) {
+			setTimeout(function() {
+				elementToFocusOn.attr('tabindex', '-1').focus();
+			}, 500);
+		}
+	},
+
+	scrollToNavItem: function(el) {
+		var yPos = el.getClientRects()[0].top;
+		var tocBody = this.$('#toc-body');
+		tocBody.scrollTop(tocBody.scrollTop() + yPos - Math.ceil(tocBody.height() * 0.4));
 	}
+
 });
 
 
@@ -42,73 +75,52 @@ Readium.Views.NcxTocView = Readium.Views.TocViewBase.extend({
 	},
 
 	render: function() {
-
-		var ol;
-
 		this.setVisibility();
-
-		// Construct html for the navPoints in the document		
-		ol = this.addNavPointElements(this.model.get("navs"));
-
-		this.$('#toc-body').html("<h2 tabindex='-1'>" + (this.model.get("title") || "Contents") + "</h2>")
+		var ol = $("<ol></ol>");
+		var navs = this.model.get("navs");
+		for(var i = 0; i < navs.length; i++) {
+			ol.append( this.nav_template(navs[i]) );
+		}
+		this.$('#toc-body').html("<h1 tabindex='-1' id='toc-heading-ref'>" + (this.model.get("title") || "Table of Contents") + "</h1>");
 		this.$('#toc-body').append(ol);
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
 		return this;
-	},
-
-	// Description: Constructs an html representation of NCX navPoints, based on an object of navPoint information
-	// Rationale: This is a recursive method, as NCX navPoint elements can nest 0 or more of themselves as children
-	addNavPointElements: function (jsonNavs) {
-
-		var ol = $("<ol></ol>");
-		var that = this;
-
-		$.each(jsonNavs, function (navIndex) {
-
-			var hasNavs;
-
-			// Add the current navPoint element to the TOC html 
-			ol.append( that.nav_template(jsonNavs[navIndex]) );
-
-			// Check if the current navPoint has navPoints of its own
-			hasNavs = jsonNavs[navIndex].navs.length > 0 ? true : false;
-			if (hasNavs) {
-
-				var li = $("<li></li>");
-				li.append(that.addNavPointElements(jsonNavs[navIndex].navs));
-				ol.append(li);
-			}
-		});
-
-		return ol; 
 	}
+
 });
 
 Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({ 
 
-	// ------------------------------------------------------------------------------------ //
-	//  "PUBLIC" METHODS (THE API)                                                          //
-	// ------------------------------------------------------------------------------------ //
-
 	events: {
 		"click a": "handleClick",
 		"click #close-toc-button": "closeToc",
+		"keyup #close-toc-button": "closeToc",
 		"change #page-list-select": "handleSelect"
 	},
 
 	render: function() {
-			
 		this.$('#toc-body').html( this.model.get("body").html() );
 		this.formatPageListNavigation();
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
+		if (this.model.get("visible")) {
+			this.renderTocHighlight();
+		}
 		return this;
+	},
+
+	renderTocHighlight: function() {
+		var selector = this.model.get("toc_highlight_selector");
+		if (selector) {
+			var targetLink = this.$('#toc-body').find(selector).addClass("tocHighlight");
+			this.scrollToNavItem(targetLink[0]);
+		}
 	},
 
 	// ------------------------------------------------------------------------------------ //
 	//  "PRIVATE" HELPERS                                                                   //
 	// ------------------------------------------------------------------------------------ //
 
-	formatPageListNavigation : function () {
+	formatPageListNavigation: function () {
 
 		var $navElements;
 		var $pageListNavElement;

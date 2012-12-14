@@ -158,8 +158,11 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	doc.find('[epub\\\:type=pagebreak]').each(
 		function(i, el) {
 			$(el).addClass("bksPageNumber");
+			// normalize storage of page values
 			if (el.textContent == "" && el.getAttribute('title') != "") {
 				el.textContent = el.getAttribute('title');
+			} else if (el.textContent != "" && el.getAttribute('title') == "") {
+				el.setAttribute('title', el.textContent);
 			}
 		});
 

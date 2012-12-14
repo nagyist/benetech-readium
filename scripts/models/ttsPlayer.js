@@ -35,6 +35,14 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     speak: function() {
         var self = this;
         var el = self._getCurrentElement();
+
+        // this is a stopgap check to make sure we don't attempt
+        // to voice empty utterances. needs more work
+        if (el.textContent.trim() == "") {
+            self.advanceReadingPosition();
+            el = self._getCurrentElement();
+        }
+
         if (el != null) {
             self.data = BeneSpeak.generateSpeechData(el);
             chrome.tts.speak(self.data.utterance,

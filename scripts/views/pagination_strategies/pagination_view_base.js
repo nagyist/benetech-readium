@@ -219,7 +219,20 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	},
 
 	togglePageNumbers: function () {
-		$(this.getBody()).find(".bksPageNumber").css("display", (this.model.get("display_page_numbers") ? "": "none"));
+		var that = this;
+		$(this.getBody()).find(".bksPageNumber").each(
+			function(idx, el) {
+				if (that.model.get("display_page_numbers")) {
+					el.textContent = el.getAttribute("title");
+					$(el).addClass("bksPageNumberOn");
+				} else {
+					while (el.hasChildNodes()) {
+						el.removeChild(el.childNodes[0]);
+					}
+					$(el).removeClass("bksPageNumberOn");
+				}
+			}
+		);
 	},
 
 	// inject styles into iframe
@@ -245,7 +258,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		if(head) {
 		    style = doc.createElement("style");
 			style.type = "text/css";
-			style.innerHTML = ".bksPageNumber { display:block; text-align: center; width: 25%; margin-left: auto; margin-right: auto; font-weight: bold; font-style: italic; border: 1px solid gray; }";
+			style.innerHTML = ".bksPageNumberOn { display:block; text-align: center; width: 25%; margin-left: auto; margin-right: auto; font-weight: bold; font-style: italic; border: 1px solid gray; }";
 			head.appendChild(style);
 		}
     },
