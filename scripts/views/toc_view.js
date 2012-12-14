@@ -23,7 +23,6 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 	},
 
 	handleSelect : function (e) {
-
 		var href = e.val;
 		this.model.handleLink(href);
 	},
@@ -90,6 +89,12 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	// ------------------------------------------------------------------------------------ //
 	//  "PUBLIC" METHODS (THE API)                                                          //
 	// ------------------------------------------------------------------------------------ //
+
+	events: {
+		"click a": "handleClick",
+		"click #close-toc-button": "closeToc",
+		"change #page-list-select": "handleSelect"
+	},
 
 	render: function() {
 			
