@@ -54,6 +54,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 				// restore the position the reader left off at from cookie storage
 				var pos = that.restorePosition();
 				that.set("spine_position", pos);
+				that.set("reading_position", that.loadReadingPosition());
 
 				// tell the paginator to start rendering spine items from the 
 				// freshly restored position
@@ -74,6 +75,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// If we encounter a new fixed layout section, we need to parse the 
 		// `<meta name="viewport">` to determine the size of the iframe
 		this.on("change:spine_position", this.setMetaSize, this);
+
+		// save reading position
+		this.on("change:reading_position", this.saveReadingPosition, this);
 
 		if (window.hasOwnProperty('BeneSpeak')) {
 			this.ttsPlayer = new Readium.Models.TTSPlayer({controller: this});
@@ -178,6 +182,16 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 	savePosition: function() {
 		Readium.Utils.setCookie(this.epub.get("key"), this.get("spine_position"), 365);
+	},
+
+	loadReadingPosition: function() {
+		return Readium.Utils.getCookie(this.epub.get("key") + "_rp");
+	},
+
+	saveReadingPosition: function() {
+		if (this.get("reading_position") != null) {
+			Readium.Utils.setCookie(this.epub.get("key") + "_rp", this.get("reading_position"), 365);
+		}
 	},
 
 	// should clear reading position when traversing spine items, since
