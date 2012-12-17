@@ -53,7 +53,7 @@ var BeneSpeak = {
                 var cn = node.childNodes;
                 
                 // note that element-specific processing can happen here
-                BeneSpeak._elementStartAnnouncement(d, node);
+                // BeneSpeak._elementStartAnnouncement(d, node);
                 
                 for (var i = 0; i < cn.length; i++) {
                     this._tokenize(cn[i], d);
@@ -64,7 +64,7 @@ var BeneSpeak = {
                     BeneSpeak._processBlockBoundary(d, node);
                 }
                 
-                BeneSpeak._elementEndAnnouncement(d, node);
+                // BeneSpeak._elementEndAnnouncement(d, node);
                 break;
             case 3:
                 var t = node.textContent;
