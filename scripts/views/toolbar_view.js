@@ -23,11 +23,16 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	},
 
 	renderFullScreen: function() {
-		var isFs = this.model.get("full_screen");
-		this.$("#go-to-fs-ico").toggle( !isFs );
-		this.$("#leave-fs-ico").toggle( isFs );
-		$('#fs-toggle-btn').attr('title', isFs ? 'Fullscreen on' : 'Fullscreen off');
-		$('#fsOT').html(isFs ? 'Fullscreen on' : 'Fullscreen off');
+		if (this.model.get("supports_full_screen")) {
+			var isFs = this.model.get("full_screen");
+			this.$("#go-to-fs-ico").toggle( !isFs );
+			this.$("#leave-fs-ico").toggle( isFs );
+			$('#fs-toggle-btn').attr('title', isFs ? 'Fullscreen on' : 'Fullscreen off');
+			$('#fsOT').html(isFs ? 'Fullscreen on' : 'Fullscreen off');
+		} else {
+			this.$("#go-to-fs-ico").toggle( false );
+			this.$("#leave-fs-ico").toggle( false );
+		}
 		return this;
 	},
 

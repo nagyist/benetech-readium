@@ -7,31 +7,12 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	uiVisible: false,
 
 	initialize: function() {
-		
-		this.model.on("change:full_screen", this.toggleFullscreen, this);
-
-		this.model.on("change:current_theme", this.renderTheme, this);
-		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
-		this.model.on("change:toc_visible", this.renderTocVisible, this);
-
-		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
-		this.optionsView.render();
-
-		// the top bar
-		this.toolbar = new Readium.Views.ToolbarView({model: _epubController});
-		this.toolbar.render();
-
-		// the table of contents
-		this.model.on("change:has_toc", this.init_toc, this);
-
-		this.addGlobalEventHandlers();
-
-		Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
 
 		// map fullscreen methods
 		var that = this;
 		for (var i = 0; i < Modernizr._domPrefixes.length; i++) {
 			if (document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'] != null) {
+				this.model.set("supports_full_screen", true);
 				this.requestFullscreen = document.documentElement[Modernizr._domPrefixes[i] + 'RequestFullScreen'];
 				this.cancelFullscreen = document[Modernizr._domPrefixes[i] + 'CancelFullScreen'];
 
@@ -57,8 +38,26 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 				break;
 			}
 		}
+		
+		// event handlers
+		this.model.on("change:full_screen", this.toggleFullscreen, this);
+		this.model.on("change:current_theme", this.renderTheme, this);
+		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
+		this.model.on("change:toc_visible", this.renderTocVisible, this);
 
+		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
+		this.optionsView.render();
 
+		// the top bar
+		this.toolbar = new Readium.Views.ToolbarView({model: _epubController});
+		this.toolbar.render();
+
+		// the table of contents
+		this.model.on("change:has_toc", this.init_toc, this);
+
+		this.addGlobalEventHandlers();
+
+		Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
 	},
 
 	toggleFullscreen: function() {
