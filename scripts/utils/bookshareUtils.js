@@ -65,11 +65,15 @@ window.BookshareUtils = {
 	},
 
 	setEnvironment: function(href) {
-		var match = /(?:http|https)\:\/\/reader(\.\w*?){0,1}\.bookshare\.org\/viewer\.html/.exec(href);
+		BookshareUtils.http = 'https://';
+		var match = /(?:http|https)\:\/\/reader(\.\w*?){0,1}\.bookshare\.org(:8080){0,1}\/viewer\.html/.exec(href);
 		if (match != null) {
 			if (match[1] == '.qa') { BookshareUtils.environment = 'QA'; }
 			else if (match[1] == '.staging') { BookshareUtils.environment = 'STAGING'; }
-			else if (match[1] == '.dev') { BookshareUtils.environment = 'DEV'; }
+			else if (match[1] == '.dev') { 
+				BookshareUtils.environment = 'DEV'; 
+				BookshareUtils.http = 'http://';
+			}
 		}
 	},
 
@@ -82,7 +86,7 @@ window.BookshareUtils = {
 			} else if (BookshareUtils.environment == 'STAGING') {
 				uri.authority = 'public.staging.bookshare.org';
 			} else if (BookshareUtils.environment == 'DEV') {
-				uri.authority = 'public.dev.bookshare.org';
+				uri.authority = 'public.dev.bookshare.org:8080';
 			}
 		}
 
@@ -142,7 +146,7 @@ window.BookshareUtils = {
 	}
 };
 
-Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return BookshareUtils.resolveEnvironment('https://www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));}, 'xml');
+Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));}, 'xml');
 Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;}, 'xml');
 Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');}, 'xml');
 

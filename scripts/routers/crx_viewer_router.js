@@ -12,7 +12,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		// Ask the server for the book's data
 		var self = this;
 		$.ajax({
-			url: BookshareUtils.resolveEnvironment('https://www.bookshare.org/bookInfo?titleInstanceId=' + key),
+			url: BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/bookInfo?titleInstanceId=' + key),
 			dataType: 'json',
 			success: function(data, textStatus, jqXHR) {
 				self.initViewer(data);
@@ -40,12 +40,12 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		switch(jqXHR.status) {
 			case 401:
 				code = 'integration_error_401';
-				params['loginUrl'] = BookshareUtils.resolveEnvironment('https://www.bookshare.org/');
+				params['loginUrl'] = BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/');
 				break;
 			case 403: code = 'integration_error_403'; break;
 			case 404:
 				code = 'integration_error_404';
-				params['titleDetailPageUrl'] = BookshareUtils.resolveEnvironment('https://www.bookshare.org/browse/book/' + key);
+				params['titleDetailPageUrl'] = BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/browse/book/' + key);
 				break;
 			default: code = 'integration_error'; break;
 		}
