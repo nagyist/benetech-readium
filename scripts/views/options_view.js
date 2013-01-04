@@ -147,7 +147,8 @@ Readium.Views.OptionsView = Backbone.View.extend({
   	},
 
   	clickDisplayPageNumbers: function(e) {
-  		this.model.set("display_page_numbers", e.target.checked);
+  		if (!e.srcElement) e.srcElement = e.target;
+  		this.model.set("display_page_numbers", e.srcElement.checked);
   	},
 
   	cancelSettings: function(e) {
