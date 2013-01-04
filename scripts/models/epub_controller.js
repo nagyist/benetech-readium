@@ -281,3 +281,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		this.meta_section.on("change:meta_height", this.setMetaSize, this);
 	}
 });
+
+//Keep manifest up-to-date. 
+setInterval(function() { 
+	window._epub.packageDocument.fetch({success: function() {}}); 
+}, 1800000);
+
