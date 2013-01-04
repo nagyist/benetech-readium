@@ -139,9 +139,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 				that.toc.model.updateTocHighlight();
 				that.$el.find(that.toc.model.get("toc_highlight_selector")).focus();
 			}, 50);
-		} else {
-			$('#toggle-toc-btn').focus();
-		}
+		} 
 		return this;
 	},
 
