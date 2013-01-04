@@ -61,7 +61,8 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 	scrollToNavItem: function(el) {
 		var yPos = el.getClientRects()[0].top;
 		var tocBody = this.$('#toc-body');
-		tocBody.scrollTop(tocBody.scrollTop() + yPos - Math.ceil(tocBody.height() * 0.4));
+		var top = yPos + this.$('#toc-header').height();
+		tocBody.scrollTop(tocBody.scrollTop() + top - Math.ceil(tocBody.height() * 0.4));
 	}
 
 });
