@@ -51,18 +51,17 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		};
 		$('#options-btn').attr('aria-pressed', 'false');
 		$('#viewer-settings-modal').on('shown', function(){
-		$('#options-heading').focus();
-		setTimeout(function(){
-		$('#options-btn').attr('aria-pressed', 'true');
-		}, 1);
-		})
-		.on('hidden', function(){
-		setTimeout(function(){
-		$('#options-btn').attr('aria-pressed', 'false').focus();
-		}, 1);
+			$('#options-heading').focus();
+			setTimeout(function(){
+				$('#options-btn').attr('aria-pressed', 'true');
+			}, 1);
+		}).on('hidden', function(){
+			setTimeout(function(){
+				$('#options-btn').attr('aria-pressed', 'false').focus();
+			}, 1);
 		});
 	},
-
+		
 	render: function() {
 		this.renderPagination();
 		this.renderMarginRadio();
