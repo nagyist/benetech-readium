@@ -137,6 +137,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
   	},
 
   	selectPagination: function(e) {
+		if (!e.srcElement) e.srcElement = e.target;
   		var id = e.srcElement.id;
 		if (id && e.srcElement && Acc.rg && Acc.rg.format && e.srcElement != Acc.rg.pagination.selected) Acc.rg.pagination.set(id);
   		if(id === "one-up-option" ) this.model.set("pagination_mode", 'single');
