@@ -107,9 +107,15 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			window.open(href);
 		} else {
 			this.model.goToHref(href);
+			var splitUrl = BookshareUtils.getSplitUrl(href);
+
+			// handle the base url first:
+			if(splitUrl[1]) {
+				BookshareUtils.setFocus(splitUrl[2]);
+			}
 		}
 	},
-
+	
 	getBindings: function() {
 		var packDoc = this.model.epub.getPackageDocument();
 		var bindings = packDoc.get('bindings');
