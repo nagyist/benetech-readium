@@ -143,7 +143,27 @@ window.BookshareUtils = {
 
 	getSplitUrl: function(href) {
 		return href.match(/([^#]*)(?:#(.*))?/);
-	}
+	},
+	
+	isIE9 : function() {
+
+	    var undef;
+	    var v = 3;
+	    var div = document.createElement('div');
+	    var all = div.getElementsByTagName('i');
+
+	    while (
+	        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+	        all[0]
+	    );
+
+	    if (v === 9) {
+	    	return true;
+	    }
+	    else {
+	    	return false;
+	    }
+	}	
 };
 
 Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));}, 'xml');
