@@ -7,7 +7,10 @@ window.BookshareUtils = {
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
 	flatten: function(s) {
-		return s.replace(/\//g, "%2F");
+		if (this.environment == 'DEV') {
+		  return s.substr(s.lastIndexOf('/'));
+		}
+        return s.replace(/\//g, "%2F");
 	},
 
 	makeSyncFunction: function(urlFunction, dataType, useJSONP) {
@@ -177,7 +180,26 @@ window.BookshareUtils = {
 		}
 
 		return this.ie9Flag;
-	}	
+	},
+	
+	setFocus: function(goToId) {
+		var contentsFrame = $(window._epubController.paginator.v.getFrame());
+		contentsFrame.focus();
+		var elementToFocusOn = contentsFrame.contents().find("#"+goToId);
+		if ($(elementToFocusOn).length > 0) {
+			setTimeout(function() {
+				elementToFocusOn.attr('tabindex', '-1').focus();
+			}, 500);
+		}
+	},
+	
+	//Return a path relative to the root of the publication.
+	getRelativePath: function(href) {
+		var publicationRoot = window._epubController.get("publication_root");
+		if (href.indexOf(publicationRoot) !== -1) {
+			return href.replace(publicationRoot, "");
+		}
+	}
 };
 
 Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(
@@ -190,10 +212,17 @@ Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction
 
 // overrides
 Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
+	var that = this;
 	var doc = $(htmlContent);
 	doc.find('head [href]').each(function(i, el) { this.setAttribute('href', BookshareUtils.resolveUrl(this.getAttribute('href'))); });
 	doc.find('[src]').each(function(i, el) { this.setAttribute('src', BookshareUtils.resolveUrl(this.getAttribute('src'))); });
 	doc.find('aside[epub\\\:type=annotation]').each(function(i, el) { el.style.display = "none"; });
+	doc.find('a').each(function(i, el, href) { 
+		if (el.getAttribute("href").indexOf("#") == "0") {
+			//prepend current file name. XXX this should really be handled server side.
+			this.setAttribute("href", BookshareUtils.getRelativePath(that.get("href")) + el.getAttribute("href"));
+		}
+	});
 
 	// handle page numbers that use title to store their values
 	doc.find('[epub\\\:type=pagebreak]').each(
@@ -223,14 +252,15 @@ Readium.Models.PackageDocument.prototype.initialize = function(attributes, optio
 Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
 	var spine = this.get("res_spine");
 	var h = new URI(this.resolveUri(href));
+	var hFileName = h.path.substring(h.path.lastIndexOf("/") + 1);
 	for(var i = 0; i < spine.length; i++) {
 		var path = spine.at(i).get("href");
 		var p = new URI(this.resolveUri(path));
-		var hPath = BookshareUtils.flatten(h.path);
+		var pFileName = p.path.substring(p.path.lastIndexOf("/") + 1);
 		if (
 			h.scheme === p.scheme &&
 			h.authority === p.authority &&
-			p.path.substring(p.path.length - hPath.length) == hPath
+			pFileName == hFileName
 			) {
 			return i;
 		}

@@ -101,15 +101,21 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	// a new window for external links
 	linkClickHandler: function(e) {
 		e.preventDefault();
-
-		var href = e.srcElement.attributes["href"].value;
+		
+		var href = $(e.currentTarget).attr("href");
 		if(href.match(/^http(s)?:/)) {
 			window.open(href);
 		} else {
 			this.model.goToHref(href);
+			var splitUrl = BookshareUtils.getSplitUrl(href);
+
+			// handle the base url first:
+			if(splitUrl[1]) {
+				BookshareUtils.setFocus(splitUrl[2]);
+			}
 		}
 	},
-
+	
 	getBindings: function() {
 		var packDoc = this.model.epub.getPackageDocument();
 		var bindings = packDoc.get('bindings');

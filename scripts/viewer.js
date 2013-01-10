@@ -77,6 +77,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		}
 
 		$(document).keydown(function(e) {
+			if ($('#viewer-settings-modal').is(":visible")) return;
 			if(e.which == 39) {
 				that.model.paginator.v.pages.goRight();
 			}
@@ -87,12 +88,13 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		});
 
 		$("#readium-book-view-el").on("swipeleft", function(e) {
+			if ($('#viewer-settings-modal').is(":visible")) return;
 			e.preventDefault();
-			that.model.paginator.v.pages.goRight();
-			
+			that.model.paginator.v.pages.goRight();			
 		});
 
 		$("#readium-book-view-el").on("swiperight", function(e) {
+			if ($('#viewer-settings-modal').is(":visible")) return;
 			e.preventDefault();
 			that.model.paginator.v.pages.goLeft();
 		});
