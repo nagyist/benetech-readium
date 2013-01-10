@@ -11,8 +11,9 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 
 		// Ask the server for the book's data
 		var self = this;
+		var u = BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/bookInfo?titleInstanceId=' + key);
 		$.ajax({
-			url: BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/bookInfo?titleInstanceId=' + key),
+			url: u,
 			dataType: 'json',
 			crossDomain: true,
 			xhrFields: {
@@ -27,7 +28,17 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		});
 	},
 
+	openBookIE9: function(data) {
+
+		if (data) {
+			this.initViewer(data);
+		} else {
+			this.handleError('', {status: 500});
+		}
+	},
+
 	initViewer: function(book_data) {
+		console.log("Initializing viewer");
 		// initialize the viewer for that book
 		window._epub = new Readium.Models.EPUB(book_data);
 		window._epubController = new Readium.Models.EPUBController(_.extend({epub : window._epub}, book_data));

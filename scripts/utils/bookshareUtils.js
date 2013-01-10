@@ -2,6 +2,8 @@ window.BookshareUtils = {
 
 	environment: 'LIVE',
 
+	ie9Flag: null,
+
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
 	flatten: function(s) {
@@ -144,25 +146,29 @@ window.BookshareUtils = {
 	getSplitUrl: function(href) {
 		return href.match(/([^#]*)(?:#(.*))?/);
 	},
-	
+
 	isIE9 : function() {
 
-	    var undef;
-	    var v = 3;
-	    var div = document.createElement('div');
-	    var all = div.getElementsByTagName('i');
+		if (this.ie9Flag == null) {
+		    var undef;
+		    var v = 3;
+		    var div = document.createElement('div');
+		    var all = div.getElementsByTagName('i');
 
-	    while (
-	        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-	        all[0]
-	    );
+		    while (
+		        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+		        all[0]
+		    );
 
-	    if (v === 9) {
-	    	return true;
-	    }
-	    else {
-	    	return false;
-	    }
+		    if (v === 9) {
+		    	this.ie9Flag = true;
+		    }
+		    else {
+		    	this.ie9Flag = false;
+		    }
+		}
+
+		return this.ie9Flag;
 	}	
 };
 
@@ -219,4 +225,46 @@ Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
 		}
 	}
 	return -1;
+};
+
+// configure XDR transport for IE9
+if ( window.XDomainRequest ) {
+	jQuery.ajaxTransport(function( s ) {
+		if ( s.crossDomain && s.async ) {
+			if ( s.timeout ) {
+				s.xdrTimeout = s.timeout;
+				delete s.timeout;
+			}
+			var xdr;
+			return {
+				send: function( _, complete ) {
+					function callback( status, statusText, responses, responseHeaders ) {
+						xdr.onload = xdr.onerror = xdr.ontimeout = jQuery.noop;
+						xdr = undefined;
+						complete( status, statusText, responses, responseHeaders );
+					}
+					xdr = new XDomainRequest();
+					xdr.onload = function() {
+						callback( 200, "OK", { text: xdr.responseText }, "Content-Type: " + xdr.contentType );
+					};
+					xdr.onerror = function() {
+						callback( 404, "Not Found" );
+					};
+					xdr.onprogress = jQuery.noop;
+					xdr.ontimeout = function() {
+						callback( 0, "timeout" );
+					};
+					xdr.timeout = s.xdrTimeout || Number.MAX_VALUE;
+					xdr.open( s.type, s.url );
+					xdr.send( ( s.hasContent && s.data ) || null );
+				},
+				abort: function() {
+					if ( xdr ) {
+						xdr.onerror = jQuery.noop;
+						xdr.abort();
+					}
+				}
+			};
+		}
+	});
 };
