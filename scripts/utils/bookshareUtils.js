@@ -10,7 +10,7 @@ window.BookshareUtils = {
 		return s.replace(/\//g, "%2F");
 	},
 
-	makeSyncFunction: function(urlFunction, dataType) {
+	makeSyncFunction: function(urlFunction, dataType, useJSONP) {
 
 		return function(method, model, options) {
 			var syncUrl = urlFunction(model);
@@ -21,7 +21,7 @@ window.BookshareUtils = {
 
 			switch (method) {
 		        case "read":
-		        	$.ajax({
+		        	var ajaxParams = {
 		        		'url': syncUrl,
 		        		'dataType': dataType,
 						'xhrFields': {
@@ -29,8 +29,14 @@ window.BookshareUtils = {
 						},
 		        		'crossDomain': true,
 		        		'success': function(data, textStatus, jqXHR) { options.success(data); },
-		        		'error': function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); }
-		        	});
+		        		'error': function(jqXHR, textStatus, errorThrown) { console.log("Failed loading URL " + syncUrl + " with code " + jqXHR.status + " and text " + textStatus); options.error(jqXHR); }
+		        	};
+
+					if (useJSONP) {
+						ajaxParams.dataType = "jsonp " + dataType;
+					}
+
+		        	$.ajax(ajaxParams);
 		            break;
 		        case "create":
 		            throw "Not yet implemented";
@@ -68,13 +74,15 @@ window.BookshareUtils = {
 
 	setEnvironment: function(href) {
 		BookshareUtils.http = 'https://';
-		var match = /(?:http|https)\:\/\/reader(\.\w*?){0,1}\.bookshare\.org(:8080){0,1}\/viewer\.html/.exec(href);
-		if (match != null) {
-			if (match[1] == '.qa') { BookshareUtils.environment = 'QA'; }
-			else if (match[1] == '.staging') { BookshareUtils.environment = 'STAGING'; }
-			else if (match[1] == '.dev') { 
-				BookshareUtils.environment = 'DEV'; 
-				BookshareUtils.http = 'http://';
+
+		if (href.indexOf('http://reader.dev.bookshare.org:8080/viewer.html?bookId=') == 0) {
+			BookshareUtils.environment = 'DEV'; 
+			BookshareUtils.http = 'http://';
+		} else {
+			var match = /https\:\/\/(\w*?\-){0,1}bookshare-reader.s3.amazonaws.com\/viewer\.html/.exec(href);
+			if (match != null) {
+				if (match[1] == 'qa-') { BookshareUtils.environment = 'QA'; }
+				else if (match[1] == 'staging-') { BookshareUtils.environment = 'STAGING'; }
 			}
 		}
 	},
@@ -172,7 +180,10 @@ window.BookshareUtils = {
 	}	
 };
 
-Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));}, 'xml');
+Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(
+	function(m) {
+		return BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));
+	}, 'xml', BookshareUtils.isIE9());
 Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;}, 'xml');
 Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');}, 'xml');
 
@@ -254,7 +265,7 @@ if ( window.XDomainRequest ) {
 					xdr.ontimeout = function() {
 						callback( 0, "timeout" );
 					};
-					xdr.timeout = s.xdrTimeout || Number.MAX_VALUE;
+					// xdr.timeout = s.xdrTimeout || Number.MAX_VALUE;
 					xdr.open( s.type, s.url );
 					xdr.send( ( s.hasContent && s.data ) || null );
 				},

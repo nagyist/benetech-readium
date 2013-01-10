@@ -66,22 +66,13 @@ window.Readium = {
 			var queryString = window.location.search;
 			var firstQueryParam = queryString.split("&")[0];
 			var epubId = firstQueryParam.split("=")[1];
-			var u = BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/bookInfo?titleInstanceId=' + epubId + '&jsonp=StartIE9');
-
-			var scriptElement = window.document.createElement('script');
-			scriptElement.setAttribute('src', u);
-			scriptElement.setAttribute('type', 'text/javascript');
-			window.document.head.appendChild(scriptElement);
+			_router.openBook(epubId);
 		}
 		// Assumes HTML-5 compatible browser: Safari, Firefox, Chrome, IE10
 		else {
 			Backbone.history.start({pushState: true});
 		}
 	}
-};
-
-window.StartIE9 = function(data) {
-	_router.openBookIE9(data);
 };
 
 $(function() {
