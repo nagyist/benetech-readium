@@ -29,15 +29,18 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 		}
 	},
 
-	handleSelect : function (e) {
-		var href = e.val;
-		this.model.handleLink(href);
-		var splitUrl = BookshareUtils.getSplitUrl(href);
+	handlePageSelect : function (e) {
+	    var option = e.target[e.target.selectedIndex];
+        var href = option.value;
+        // store selected option so it can be "selected" when TOC is re-rendered
+        this.model.set("selected_page_number", option.text)
+        this.model.handleLink(href);
+        var splitUrl = BookshareUtils.getSplitUrl(href);
 
-		// handle the base url first:
-		if(splitUrl[1]) {
-			BookshareUtils.setFocus(splitUrl[2]);
-		}
+        // handle the base url first:
+        if(splitUrl[1]) {
+            BookshareUtils.setFocus(splitUrl[2]);
+        }
 	},
 
 	closeToc: function(e) {
@@ -85,11 +88,12 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		"click a": "handleClick",
 		"click #close-toc-button": "closeToc",
 		"keyup #close-toc-button": "closeToc",
-		"change #page-list-select": "handleSelect"
+		"change #toc-page-select": "handlePageSelect"
 	},
 
 	render: function() {
-		this.$('#toc-body').html( this.model.get("body").html() );
+        this.$('#toc-body').html("<label for='toc-page-select'>Go to page:</label> <select id='toc-page-select'></select>");
+		this.$('#toc-body').append( this.model.get("body").html() );
 		this.formatPageListNavigation();
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
 		if (this.model.get("visible")) {
@@ -114,7 +118,8 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 
 		var $navElements;
 		var $pageListNavElement;
-		var pageListData = [];
+		var $pageSelect;
+		var selectedPage;
 
 		// Search for a nav element with epub:type="page-list". A nav element of this type must not occur more than once.
 		$navElements = this.$("nav");
@@ -122,7 +127,7 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 
 			if ($(this).attr("epub:type") === 'page-list') {
 
-				// Hide the standard XHTML page-list nav element, as we'll be displaying a select2 drop-down control for this.
+				// Hide the standard XHTML page-list nav element in favor of #toc-page-select
 				$(this).attr("id", "page-list-select");
 				$(this).hide();
 				return true;
@@ -132,25 +137,16 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		// Each nav element has a single ordered list of page numbers. Extract this data into an array so it can be 
 		//   loaded in the page-list control
 		// TODO: span elements can be used to create sub-headings. Implement functionality to account for this at some point.
+		$pageSelect = this.$("#toc-page-select");
+		selectedPage = this.model.get("selected_page_number")
 		$.each($('a', $pageListNavElement), function () { 
-
 			var $navTarget = $(this);
-			pageListData.push({
-
-				id : $navTarget.attr("href"),
-				text : "Page " + $navTarget.text()
-			});
+			$pageSelect.append($('<option/>', {
+                value: $navTarget.attr('href'),
+                text: $navTarget.text(),
+                selected: $navTarget.text() == selectedPage
+                }));
 		});
 
-		// Create the select2 control
-		$("#page-list-select").select2({
-
-			placeholder : "Select a page",
-			data : pageListData
-		});
-
-		// the select2 adds no-op inline click handlers, but these are not allowed
-		// by chromes content securty policy so just remove them
-		this.$('[onclick]').removeAttr('onclick');
 	}
 });

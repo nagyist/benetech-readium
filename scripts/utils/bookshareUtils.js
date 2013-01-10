@@ -5,7 +5,10 @@ window.BookshareUtils = {
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
 	flatten: function(s) {
-		return s.replace(/\//g, "%2F");
+		if (this.environment == 'DEV') {
+		  return s.substr(s.lastIndexOf('/'));
+		}
+        return s.replace(/\//g, "%2F");
 	},
 
 	makeSyncFunction: function(urlFunction, dataType) {
