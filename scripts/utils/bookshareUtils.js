@@ -6,6 +6,8 @@ window.BookshareUtils = {
 
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
+	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*?)/,
+
 	flatten: function(s) {
 		if (this.environment == 'DEV') {
 		  return s.substr(s.lastIndexOf('/'));
@@ -86,7 +88,7 @@ window.BookshareUtils = {
 			if (window.chrome && window.chrome.extension) {
 				match = /chrome\-extension\:\/\/\w*?\/views\/viewer\.html\?book=\d*?(?:&env=(\w*))/.exec(href);
 			} else {
-				match = /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html/.exec(href);
+				match = BookshareUtils.AWS_URL_PATTERN.exec(href);
 			}
 
 			if (match != null) {
