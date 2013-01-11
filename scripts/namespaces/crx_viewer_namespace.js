@@ -13,7 +13,7 @@ window.Readium = {
 		$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/'));
 		_router = new Readium.Routers.ViewerRouter();
 
-		if (window.chrome && !window.chrome.extension) {
+		if (window.chrome && !window.chrome.extension && (BookshareUtils.environment == 'LIVE')) {
 			var options = Readium.Models.ReadiumOptions.getInstance();
 			var myModal = $('#chrome-extension-install');
 			if (false == !!options.get('decline_extension')) {
@@ -59,10 +59,8 @@ window.Readium = {
 	Start: function() {
 		// Detect whether IE is the current browser, and use an alternative to HTML-5 push state and backbone.js routing
 		if (BookshareUtils.isIE9()) {
-			var queryString = window.location.search;
-			var firstQueryParam = queryString.split("&")[0];
-			var epubId = firstQueryParam.split("=")[1];
-			_router.openBook(epubId);
+			var match = BookshareUtils.AWS_URL_PATTERN.exec(window.location.href);
+			_router.openBook(match[2]);
 		}
 		// Assumes HTML-5 compatible browser: Safari, Firefox, Chrome, IE10
 		else {

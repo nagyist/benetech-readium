@@ -6,7 +6,7 @@ window.BookshareUtils = {
 
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
-	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*?)/,
+	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*)/,
 
 	flatten: function(s) {
 		if (this.environment == 'DEV') {
@@ -27,14 +27,15 @@ window.BookshareUtils = {
 			switch (method) {
 		        case "read":
 		        	var ajaxParams = {
-		        		'url': syncUrl,
-		        		'dataType': dataType,
-						'xhrFields': {
-							'withCredentials': true
+		        		url: syncUrl,
+		        		dataType: dataType,
+						xhrFields: {
+							withCredentials: true
 						},
-		        		'crossDomain': true,
-		        		'success': function(data, textStatus, jqXHR) { options.success(data); },
-		        		'error': function(jqXHR, textStatus, errorThrown) { console.log("Failed loading URL " + syncUrl + " with code " + jqXHR.status + " and text " + textStatus); options.error(jqXHR); }
+						cache: false,
+		        		crossDomain: true,
+		        		success: function(data, textStatus, jqXHR) { options.success(data); },
+		        		error: function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); }
 		        	};
 
 					if (useJSONP) {
@@ -305,6 +306,7 @@ if ( window.XDomainRequest ) {
 						callback( 0, "timeout" );
 					};
 					// xdr.timeout = s.xdrTimeout || Number.MAX_VALUE;
+					xdr.timeout = 10000;
 					xdr.open( s.type, s.url );
 					xdr.send( ( s.hasContent && s.data ) || null );
 				},
