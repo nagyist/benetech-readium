@@ -262,7 +262,8 @@ Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
 	for(var i = 0; i < spine.length; i++) {
 		var path = spine.at(i).get("href");
 		var p = new URI(this.resolveUri(path));
-		var pFileName = p.path.substring(p.path.lastIndexOf("/") + 1);
+		var separator = p.path.lastIndexOf("%2F") === -1 ? "/" : "%2F";
+		var pFileName = p.path.substring(p.path.lastIndexOf(separator) + separator.length);
 		if (
 			h.scheme === p.scheme &&
 			h.authority === p.authority &&
