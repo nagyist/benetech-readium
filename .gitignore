@@ -2,4 +2,5 @@
 .sass-cache/
 intermediate/
 build/custom_config.rb
+readium/
 .jhw-cache/
