@@ -65,6 +65,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			that.setFontSize();
 			that.injectTheme();
 			that.setNumPages();
+			that.disableFocusAutoscroll();
 
 			if (hashFragmentId) {
 				that.goToHashFragment(hashFragmentId);
@@ -460,5 +461,14 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	setNumPages: function() {
 		var num = this.calcNumPages();
 		this.pages.set("num_pages", num);
+	},
+	
+	disableFocusAutoscroll: function() {
+	   var $html = $(this.getBody());
+	   var $body = $html.find("body"); 
+	   $body.find("a[href]").focus( function() {
+	       $html.scrollLeft(0); // real fix for Firefox
+	       setTimeout(function() { $body.scrollLeft(0); }, 0); // hack fix for Webkit
+	   } );
 	}
 });
