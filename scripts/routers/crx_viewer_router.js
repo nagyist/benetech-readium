@@ -7,7 +7,10 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		"*splat": "splat_handler"
 	},
 
-	openBook: function(key) {
+	openBook: function(k) {
+
+		key = k.split('&')[0];
+
 
 		// Ask the server for the book's data
 		var self = this;

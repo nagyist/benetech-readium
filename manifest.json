@@ -21,7 +21,11 @@
    "content_scripts": [
     {
       "run_at": "document_start",
-      "matches": ["*://*.bookshare.org/viewer.html*"],
+      "matches": [
+        "https://bookshare-reader.s3.amazonaws.com/viewer.html*",
+        "https://qa-bookshare-reader.s3.amazonaws.com/viewer.html*",
+        "https://staging-bookshare-reader.s3.amazonaws.com/viewer.html*"
+        ],
       "js": ["lib/jquery-1.8.3.min.js", "background/hijack.js"]
     }
   ],

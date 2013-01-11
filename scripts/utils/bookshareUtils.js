@@ -82,10 +82,16 @@ window.BookshareUtils = {
 			BookshareUtils.environment = 'DEV'; 
 			BookshareUtils.http = 'http://';
 		} else {
-			var match = /https\:\/\/(\w*?\-){0,1}bookshare-reader.s3.amazonaws.com\/viewer\.html/.exec(href);
+			var match;
+			if (window.chrome && window.chrome.extension) {
+				match = /chrome\-extension\:\/\/\w*?\/views\/viewer\.html\?book=\d*?(?:&env=(\w*))/.exec(href);
+			} else {
+				match = /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html/.exec(href);
+			}
+
 			if (match != null) {
-				if (match[1] == 'qa-') { BookshareUtils.environment = 'QA'; }
-				else if (match[1] == 'staging-') { BookshareUtils.environment = 'STAGING'; }
+				if (match[1] == 'qa') { BookshareUtils.environment = 'QA'; }
+				else if (match[1] == 'staging') { BookshareUtils.environment = 'STAGING'; }
 			}
 		}
 	},
