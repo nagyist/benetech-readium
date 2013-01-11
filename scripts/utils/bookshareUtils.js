@@ -78,7 +78,7 @@ window.BookshareUtils = {
 	setEnvironment: function(href) {
 		BookshareUtils.http = 'https://';
 
-		if (href.indexOf('http://reader.dev.bookshare.org:8080/viewer.html?bookId=') == 0) {
+		if (href.indexOf('http://reader.dev.bookshare.org:8080/viewer.html?book=') == 0) {
 			BookshareUtils.environment = 'DEV'; 
 			BookshareUtils.http = 'http://';
 		} else {
