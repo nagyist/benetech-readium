@@ -87,8 +87,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 
 	renderFontSize: function() {
 		var val = this.model.get("font_size");
-		var size = (val / 10).toString() + "em";
-
 		// set the value of the slider
 		this.$("#font-size-input").val(val);
 	},
