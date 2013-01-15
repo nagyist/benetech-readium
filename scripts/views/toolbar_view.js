@@ -32,6 +32,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		} else {
 			this.$("#go-to-fs-ico").toggle( false );
 			this.$("#leave-fs-ico").toggle( false );
+			this.$('#fs-toggle-btn').toggle( false );
 		}
 		return this;
 	},
