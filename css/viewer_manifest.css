@@ -2118,6 +2118,9 @@ body {
 #toc-header {
   height: 50px;
   border-bottom: 1px solid #CCC; }
+  #toc-header #toc-page-nav {
+    font-size: 1.2em;
+    padding: 12px 6px; }
   #toc-header #close-toc-button {
     height: 36px;
     width: 36px;

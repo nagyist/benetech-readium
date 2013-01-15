@@ -32,8 +32,6 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 	handlePageSelect : function (e) {
 	    var option = e.target[e.target.selectedIndex];
         var href = option.value;
-        // store selected option so it can be "selected" when TOC is re-rendered
-        this.model.set("selected_page_number", option.text)
         this.model.handleLink(href);
         var splitUrl = BookshareUtils.getSplitUrl(href);
 
@@ -92,8 +90,7 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	},
 
 	render: function() {
-        this.$('#toc-body').html("<label for='toc-page-select'>Go to page:</label> <select id='toc-page-select'></select>");
-		this.$('#toc-body').append( this.model.get("body").html() );
+		this.$('#toc-body').html( this.model.get("body").html() );
 		this.formatPageListNavigation();
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
 		if (this.model.get("visible")) {
@@ -137,16 +134,18 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		// Each nav element has a single ordered list of page numbers. Extract this data into an array so it can be 
 		//   loaded in the page-list control
 		// TODO: span elements can be used to create sub-headings. Implement functionality to account for this at some point.
-		$pageSelect = this.$("#toc-page-select");
-		selectedPage = this.model.get("selected_page_number")
-		$.each($('a', $pageListNavElement), function () { 
-			var $navTarget = $(this);
-			$pageSelect.append($('<option/>', {
-                value: $navTarget.attr('href'),
-                text: $navTarget.text(),
-                selected: $navTarget.text() == selectedPage
-                }));
-		});
-
+		$pageSelect = $("#toc-page-select");
+		if ($pageSelect.length == 0 && $pageListNavElement.length != 0) {
+            $pageSelect = $("<select id='toc-page-select'></select>");
+            $('#toc-page-nav').prepend($pageSelect).prepend("<label for='toc-page-select'>Go to page:</label> ");
+            $pageSelect.append($('<option/>', { disabled: true, selected: true }));
+    		$.each($('a', $pageListNavElement), function () { 
+    			var $navTarget = $(this);
+    			$pageSelect.append($('<option/>', {
+                    value: $navTarget.attr('href'),
+                    text: $navTarget.text()
+                    }));
+    		});
+        }
 	}
 });
