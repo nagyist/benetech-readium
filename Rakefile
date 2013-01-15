@@ -39,7 +39,7 @@ task :server do
 end
 
 task :styles  do
-	`sass --watch css/sass:css -r ./css/sass/bourbon/lib/bourbon.rb`
+	`sass --watch css/sass/viewer_manifest.scss:css/viewer_manifest.css`
 end
 
 desc "generate annotated source code with docco"
