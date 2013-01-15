@@ -27,7 +27,7 @@
 @config[:simple_copies] = ["background/**/*", "css/viewer_manifest.css", "css/library.css", "images/**/*", "manifest.json", "LICENSE", ]
 
 # list of js libraries that need to be copied over (right now these are just simple copies)
-@config[:js_libs] = ["lib/jquery-1.8.3.min.js", "lib/mathjax/**/*", "lib/pan_and_zoom.js", "scripts/libs/plugins.js", "scripts/libs/web_plugins.js", "lib/modernizr-2.5.3.min.js", "lib/2.5.3-crypto-sha1.js", "lib/select2.min.js", "lib/images/*"]
+@config[:js_libs] = ["lib/jquery-1.8.3.min.js", "lib/mathjax/**/*", "lib/pan_and_zoom.js", "scripts/libs/plugins.js", "scripts/libs/web_plugins.js", "lib/modernizr-2.5.3.min.js", "lib/2.5.3-crypto-sha1.js", "lib/images/*"]
 
 # html view files that need to have be processed (scripts) and copied over
 @config[:html_files] = ["views/viewer.html", "views/page.xhtml", "viewer.html", "page.xhtml"]
