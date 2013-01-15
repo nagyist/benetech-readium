@@ -56,6 +56,12 @@
 <span id="fsOT" class="offscreenText"></span>
 							</a>
 						</li>
+						<li>
+							<a title="Help" accesskey="h" href="#viewer-help-modal" id="help-btn" data-toggle="modal" role="button">
+								<img src="/images/top_bar/ico_help.png" class="nav-icon" alt=""/>
+<span class="offscreenText">Help</span>
+							</a>
+						</li>
 						<li class="divider-vertical"></li>
 						<li style="margin-right: 15px">
 							<a title="Hide Readium user interface" accesskey="x" id="hide-toolbar-button" class="toggle-bar-btn" href="#" role="button">
@@ -168,7 +174,15 @@
 			
 <div class="offscreenText"> Options End </div>
 		</div><!-- end le settings modal -->
-
+		<div class="modal fade" id="viewer-help-modal"  style="display: none"><!-- le help modal -->
+<div class="offscreenText"> Help Start </div>
+				<h1 tabindex="-1" id="options-heading">Reader Help:</h1>
+				<p>Some nice help content.</p>
+			<div id="settings-form-footer" class="clearfix">
+				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
+			</div>
+<div class="offscreenText"> Help End </div>
+		</div><!-- end le settings modal -->
 		<!-- le system modal -->
 		<div class="modal fade" id="system-message"  style="display: none">
 			<div class="offscreenText"> System Message Start </div>
@@ -253,6 +267,7 @@
 		<script src="/scripts/views/toolbar_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/toc_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/options_view.js" type="text/javascript"></script>
+		<script src="/scripts/views/help_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/fixed_layout_book_zoomer.js" type="text/javascript"></script>
 		<script src="/scripts/viewer.js" type="text/javascript"></script>
 		<script src="/scripts/routers/ws_router.js" type="text/javascript"></script>

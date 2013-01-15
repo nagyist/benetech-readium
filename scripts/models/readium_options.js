@@ -11,7 +11,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 		font_size: 10,
 		current_margin: 3,
 		current_theme: "default-theme",		
-		pagination_mode: 'single' //values are scrolling, single, facing
+		pagination_mode: 'scrolling' //values are scrolling, single, facing
 	},
 
 	sync: Readium.Utils.LocalStorageAdaptor("READIUM_OPTIONS"),

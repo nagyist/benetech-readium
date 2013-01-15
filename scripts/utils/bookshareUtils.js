@@ -32,13 +32,13 @@ window.BookshareUtils = {
 						xhrFields: {
 							withCredentials: true
 						},
-						cache: false,
 		        		crossDomain: true,
 		        		success: function(data, textStatus, jqXHR) { options.success(data); },
 		        		error: function(jqXHR, textStatus, errorThrown) { options.error(jqXHR); }
 		        	};
 
 					if (useJSONP) {
+						ajaxParams.cache = true;
 						ajaxParams.dataType = "jsonp " + dataType;
 					}
 
@@ -301,7 +301,9 @@ if ( window.XDomainRequest ) {
 					xdr.onerror = function() {
 						callback( 404, "Not Found" );
 					};
-					xdr.onprogress = jQuery.noop;
+					xdr.onprogress = function() {
+						console.log("Fetch in progress");
+					};
 					xdr.ontimeout = function() {
 						callback( 0, "timeout" );
 					};

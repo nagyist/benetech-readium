@@ -47,6 +47,9 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
 		this.optionsView.render();
+		
+		this.helpView = new Readium.Views.HelpView({model: _epubController});
+		this.helpView.render();
 
 		// the top bar
 		this.toolbar = new Readium.Views.ToolbarView({model: _epubController});
@@ -77,7 +80,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		}
 
 		$(document).keydown(function(e) {
-			if ($('#viewer-settings-modal').is(":visible")) return;
+			if (!that.allowAccessKey()) return;
 			if(e.which == 39) {
 				that.model.paginator.v.pages.goRight();
 			}
@@ -88,16 +91,23 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		});
 
 		$("#readium-book-view-el").on("swipeleft", function(e) {
-			if ($('#viewer-settings-modal').is(":visible")) return;
+			if (!that.allowAccessKey()) return;
 			e.preventDefault();
 			that.model.paginator.v.pages.goRight();			
 		});
 
 		$("#readium-book-view-el").on("swiperight", function(e) {
-			if ($('#viewer-settings-modal').is(":visible")) return;
+			if (!that.allowAccessKey()) return;
 			e.preventDefault();
 			that.model.paginator.v.pages.goLeft();
 		});
+	},
+	
+	allowAccessKey: function() {
+		if ($('#viewer-settings-modal').is(":visible") || $('#viewer-help-modal').is(":visible")) {
+			return false;
+		}
+		return true;
 	},
 
 	render: function() {
