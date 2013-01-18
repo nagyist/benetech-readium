@@ -241,16 +241,27 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		);
 	},
 
+	highlightThemes: {
+		"default": ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #DDDDDD; z-index: -2; }\n.ttsWordHL { background-color: #99CCFF; z-index: -1;}",
+		"night": ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #F37D01; z-index: -2; }\n.ttsWordHL { background-color: black; z-index: -1;}"
+	},
+	
 	// inject styles into iframe
     injectHighlightStyles: function (iframe) {
     	var doc, head, style;
 		doc = iframe.contentDocument;
 		head = doc.getElementsByTagName("head")[0];
-		
 		if(head) {
+			//Remove any previous ones.
+			var previousHighlightStyles = $(head).find("#highlightStyle");
+			if (previousHighlightStyles.length > 0) {
+				alert("Removing previous highlight styles");
+			}
 		    style = doc.createElement("style");
+			$(style).attr("id", "highlightStyle");
 			style.type = "text/css";
-			style.innerHTML = ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #DDDDDD; z-index: -2; }\n.ttsWordHL { background-color: #99CCFF; z-index: -1;}";
+			var theme = this.model.get("current_theme");
+			style.innerHTML = theme == "night-theme" ? this.highlightThemes["night"] : this.highlightThemes["default"];
 			head.appendChild(style);
 		}
     },
@@ -291,7 +302,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     	});
     },
 
-	injectTheme: function() {
+	injectTheme: function(iframe) {
 		var theme = this.model.get("current_theme");
 		if(theme === "default") theme = "default-theme";
 		$(this.getBody()).css({
@@ -303,6 +314,9 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		// just set content to be invisible
 		$("#flowing-wrapper").css("visibility", "hidden");
 		this.activateEPubStyle(this.getBody());
+		
+		//Update highlight colors.
+		this.injectHighlightStyles(this.getFrame());
 
 		// wait for new stylesheets to parse before setting back to visible
 		setTimeout(function() {
