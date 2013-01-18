@@ -83,12 +83,15 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		if(current_theme === "night-theme") {
 			if (this.model.get("day_theme")) {
 				this.model.set("current_theme", this.model.get("day_theme"));
+				Readium.Utils.setCookie("current_theme", this.model.get("day_theme"), 365);
 			} else {
 				this.model.set("current_theme", "default-theme");
+				Readium.Utils.setCookie("current_theme", "default-theme", 365);
 			}
 		} else {
 			this.model.set("day_theme", this.model.get("current_theme"));
 			this.model.set("current_theme", "night-theme");
+			Readium.Utils.setCookie("current_theme", "night-theme", 365);
 		}
 	},
 
