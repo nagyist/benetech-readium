@@ -255,7 +255,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			//Remove any previous ones.
 			var previousHighlightStyles = $(head).find("#highlightStyle");
 			if (previousHighlightStyles.length > 0) {
-				alert("Removing previous highlight styles");
+				$(previousHighlightStyles.remove());
 			}
 		    style = doc.createElement("style");
 			$(style).attr("id", "highlightStyle");
