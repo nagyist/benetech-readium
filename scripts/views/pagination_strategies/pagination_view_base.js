@@ -243,7 +243,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 
 	highlightThemes: {
 		"default": ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #DDDDDD; z-index: -2; }\n.ttsWordHL { background-color: #99CCFF; z-index: -1;}",
-		"night": ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #F37D01; z-index: -2; }\n.ttsWordHL { background-color: black; z-index: -1;}"
+		"night": ".ttsImgHL { background-color: #3366AA; opacity: 0.5; z-index: 4242;}\n.ttsSentHL { background-color: #B0C6F5; z-index: -2; }\n.ttsWordHL { background-color: #F37D01; z-index: -1;}"
 	},
 	
 	// inject styles into iframe
