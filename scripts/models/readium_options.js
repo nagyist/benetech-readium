@@ -9,6 +9,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 		verbose_unpacking: true,
 		display_page_numbers: true,
 		font_size: 10,
+		speech_rate: 1.0,
 		current_margin: 3,
 		current_theme: "default-theme",		
 		pagination_mode: 'scrolling' //values are scrolling, single, facing
@@ -24,7 +25,8 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 			"font_size": 			this.get("font_size"),
 			"display_page_numbers":	this.get("display_page_numbers"),
 			"current_theme": 		this.get("current_theme"),
-			"current_margin": 		this.get("current_margin")
+			"current_margin": 		this.get("current_margin"),
+			"speech_rate":          this.get("speech_rate")
 		});
 
 		if (this.get("pagination_mode") == 'scrolling') {

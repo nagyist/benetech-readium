@@ -6,6 +6,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.model.on("change:pagination_mode", this.renderPagination, this);
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
 		this.model.on("change:font_size", this.renderFontSize, this);
+		this.model.on("change:speech_rate", this.renderSpeechRate, this);
 
 		var that = this;
 
@@ -66,6 +67,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.renderPagination();
 		this.renderMarginRadio();
 		this.renderFontSize();
+		this.renderSpeechRate();
 		this.renderDisplayPageNumbers();
 		return this;
 	},
@@ -91,6 +93,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.$("#font-size-input").val(val);
 	},
 
+    renderSpeechRate: function() {
+        var val = this.model.get("speech_rate");
+        this.$("#speech-rate-input").val(val);
+    },
+
 	renderDisplayPageNumbers: function() {
 		this.$("#display-page-numbers")[0].checked = this.model.get("display_page_numbers");
 	},
@@ -102,7 +109,8 @@ Readium.Views.OptionsView = Backbone.View.extend({
     	"change #display-page-numbers":	"clickDisplayPageNumbers",
     	"click #cancel-settings-but": 	"cancelSettings",
 		"click #save-settings-but": 	"applySettings",
-    	"change #font-size-input": 		"extractFontSize"
+    	"change #font-size-input": 		"extractFontSize",
+    	"change #speech-rate-input":     "extractSpeechRate"
   	},
 
   	extractFontSize: function(e) {
@@ -110,6 +118,12 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		val = parseInt(val, 10);
 		this.model.set("font_size", val);
 	},
+
+    extractSpeechRate: function(e) {
+        var val = $("#speech-rate-input").val();
+        val = parseFloat(val);
+        this.model.set("speech_rate", val);
+    },
 
   	selectTheme: function(e) {
   		var id = e.srcElement ? e.srcElement.id : '';

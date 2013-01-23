@@ -47,7 +47,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             self.data = BeneSpeak.generateSpeechData(el);
             chrome.tts.speak(self.data.utterance,
                 {
-                    'rate' : 1.25,
+                    'rate' : self.controller.options.get("speech_rate"),
                     'desiredEventTypes' : ['word'],
                     'onEvent' : self._createCallbackHandler(self)
                 });
