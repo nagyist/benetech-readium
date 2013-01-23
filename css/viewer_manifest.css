@@ -2189,6 +2189,8 @@ body {
 }
 
 #readium-content {
+  margin-left: auto;
+  margin-right: auto;
   overflow-y: auto;
 }
 

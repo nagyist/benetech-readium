@@ -46,8 +46,6 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 				that.set("spine_position", pos);
 				that.set("reading_position", that.loadReadingPosition());
 
-				// tell the paginator to start rendering spine items from the 
-				// freshly restored position
 				var items = that.renderSpineItems();
 				that.set("rendered_spine_items", items);
 				
@@ -234,24 +232,12 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var spineItems = this.get("rendered_spine_items");
 		var spinePosIsRendered = spineItems.indexOf(pos) >=0 ? true : false;
 
-		// REFACTORING CANDIDATE: There is a somewhat hidden dependency here between the paginator
-		//   and the setting of the spine_position. The pagination strategy selector re-renders based on the currently
-		//   set spine_position on this model. The pagination strategy selector has a reference to this model, which is 
-		//   how it accesses the new spine_position, through the "getCurrentSection" method. 
-		//   This would be clearer if the spine_position to set were passed explicitly to the paginator. 
 		this.set("spine_position", pos);
-
-		// REFACTORING CANDIDATE: This event should only be triggered for fixed layout sections
-		this.trigger("FXL_goToPage");
 
 		// Render the new spine position if it is not already rendered.
 		if (!spinePosIsRendered) {
-			var renderedItems = this.paginator.renderSpineItems(goToLastPageOfSection, goToHashFragmentId);
+			var renderedItems = this.renderSpineItems(goToHashFragmentId);
 			this.set("rendered_spine_items", renderedItems);
-		} else {
-			if (!this.isFixedLayout() && goToHashFragmentId) {
-				this.paginator.v.goToHashFragment(goToHashFragmentId);
-			}
 		}
 	},
 
@@ -282,6 +268,24 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var spineItem = this.getCurrentSection();
 		this.v = new Readium.Views.ContentView({model: this});
 		return this.v.render(hashFragmentId);
+	},
+
+	goRight: function() {
+		if (this.get("page_prog_dir") === "rtl") {
+			this.goToPrevSection();
+		}
+		else {
+			this.goToNextSection();	
+		}
+	},
+
+	goLeft: function() {
+		if (this.get("page_prog_dir") === "rtl") {
+			this.goToNextSection();
+		}
+		else {
+			this.goToPrevSection();	
+		}
 	}
 });
 

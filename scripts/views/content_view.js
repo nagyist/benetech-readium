@@ -45,6 +45,9 @@ Readium.Views.ContentView = Backbone.View.extend({
 		var xhtml = this.model.getCurrentSection().content;
 		var body = xhtml.children[1];
 
+		// clear
+		this.resetEl();
+
 		// append body children
 		for (var i = 0; i < body.childNodes.length; i++) {
 			that.el.appendChild(body.childNodes[i].cloneNode(true));
@@ -64,7 +67,7 @@ Readium.Views.ContentView = Backbone.View.extend({
 					if (that.model.get('reading_position') != null) {
 						that.goToReadingPosition();
 					} else {
-						that.el.scrollTop(0);
+						that.el.scrollTop = 0;
 						// force call on scroll handler
 						that.el.onscroll();
 					}
@@ -73,23 +76,17 @@ Readium.Views.ContentView = Backbone.View.extend({
 	},
 
 	adjustContentDiv: function() {
-		console.log("Setting div size");
-		console.log("Wrapper is " + $("#readium-content-wrapper").width() + " by " + $("#readium-content-wrapper").height());
 		this.setDivSize();
-		console.log("Content div is " + $("#readium-content").width() + " by " + $("#readium-content").height());
 	},
 
 	setDivSize: function() {
 		var width = this.getDivWidth().toString() + "px";
 		var height = this.getDivHeight().toString() + "px";
 
-		console.log(width);
-		console.log(height);
-
-		this.$('#readium-content').attr("width", width);
-		this.$('#readium-content').attr("height", height);
-		this.$('#readium-content').css("width", width);
-		this.$('#readium-content').css("height", height);
+		this.$el.attr("width", width);
+		this.$el.attr("height", height);
+		this.$el.css("width", width);
+		this.$el.css("height", height);
 	},
 
 	getDivWidth: function() {
@@ -108,10 +105,6 @@ Readium.Views.ContentView = Backbone.View.extend({
 
 	getDivHeight: function() {
 		return $('#readium-content-wrapper').height();
-	},
-
-	getBody: function() {
-		return this.el.children[0];
 	},
 
 	getBoundingRect: function() {
@@ -168,7 +161,6 @@ Readium.Views.ContentView = Backbone.View.extend({
 		if (this.model.get("reading_position") != null) {
 			var focEl = $(this.el).find(this.model.get("reading_position"));
 			if (focEl.length > 0) {
-				console.log(focEl[0].getClientRects()[0].top);
 				this.trackScrolling = false;
 				this.el.scrollTop = focEl[0].getClientRects()[0].top - this.getBoundingRect().top;
 				this.trackScrolling = true;
@@ -207,8 +199,8 @@ Readium.Views.ContentView = Backbone.View.extend({
 
     divSetup: function() {
 		this.applySwitches( this.el );
-		this.addSwipeHandlers( this.el);
         this.togglePageNumbers();
+        this.injectLinkHandler();
 	},
 	
 	// ------------------------------------------------------------------------------------ //
@@ -278,23 +270,9 @@ Readium.Views.ContentView = Backbone.View.extend({
 		})
 	},
 
-	addSwipeHandlers: function(dom) {
-		var that = this;
-		$(dom).on("swipeleft", function(e) {
-			e.preventDefault();
-			that.model.goRight();
-			
-		});
-
-		$(dom).on("swiperight", function(e) {
-			e.preventDefault();
-			that.model.goLeft();
-		});
-	},
-
 	togglePageNumbers: function () {
 		var that = this;
-		$(this.getBody()).find(".bksPageNumber").each(
+		this.$el.find(".bksPageNumber").each(
 			function(idx, el) {
 				if (that.model.get("display_page_numbers")) {
 					el.textContent = el.getAttribute("title");
@@ -309,9 +287,9 @@ Readium.Views.ContentView = Backbone.View.extend({
 		);
 	},
 
-    injectLinkHandler: function(iframe) {
+    injectLinkHandler: function() {
     	var that = this;
-    	$('a', iframe.contentDocument).click(function(e) {
+    	$('a', this.el).click(function(e) {
     		that.linkClickHandler(e)
     	});
     },
@@ -320,6 +298,26 @@ Readium.Views.ContentView = Backbone.View.extend({
 		var theme = this.model.get("current_theme");
 		this.$el.removeClass(this.model.previous("current_theme"));
 		this.$el.addClass(theme);
+	},
+
+	resetEl: function() {
+		// nuke the kids
+		while (this.el.hasChildNodes()) {
+			this.el.removeChild(this.el.childNodes[this.el.childNodes.length - 1]);
+		}
+	},
+
+	events: {
+		"swipeleft": function(e) {
+			e.preventDefault();
+			this.model.goRight();			
+		},
+
+		"swiperight": function(e) {
+			e.preventDefault();
+			this.model.goLeft();			
+		}
+
 	}
 
 });

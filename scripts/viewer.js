@@ -1,6 +1,3 @@
-// REFACTORING CANDIDATE: Parts of this model are making calls to the current view through the epubController->paginator->view->etc., 
-//   that is a lot of indirection. Perhaps epubController shouldn't be at the centre of this model anymore.
-
 Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 	el: 'body',
@@ -82,24 +79,24 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		$(document).keydown(function(e) {
 			if (!that.allowAccessKey()) return;
 			if(e.which == 39) {
-				that.model.paginator.v.pages.goRight();
+				that.model.goRight();
 			}
 							
 			if(e.which == 37) {
-				that.model.paginator.v.pages.goLeft();
+				that.model.goLeft();
 			}
 		});
 
 		$("#readium-book-view-el").on("swipeleft", function(e) {
 			if (!that.allowAccessKey()) return;
 			e.preventDefault();
-			that.model.paginator.v.pages.goRight();			
+			that.model.goRight();			
 		});
 
 		$("#readium-book-view-el").on("swiperight", function(e) {
 			if (!that.allowAccessKey()) return;
 			e.preventDefault();
-			that.model.paginator.v.pages.goLeft();
+			that.model.goLeft();
 		});
 	},
 	
@@ -166,10 +163,10 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	
 	events: {
 		"click #prev-page-button": 	function() { 
-			this.model.paginator.v.pages.goLeft();
+			this.model.goLeft();
 		},
 		"click #next-page-button": 	function() { 
-			this.model.paginator.v.pages.goRight();
+			this.model.goRight();
 		}
   	}
 });
