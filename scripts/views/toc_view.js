@@ -116,14 +116,12 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		var $navElements;
 		var $pageListNavElement;
 		var $pageSelect;
-		var selectedPage;
+		var $pageListLinks;
 
 		// Search for a nav element with epub:type="page-list". A nav element of this type must not occur more than once.
 		$navElements = this.$("nav");
 		$pageListNavElement = $navElements.filter(function () {
-
 			if ($(this).attr("epub:type") === 'page-list') {
-
 				// Hide the standard XHTML page-list nav element in favor of #toc-page-select
 				$(this).attr("id", "page-list-select");
 				$(this).hide();
@@ -135,11 +133,12 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		//   loaded in the page-list control
 		// TODO: span elements can be used to create sub-headings. Implement functionality to account for this at some point.
 		$pageSelect = $("#toc-page-select");
-		if ($pageSelect.length == 0 && $pageListNavElement.length != 0) {
+		$pageListLinks = $pageListNavElement.find("a").not(":empty");
+		if ($pageSelect.length == 0 && $pageListLinks.length != 0) {
             $pageSelect = $("<select id='toc-page-select'></select>");
             $('#toc-page-nav').prepend($pageSelect).prepend("<label for='toc-page-select'>Go to page:</label> ");
             $pageSelect.append($('<option/>', { disabled: true, selected: true }));
-    		$.each($('a', $pageListNavElement), function () { 
+    		$pageListLinks.each(function () { 
     			var $navTarget = $(this);
     			$pageSelect.append($('<option/>', {
                     value: $navTarget.attr('href'),
