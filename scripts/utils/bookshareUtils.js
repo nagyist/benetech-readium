@@ -127,23 +127,22 @@ window.BookshareUtils = {
 	},
 
 	findTopElement: function(viewObject) {
-		var contentFrame = viewObject.getFrame();
+		var contentDiv = viewObject.$el;
 
 		if (viewObject.model.epub.get("page_prog_dir") == "rtl") {
-			var plumbLine = (2 * parseInt(contentFrame.width.replace('px', ''), 10)) / 3;
+			var plumbLine = (2 * contentDiv.width()) / 3;
 		} else {
-			var plumbLine = parseInt(contentFrame.width.replace('px', ''), 10) / 3;
+			var plumbLine = contentDiv.width() / 3;
 		}
 
 		var result = null;
-		var height = parseInt(contentFrame.height.replace('px', ''), 10);
-		var contentDoc = contentFrame.contentDocument;
-		var y = 0;
+		var height = contentDiv.height();
+		var y = viewObject.getBoundingRect().top;
 
-		result = contentDoc.elementFromPoint(plumbLine, y);
+		result = document.elementFromPoint(plumbLine, y);
 		while (y < height && result != null && this.POSITION_TRACKING_EXCLUSIONS.indexOf(result.tagName.toLowerCase()) > -1) {
 			y = y + 10;
-			result = contentDoc.elementFromPoint(plumbLine, y);
+			result = document.elementFromPoint(plumbLine, y);
 		}
 		return result;
 	},

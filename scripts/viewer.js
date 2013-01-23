@@ -2,9 +2,8 @@
 //   that is a lot of indirection. Perhaps epubController shouldn't be at the centre of this model anymore.
 
 Readium.Views.ViewerApplicationView = Backbone.View.extend({
-	el: 'body',
 
-	uiVisible: false,
+	el: 'body',
 
 	initialize: function() {
 		var current_theme = Readium.Utils.getCookie("current_theme");

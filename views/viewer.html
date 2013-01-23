@@ -1,7 +1,6 @@
+<!DOCTYPE html>
 <html>
 	<head xmlns="http://www.w3.org/2000/xmlns/" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:ev="http://www.w3.org/2001/xml-events">
-
-		
 		<meta charset="UTF-8">
 
 		<title>Bookshare Web Reader</title>
@@ -22,7 +21,7 @@
 
 					<a title="Back to Bookshare.org" accesskey="b" class="brand" href="https://www.bookshare.org/" id='bar-logo' role="button">
 						<img src="/images/top_bar/bks_web_reader_logo.png" id="bar-logo-img" alt=""/>
-<span class="offscreenText">Back to Bookshare.org</span>
+						<span class="offscreenText">Back to Bookshare.org</span>
 					</a>
 
 					<ul class="nav pull-right">
@@ -30,97 +29,82 @@
 						<li>
 							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
 								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Table of contents</span>
+								<span class="offscreenText">Table of contents</span>
 							</a>
 						</li>
 						<li>
-							<a title="Text to Speech" accesskey="m" href="#" id='play-tts-btn' role="button">
+							<a title="Text to Speech" accesskey="v" href="#" id='play-tts-btn' role="button">
 								<img src="/images/top_bar/ico_tts.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Text to Speech</span>
+								<span class="offscreenText">Text to Speech</span>
 							</a>
 						</li>
 						<li class="divider-vertical stubby"></li>
 						<li>
 							<a title="Options" accesskey="o" href="#viewer-settings-modal" id="options-btn" data-toggle="modal" role="button">
 								<img src="/images/top_bar/options.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Options</span>
+								<span class="offscreenText">Options</span>
 							</a>
 						</li>
 						<li>
 							<a accesskey="n" href="#" id="nightmode-btn" role="button">
 								<img src="/images/top_bar/ico_nightmode_toggle_off.png" class="nav-icon" id="day-to-night-ico" alt=""/>
 								<img src="/images/top_bar/ico_nightmode_toggle_on.png" class="nav-icon" id="night-to-day-ico" alt=""/>
-<span id="nmOT" class="offscreenText"></span>
+								<span id="nmOT" class="offscreenText"></span>
 							</a>
 						</li>
 						<li>
 							<a accesskey="f" href="#" id="fs-toggle-btn" role="button">
 								<img src="/images/top_bar/ico_fs_toggle_on.png" class="nav-icon" id="go-to-fs-ico" alt=""/>
 								<img src="/images/top_bar/ico_fs_toggle_off.png" class="nav-icon" id="leave-fs-ico" alt=""/>
-<span id="fsOT" class="offscreenText"></span>
+								<span id="fsOT" class="offscreenText"></span>
 							</a>
 						</li>
 						<li>
 							<a title="Help" accesskey="h" href="#viewer-help-modal" id="help-btn" data-toggle="modal" role="button">
 								<img src="/images/top_bar/ico_help.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Help</span>
+								<span class="offscreenText">Help</span>
 							</a>
 						</li>
 						<li class="divider-vertical"></li>
 						<li style="margin-right: 15px">
 							<a title="Hide toolbar" accesskey="x" id="hide-toolbar-button" class="toggle-bar-btn" role="button">
 		 						<img src="/images/top_bar/ico_closeUI.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Hide toolbar</span>
+								<span class="offscreenText">Hide toolbar</span>
 							</a>
 						</li>
-
 					</ul>
-			
-
 				</div>
 			</div>
 			<span title="Show toolbar" accesskey="v" tabindex="0" id="show-toolbar-button" class="pull-right" role="button" >
  				<img src="/images/top_bar/ico_openUI.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Show toolbar</span>
+				<span class="offscreenText">Show toolbar</span>
 			</span>
     	</div><!-- end le top bar -->
 
+    	<div id='readium-content-wrapper'>
+	    	<div id='readium-content' aria-role="main" aria-live="polite">
+	    	</div>
+    	</div>
+
     	<div id='readium-toc' style="display: none">
-<div class="offscreenText"> Table of Contents Start </div>
+			<div class="offscreenText"> Table of Contents Start </div>
 
     		<div id="toc-header">
     		    <div id="toc-page-nav"></div>
     			<span id="close-toc-button" tabindex="0" role="button">
-<span class="offscreenText">Close Table of Contents</span>
-</span>
+					<span class="offscreenText">Close Table of Contents</span>
+				</span>
     		</div>
     		<div id="toc-body">
     		</div>
  			
-<div class="offscreenText"> Table of Contents End </div>
+			<div class="offscreenText"> Table of Contents End </div>
  		</div> 
 
- 		<div id="readium-right-content">
-
-    	<a id="next-page-button" href="#" role="button" accesskey="2">
-<span class="offscreenText">Next Page</span>
-</a>
-    	<a id="prev-page-button" href="#" role="button" accesskey="1">
-<span class="offscreenText">Previous Page</span>
-</a>
-
-
-		<div id="readium-book-view-el">
- 			<div id='page-wrap' class='clearfix'>
-				<div id="container" class='clearfix'></div>
-				<div id='spine-divider'></div>
-			</div>
-		</div>
-		</div> <!-- end readium-right-content -->
-
-		<div class="modal fade" id="viewer-settings-modal"  style="display: none"><!-- le settings modal -->
-<div class="offscreenText"> Options Start </div>
-				<h1 tabindex="-1" id="options-heading">Viewer Options:</h1>
+ 		<!-- settings modal dialog -->
+		<div class="modal fade" id="viewer-settings-modal" aria-role="dialog" style="display: none">
+				<div class="offscreenText"> Options Start </div>
+				<h1 tabindex="0" id="options-heading">Viewer Options:</h1>
 			<div id='settings-margin'>
 				<div>
 					<h2 class="setting-header">FONT SIZE</h2>
@@ -177,31 +161,32 @@
 				</div>
 			</div>
 			<div id="settings-form-footer" class="clearfix">
-				<button accesskey="c" class='btn btn-inverse' id="cancel-settings-but">Cancel</button>
-				<button accesskey="s" class='btn btn-inverse' id="save-settings-but">Save</button>
+				<button class='btn btn-inverse' id="cancel-settings-but">Cancel</button>
+				<button class='btn btn-inverse' id="save-settings-but">Save</button>
 			</div>
 			
-<div class="offscreenText"> Options End </div>
-		</div><!-- end le settings modal -->
-		<div class="modal fade" id="viewer-help-modal"  style="display: none"><!-- le help modal -->
-<div class="offscreenText"> Help Start </div>
-				<h1 tabindex="-1" id="options-heading">Reader Help:</h1>
-				<p>Some nice help content.</p>
+			<div class="offscreenText"> Options End </div>
+		</div>
+
+ 		<!-- help modal -->
+		<div class="modal fade" id="viewer-help-modal" aria-role="dialog" style="display: none">
+			<div class="offscreenText"> Help Start </div>
+			<h1 tabindex="-1" id="options-heading">Reader Help:</h1>
+			<p>Some nice help content.</p>
 			<div id="settings-form-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
 			</div>
-<div class="offscreenText"> Help End </div>
-		</div><!-- end le help modal -->
-		<!-- le system modal -->
-		<div class="modal fade" id="system-message"  style="display: none">
+			<div class="offscreenText"> Help End </div>
+		</div>
+
+		<!-- System message modal -->
+		<div class="modal fade" id="system-message" aria-role="dialog" style="display: none">
 			<div class="offscreenText"> System Message Start </div>
 			<div id="system-message-content">
-
+				<!-- content goes here -->
 			</div>
 			<div class="offscreenText"> System Message End </div>
 		</div>
-		<!-- end le system modal -->
-
 
 		
 	    <script src="/lib/jquery-1.8.3.min.js" type="text/javascript" ></script>
@@ -216,7 +201,6 @@
 		<script src="/scripts/utils/cookie_utils.js" type="text/javascript"></script>
 		<script src="/scripts/utils/bb_file_system_sync.js" type="text/javascript"></script>
 		<script src="/scripts/utils/local_storage_sync.js" type="text/javascript"></script>
-		<script src="/scripts/models/alternate_style_tag_selector.js" type="text/javascript"></script>
 		<script src="/scripts/models/manifest_item.js" type="text/javascript"></script>
 		<script src="/scripts/models/package_document_parser.js" type="text/javascript"></script>
 		<script src="/scripts/models/packageDocument.js" type="text/javascript"></script>
@@ -224,16 +208,11 @@
 		<script src="/scripts/models/ttsPlayer.js" type="text/javascript"></script>
 		<script src="/scripts/models/readium_options.js" type="text/javascript"></script>
 		<script src="/scripts/models/toc.js" type="text/javascript"></script>
-		<script src="/scripts/models/pagination_strategy_selector.js" type="text/javascript"></script>
-		<script src="/scripts/models/trigger.js" type="text/javascript"></script>
-		<script src="/scripts/views/pagination_strategies/pagination_view_base.js" type="text/javascript"></script>
-		<script src="/scripts/views/pagination_strategies/injected_reflowable_pagination_view.js" type="text/javascript"></script>
-		<script src="/scripts/views/pagination_strategies/injected_scrolling_pagination_view.js" type="text/javascript"></script>
+		<script src="/scripts/views/content_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/toolbar_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/toc_view.js" type="text/javascript"></script>
 		<script src="/scripts/views/options_view.js" type="text/javascript"></script>
         <script src="/scripts/views/help_view.js" type="text/javascript"></script>
-		<script src="/scripts/views/fixed_layout_book_zoomer.js" type="text/javascript"></script>
 		<script src="/scripts/viewer.js" type="text/javascript"></script>
 		<script src="/scripts/routers/crx_viewer_router.js" type="text/javascript"></script>
 		<script src="/scripts/models/epub.js" type="text/javascript"></script>
@@ -245,8 +224,5 @@
 		<script src="/scripts/utils/bookshareUtils.js" type="text/javascript"></script>		
 		<!-- end scripts -->
 
-		<!-- Mathjax has its own deal going on so leave it the F alone -->
-		<script src="/lib/mathjax/MathJax.js?config=readium" type="text/javascript"></script>
-		
 	</body>
 </html>

@@ -26,19 +26,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// Load options from local storage
 		this.options = Readium.Models.ReadiumOptions.getInstance();
 
-		// use modernizr to detect css column support
-		this.set("columns_supported", Modernizr.testProp(Modernizr.prefixed('columnWidth')));
-		if (!this.get("columns_supported")) {
-			this.options.set("pagination_mode", "scrolling");
-		}
-
 		// apply options
 		this.options.set("controller", this);
 		this.options.applyOptions();
-
-		// create a [`Paginator`](/docs/paginator.html) object used to initialize
-		// pagination strategies for the spine items of this book
-		this.paginator = new Readium.Models.PaginationStrategySelector({book: this});
 
 		// Get the epub package document
 		this.packageDocument = this.epub.getPackageDocument();
@@ -58,7 +48,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 				// tell the paginator to start rendering spine items from the 
 				// freshly restored position
-				var items = that.paginator.renderSpineItems(false);
+				var items = that.renderSpineItems();
 				that.set("rendered_spine_items", items);
 				
 				// check if a TOC is specified in the `packageDocument`
@@ -87,8 +77,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 	defaults: {
     	"font_size": 10,
     	"display_page_numbers": true,
-    	"should_scroll": false,
-    	"two_up": false,
+    	"should_scroll": true,
     	"full_screen": false,
     	"toolbar_visible": true,
     	"toc_visible": false,
@@ -279,6 +268,20 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 			});
 		}
 		this.meta_section.on("change:meta_height", this.setMetaSize, this);
+	},
+
+	renderSpineItems: function(hashFragmentId) {
+		var book = this.model;
+		var that = this;
+
+		// clean up the old view if there is one
+		if (this.v) {
+			this.v.destruct();
+		}
+
+		var spineItem = this.getCurrentSection();
+		this.v = new Readium.Views.ContentView({model: this});
+		return this.v.render(hashFragmentId);
 	}
 });
 
