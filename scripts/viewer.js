@@ -118,8 +118,8 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 	renderPageButtons: function() {
 		var vis = this.model.get("toolbar_visible");
-		this.$("#prev-page-button").toggle(vis);
-		this.$("#next-page-button").toggle(vis);
+		this.$("#prev-section-button").toggle(vis);
+		this.$("#next-section-button").toggle(vis);
 		return this;
 	},
 
@@ -162,10 +162,10 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	},	
 	
 	events: {
-		"click #prev-page-button": 	function() { 
+		"click #prev-section-button": 	function() { 
 			this.model.goLeft();
 		},
-		"click #next-page-button": 	function() { 
+		"click #next-section-button": 	function() { 
 			this.model.goRight();
 		}
   	}
