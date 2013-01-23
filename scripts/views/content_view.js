@@ -93,11 +93,11 @@ Readium.Views.ContentView = Backbone.View.extend({
 		var width;
 		var margin = this.model.get("current_margin");
 		switch (margin) {
-			case 1: width = 0.90; break;
-			case 2: width = 0.80; break;
-			case 3: width = 0.70; break;
-			case 4: width = 0.60; break;
-			default: width = 0.50; break;
+			case 1: width = 0.95; break;
+			case 2: width = 0.85; break;
+			case 3: width = 0.75; break;
+			case 4: width = 0.65; break;
+			default: width = 0.55; break;
 		}
 		
 		return Math.floor( $('#readium-content-wrapper').width() * width );
