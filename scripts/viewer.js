@@ -3,8 +3,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	el: 'body',
 
 	initialize: function() {
-		var current_theme = Readium.Utils.getCookie("current_theme");
-		this.model.set("current_theme", current_theme ? current_theme : "default-theme");
 		// map fullscreen methods
 		var that = this;
 		for (var i = 0; i < Modernizr._domPrefixes.length; i++) {
@@ -39,7 +37,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		// event handlers
 		this.model.on("change:full_screen", this.toggleFullscreen, this);
 		this.model.on("change:current_theme", this.renderTheme, this);
-		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
 		this.model.on("change:toc_visible", this.renderTocVisible, this);
 
 		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
@@ -111,16 +108,8 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		// right now we dont do anything but 
 		// convention is to return this from render
 		this.renderTheme();
-		this.renderPageButtons();
 		this.renderTocVisible();
 		return this; 
-	},
-
-	renderPageButtons: function() {
-		var vis = this.model.get("toolbar_visible");
-		this.$("#prev-section-button").toggle(vis);
-		this.$("#next-section-button").toggle(vis);
-		return this;
 	},
 
 	renderTheme: function() {
@@ -141,14 +130,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	renderTocVisible: function() {
 		var vis = this.model.get("toc_visible");
 		$('#toggle-toc-btn').attr('aria-pressed', vis ? 'true' : 'false');
-		this.$el.toggleClass("show-readium-toc", vis);
-		var that = this;
-		if (vis) {
-			setTimeout( function() {
-				that.toc.model.updateTocHighlight();
-				that.$el.find(that.toc.model.get("toc_highlight_selector")).focus();
-			}, 50);
-		} 
 		return this;
 	},
 
@@ -157,7 +138,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 			var toc_item = this.model.getToc();			
 			this.toc = toc_item.TocView();
 			toc_item.fetch();
-
 		}
 	},	
 	

@@ -144,7 +144,6 @@ window.BookshareUtils = {
 			y = y + 10;
 			result = document.elementFromPoint(plumbLine, y);
 		}
-		console.log(result);
 		return result;
 	},
 
@@ -191,17 +190,6 @@ window.BookshareUtils = {
 		return this.ie9Flag;
 	},
 	
-	setFocus: function(goToId) {
-		var contentsFrame = $(window._epubController.paginator.v.getFrame());
-		contentsFrame.focus();
-		var elementToFocusOn = contentsFrame.contents().find("#"+goToId);
-		if ($(elementToFocusOn).length > 0) {
-			setTimeout(function() {
-				elementToFocusOn.attr('tabindex', '-1').focus();
-			}, 500);
-		}
-	},
-	
 	//Return a path relative to the root of the publication.
 	getRelativePath: function(href) {
 		var publicationRoot = window._epubController.get("publication_root");
@@ -211,6 +199,9 @@ window.BookshareUtils = {
 	},
 
 	raiseModal: function(selector, options) {
+		// suspend tracking
+		window._epubController.set("track_position", false);
+
 		// create background div
 		var backdrop = document.createElement("div");
 		backdrop.id = "modal-backdrop";
@@ -235,6 +226,7 @@ window.BookshareUtils = {
 		$('#modal-backdrop').fadeOut(100,
 			function() {
 				document.body.removeChild(document.getElementById("modal-backdrop"));
+				window._epubController.set("track_position", true);
 			}
 		);
 	},

@@ -24,7 +24,6 @@ Readium.Views.HelpView = Backbone.View.extend({
   	},
 
   	hide: function(e) {
-  		console.log(this.el);
 		BookshareUtils.dismissModal(this.el);
   	}
 });

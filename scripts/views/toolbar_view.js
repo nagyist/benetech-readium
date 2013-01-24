@@ -4,7 +4,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.parentView = options.parentView;
-		this.model.set("toolbar_visible", Readium.Utils.getCookie("toolbar_visible") === "true");
+		this.model.set("toolbar_visible", Readium.Utils.getCookie("toolbar_visible") !== "false");
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
@@ -55,7 +55,8 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		"click #toggle-toc-btn": "toggle_toc",
 		"click #nightmode-btn": "toggle_night_mode",
 		"click #play-tts-btn": "play_tts",
-		"click #help-btn": "show_help"
+		"click #help-btn": "show_help",
+		"click #options-btn": "show_options"
 	},
 
 	show_toolbar: function(e) {
@@ -85,20 +86,22 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.parentView.helpView.show();
 	},
 
+	show_options: function(e) {
+		e.preventDefault();
+		this.parentView.optionsView.show();
+	},
+
 	toggle_night_mode: function() {
 		var current_theme = this.model.get("current_theme");
 		if(current_theme === "night-theme") {
 			if (this.model.get("day_theme")) {
 				this.model.set("current_theme", this.model.get("day_theme"));
-				Readium.Utils.setCookie("current_theme", this.model.get("day_theme"), 365);
 			} else {
 				this.model.set("current_theme", "default-theme");
-				Readium.Utils.setCookie("current_theme", "default-theme", 365);
 			}
 		} else {
 			this.model.set("day_theme", this.model.get("current_theme"));
 			this.model.set("current_theme", "night-theme");
-			Readium.Utils.setCookie("current_theme", "night-theme", 365);
 		}
 	},
 

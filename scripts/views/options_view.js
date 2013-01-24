@@ -150,16 +150,23 @@ Readium.Views.OptionsView = Backbone.View.extend({
   	},
 
   	cancelSettings: function(e) {
-  		this.$el.modal('hide');
+  		BookshareUtils.dismissModal(this.el);
   		this.model.resetOptions();
 		$('#options-btn').focus();
   	},
 
   	applySettings: function(e) {
   		this.model.applyOptions();
-  		this.$el.modal('hide');
+  		BookshareUtils.dismissModal(this.el);
 		$('#options-btn').focus();
-  	}
+  	},
 
-
+  	show: function(e) {
+  		var that = this;
+		BookshareUtils.raiseModal(that.el, {
+			firstElem: document.getElementById("options-heading"),
+			lastElem: document.getElementById("save-settings-but"),
+			cancelFn: function() { that.cancelSettings(); }
+		});
+  	},
 });

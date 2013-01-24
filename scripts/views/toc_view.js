@@ -3,49 +3,50 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 	el: "#readium-toc",
 
 	initialize: function() {
-		this.model.on("change", this.render, this);
-		this.model.on("change:visible", this.setVisibility, this);
+		this.model.book.on("change:toc_visible", this.setVisibility, this);
+		this.model.on("change:toc_highlight_selector", this.updateHighlight, this);
+		this.rendered = false;
 	},
 
 	events: {
 		"click a": "handleClick",
 		"click #close-toc-button": "closeToc",
-		"keyup #close-toc-button": "closeToc"
 	},
 
 	setVisibility: function() {
-		this.$el.toggle(this.model.get("visible"));
+		var that = this;
+		if (this.model.book.get("toc_visible")) {
+			if (! this.rendered) {
+				this.render();
+			}
+
+			BookshareUtils.raiseModal(this.el,
+				{
+					firstElem: document.getElementById("toc-heading"),
+					lastElem: document.getElementById("close-toc-button"),
+					cancelFn: function() { that.closeToc(); }
+				}
+			);
+		} 
+		// the modal launcher preselects the first element, we actually want
+		// the currently-selected element
 	},
 
 	handleClick: function(e) {
 		e.preventDefault();
-		href = $(e.currentTarget).attr("href");
+		var href = $(e.currentTarget).attr("href");
 		this.model.handleLink(href);
-		var splitUrl = BookshareUtils.getSplitUrl(href);
-
-		// handle the base url first:
-		if(splitUrl[1]) {
-			BookshareUtils.setFocus(splitUrl[2]);
-		}
 	},
 
 	handlePageSelect : function (e) {
 	    var option = e.target[e.target.selectedIndex];
         var href = option.value;
         this.model.handleLink(href);
-        var splitUrl = BookshareUtils.getSplitUrl(href);
-
-        // handle the base url first:
-        if(splitUrl[1]) {
-            BookshareUtils.setFocus(splitUrl[2]);
-        }
 	},
 
 	closeToc: function(e) {
-		if (e.type == "click" || (e.type == "keyup" && e.keyCode == 13)) {
-			e.preventDefault();
-			this.model.hide();
-		}
+		BookshareUtils.dismissModal(this.el);
+		this.model.book.set("toc_visible", false);
 	}, 
 
 	scrollToNavItem: function(el) {
@@ -66,15 +67,12 @@ Readium.Views.NcxTocView = Readium.Views.TocViewBase.extend({
 	},
 
 	render: function() {
-		this.setVisibility();
 		var ol = $("<ol></ol>");
 		var navs = this.model.get("navs");
 		for(var i = 0; i < navs.length; i++) {
 			ol.append( this.nav_template(navs[i]) );
 		}
-		this.$('#toc-body').html("<h1 tabindex='-1' id='toc-heading-ref'>" + (this.model.get("title") || "Table of Contents") + "</h1>");
 		this.$('#toc-body').append(ol);
-		this.$('#toc-body').append("<div id='toc-end-spacer'>");
 		return this;
 	}
 
@@ -85,7 +83,6 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	events: {
 		"click a": "handleClick",
 		"click #close-toc-button": "closeToc",
-		"keyup #close-toc-button": "closeToc",
 		"change #toc-page-select": "handlePageSelect"
 	},
 
@@ -93,13 +90,11 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		this.$('#toc-body').html( this.model.get("body").html() );
 		this.formatPageListNavigation();
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
-		if (this.model.get("visible")) {
-			this.renderTocHighlight();
-		}
+		this.updateTocHighlight();
 		return this;
 	},
 
-	renderTocHighlight: function() {
+	updateTocHighlight: function() {
 		var selector = this.model.get("toc_highlight_selector");
 		if (selector) {
 			var targetLink = this.$('#toc-body').find(selector).addClass("tocHighlight");

@@ -5,27 +5,12 @@ Readium.Models.Toc = Backbone.Model.extend({
 	initialize: function(options) {
 		this.file_path = options.file_path;
 		this.book = options.book;
-		this.book.on("change:toc_visible", this.setVisibility, this);
 		this.book.on("change:toolbar_visible", this.setTocVis, this);
 		this.book.on("change:reading_position", this.updateTocHighlight, this);
 	},
 
 	handleLink: function(href) {
 		this.book.goToHref(href);
-	},
-
-	setVisibility: function() {
-		this.set("visible", this.book.get("toc_visible"));
-	},
-
-	hide: function() {
-		this.book.set("toc_visible", false)
-	},
-
-	setTocVis: function() {
-		if(!this.book.get("toolbar_visible")) {
-			this.book.set("toc_visible", false);
-		}
 	},
 
 	// stub for base class

@@ -25,7 +25,6 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 			"current_theme": 		this.get("current_theme"),
 			"current_margin": 		this.get("current_margin")
 		});
-
 		this.save();
 	},
 

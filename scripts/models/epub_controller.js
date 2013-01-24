@@ -238,6 +238,8 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		if (!spinePosIsRendered) {
 			var renderedItems = this.renderSpineItems(goToHashFragmentId);
 			this.set("rendered_spine_items", renderedItems);
+		} else {
+			this.v.goToHashFragment(goToHashFragmentId);
 		}
 	},
 

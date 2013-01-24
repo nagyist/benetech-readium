@@ -55,6 +55,7 @@ Readium.Views.ContentView = Backbone.View.extend({
 
 		that.adjustContentDiv();
 		that.divSetup();
+		that.setTheme();
 		that.setFontSize();
 		that.el.onscroll = that.makeScrollHandler();
 
@@ -172,7 +173,7 @@ Readium.Views.ContentView = Backbone.View.extend({
 		var that = this;
 		return function(evt) {
 			if (that.trackScrolling && !!that.model.get('track_position')) {
-				var el = BookshareUtils.findTopElement(that, 0.3);
+				var el = BookshareUtils.findTopElement(that);
 				that.model.set('reading_position', BookshareUtils.getSelectorForNearestElementWithId(el));
 			}
 		};
@@ -219,11 +220,6 @@ Readium.Views.ContentView = Backbone.View.extend({
 		} else {
 			this.model.goToHref(href);
 			var splitUrl = BookshareUtils.getSplitUrl(href);
-
-			// handle the base url first:
-			if(splitUrl[1]) {
-				BookshareUtils.setFocus(splitUrl[2]);
-			}
 		}
 	},
 	
