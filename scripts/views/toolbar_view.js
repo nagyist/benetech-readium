@@ -2,7 +2,8 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 
 	el: "#toolbar-el",
 
-	initialize: function() {
+	initialize: function(options) {
+		this.parentView = options.parentView;
 		this.model.set("toolbar_visible", Readium.Utils.getCookie("toolbar_visible") === "true");
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
@@ -53,7 +54,8 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		"click #fs-toggle-btn": "toggle_fs",
 		"click #toggle-toc-btn": "toggle_toc",
 		"click #nightmode-btn": "toggle_night_mode",
-		"click #play-tts-btn": "play_tts"
+		"click #play-tts-btn": "play_tts",
+		"click #help-btn": "show_help"
 	},
 
 	show_toolbar: function(e) {
@@ -76,6 +78,11 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	toggle_toc: function(e) {
 		e.preventDefault();
 		this.model.toggleToc();
+	},
+
+	show_help: function(e) {
+		e.preventDefault();
+		this.parentView.helpView.show();
 	},
 
 	toggle_night_mode: function() {

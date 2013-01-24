@@ -46,20 +46,20 @@
 						</li>
 						<li class="divider-vertical stubby"></li>
 						<li>
-							<a title="Text to Speech" accesskey="v" href="#" id='play-tts-btn' role="button">
+							<a title="Text to Speech" accesskey="s" href="#" id='play-tts-btn' role="button">
 								<img src="/images/top_bar/ico_tts.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Text to Speech</span>
 							</a>
 						</li>
 						<li class="divider-vertical stubby"></li>
 						<li>
-							<a title="Options" accesskey="o" href="#viewer-settings-modal" id="options-btn" data-toggle="modal" role="button">
+							<a title="Options" accesskey="o" id="options-btn" role="button">
 								<img src="/images/top_bar/options.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Options</span>
 							</a>
 						</li>
 						<li>
-							<a accesskey="n" href="#" id="nightmode-btn" role="button">
+							<a accesskey="d" href="#" id="nightmode-btn" role="button">
 								<img src="/images/top_bar/ico_nightmode_toggle_off.png" class="nav-icon" id="day-to-night-ico" alt=""/>
 								<img src="/images/top_bar/ico_nightmode_toggle_on.png" class="nav-icon" id="night-to-day-ico" alt=""/>
 								<span id="nmOT" class="offscreenText"></span>
@@ -73,7 +73,7 @@
 							</a>
 						</li>
 						<li>
-							<a title="Help" accesskey="h" href="#viewer-help-modal" id="help-btn" data-toggle="modal" role="button">
+							<a title="Help" accesskey="h" href="#viewer-help-modal" id="help-btn" role="button">
 								<img src="/images/top_bar/ico_help.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Help</span>
 							</a>
@@ -94,14 +94,14 @@
 			</span>
     	</div><!-- end le top bar -->
 
-    	<div id='readium-content-wrapper'>
-	    	<div id='readium-content' aria-role="main" aria-live="polite">
+    	<div id="readium-content-wrapper">
+	    	<div id="readium-content" aria-role="main" aria-live="polite">
 	    	</div>
     	</div>
 
-    	<div id='readium-toc' style="display: none">
+    	<div id="readium-toc" aria-role="region" aria-labelledby="toc-heading" style="display: none">
 			<div class="offscreenText"> Table of Contents Start </div>
-
+			<h1 tabindex="0" id="toc-heading">Table of Contents</h1>
     		<div id="toc-header">
     		    <div id="toc-page-nav"></div>
     			<span id="close-toc-button" tabindex="0" role="button">
@@ -110,14 +110,13 @@
     		</div>
     		<div id="toc-body">
     		</div>
- 			
 			<div class="offscreenText"> Table of Contents End </div>
  		</div> 
 
  		<!-- settings modal dialog -->
-		<div class="modal fade" id="viewer-settings-modal" aria-role="dialog" style="display: none">
-				<div class="offscreenText"> Options Start </div>
-				<h1 tabindex="0" id="options-heading">Viewer Options:</h1>
+		<div class="modal" id="viewer-settings-modal" aria-role="dialog" style="display: none">
+			<div class="offscreenText"> Options Start </div>
+			<h1 tabindex="0" id="options-heading">Viewer Options:</h1>
 			<div id='settings-margin'>
 				<div>
 					<h2 class="setting-header">FONT SIZE</h2>
@@ -182,9 +181,9 @@
 		</div>
 
  		<!-- help modal -->
-		<div class="modal fade" id="viewer-help-modal" aria-role="dialog" style="display: none">
+		<div class="modal" id="viewer-help-modal" aria-role="dialog" style="display: none">
 			<div class="offscreenText"> Help Start </div>
-			<h1 tabindex="-1" id="options-heading">Reader Help:</h1>
+			<h1 tabindex="0" id="help-heading">Reader Help:</h1>
 			<p>Some nice help content.</p>
 			<div id="settings-form-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
@@ -193,7 +192,7 @@
 		</div>
 
 		<!-- System message modal -->
-		<div class="modal fade" id="system-message" aria-role="dialog" style="display: none">
+		<div class="modal" id="system-message" aria-role="dialog" style="display: none">
 			<div class="offscreenText"> System Message Start </div>
 			<div id="system-message-content">
 				<!-- content goes here -->

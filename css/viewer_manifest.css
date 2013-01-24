@@ -1474,14 +1474,17 @@ input[type="submit"].btn {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: black; }
+  background-color: black;
+}
   .modal-backdrop.fade {
-    opacity: 0; }
+    opacity: 0;
+}
 
 .modal-backdrop,
 .modal-backdrop.fade.in {
   opacity: 0.8;
-  filter: alpha(opacity=80); }
+  filter: alpha(opacity=80);
+}
 
 .modal {
   position: fixed;
@@ -1755,107 +1758,6 @@ body {
   height: 0;
   clear: both; }
 
-#flowing-wrapper {
-  padding: 30px;
-  text-align: center;
-  padding-top: 3%;
-  height: 89%;
-  -webkit-transition: opacity 0.1s ease 0s;
-  -moz-transition: opacity 0.1s ease 0s;
-  -o-transition: opacity 0.1s ease 0s;
-  transition: opacity 0.1s ease 0s;
-  opacity: 0;
-  /* start off invisible to prevent flicker */ }
-
-/* Style declarations for two up mode */
-.two-up #spine-divider {
-  top: 3%;
-  position: absolute;
-  left: 50%;
-  height: 93%;
-  margin: 0;
-  width: 1px;
-  -webkit-box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  -moz-box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  display: none;
-  background-color: #444;
-  opacity: 0.6;
-  z-index: 10; }
-
-/*.apple-fixed-layout*/
-#readium-right-content {
-  height: 100%;
-  width: 100%; }
-
-.invisible {
-  visibility: hidden;
-  z-index: 0; }
-
-.fixed-page-wrap {
-  position: absolute;
-  left: 25%;
-  overflow: hidden;
-  -webkit-box-shadow: 0 0 5px 5px rgba(80, 80, 80, 0.5);
-  -moz-box-shadow: 0 0 5px 5px rgba(80, 80, 80, 0.5);
-  box-shadow: 0 0 5px 5px rgba(80, 80, 80, 0.5);
-  background-color: #FFF; }
-
-.apple-fixed-layout #spine-divider {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  height: 100%;
-  margin: 0;
-  width: 1px;
-  -webkit-box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  -moz-box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  box-shadow: 0 0 15px 3px rgba(5, 5, 5, 0.7);
-  display: none;
-  background-color: #444;
-  opacity: 0.6;
-  z-index: 10; }
-
-.two-up .fixed-page-wrap {
-  width: 50%; }
-.two-up .fixed-page-wrap.right_page {
-  left: 50%; }
-.two-up .fixed-page-wrap.left_page {
-  left: 0%; }
-.two-up .fixed-page-wrap.center_page {
-  z-index: 11; }
-
-#readium-info {
-  text-align: center;
-  padding: 30px;
-  background-color: #cccccc;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#cccccc, white, false, false, false, false, false, false, false, false)));
-  background-image: -webkit-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -moz-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -ms-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -o-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false)); }
-  #readium-info #version-info, #readium-info .green, #readium-info .modal-detail.green {
-    color: #6FA64D; }
-  #readium-info p {
-    margin: 0;
-    margin-bottom: 15px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    line-height: 18px;
-    color: #333;
-    text-align: center; }
-  #readium-info div {
-    text-align: center; }
-  #readium-info h3 {
-    line-height: 27px;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    margin: 0;
-    text-rendering: optimizelegibility;
-    display: block; }
-
 #system-message {
   text-align: center;
   padding: 20px;
@@ -1930,7 +1832,7 @@ body {
   height: 100%;
   padding: 0px; }
 
-#viewer-settings-modal, #viewer-help-modal {
+#viewer-settings-modal {
   text-align: left;
   width: 352px;
   margin: -326px 0 0 -176px;
@@ -1942,47 +1844,47 @@ body {
   background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   line-height: 1em; }
-  #viewer-settings-modal .clickable, #viewer-help-modal .clickable {
+  #viewer-settings-modal .clickable {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    #viewer-settings-modal .clickable:hover, #viewer-help-modal .clickable:hover {
+    #viewer-settings-modal .clickable:hover  {
       cursor: pointer; }
-  #viewer-settings-modal #options-heading, #viewer-help-modal #options-heading {
+  #viewer-settings-modal #options-heading {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 14px;
     color: #777;
     margin: 14px 0px 0px;
     padding: 0px; }
-  #viewer-settings-modal .setting-header, #viewer-help-modal .setting-header {
+  #viewer-settings-modal .setting-header {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 12px;
     color: #777;
     margin: 12px 0px;
     padding: 0px; }
-  #viewer-settings-modal #settings-margin, #viewer-help-modal #settings-margin {
+  #viewer-settings-modal #settings-margin {
     padding: 20px; }
-  #viewer-settings-modal #font-size-icon, #viewer-help-modal #font-size-icon {
+  #viewer-settings-modal #font-size-icon {
     background-image: url("/images/settings_modal/settings_fontsize.png");
     width: 37px;
     height: 32px;
     display: inline-block;
     float: left; }
-  #viewer-settings-modal #font-size-input, #viewer-help-modal #font-size-input {
+  #viewer-settings-modal #font-size-input {
     float: right;
     width: 253px;
     margin-top: 7px; }
-  #viewer-settings-modal #margin-radio-wrapper, #viewer-help-modal #margin-radio-wrapper {
+  #viewer-settings-modal #margin-radio-wrapper {
     width: 312px;
     height: 63px;
     position: relative;
     left: 0px;
     top: 0px; }
-  #viewer-settings-modal .margin-radio, #viewer-help-modal .margin-radio {
+  #viewer-settings-modal .margin-radio {
     display: inline-block;
     position: absolute;
     width: 43px;
@@ -1995,32 +1897,32 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-  #viewer-settings-modal #margin-option-1, #viewer-help-modal #margin-option-1 {
+  #viewer-settings-modal #margin-option-1 {
     background-image: url("/images/settings_modal/margin1_off.png");
     left: 0px; }
-    #viewer-settings-modal #margin-option-1.selected, #viewer-help-modal #margin-option-1.selected {
+    #viewer-settings-modal #margin-option-1.selected {
       background-image: url("/images/settings_modal/margin1_on.png"); }
-  #viewer-settings-modal #margin-option-2, #viewer-help-modal #margin-option-2 {
+  #viewer-settings-modal #margin-option-2 {
     background-image: url("/images/settings_modal/margin2_off.png");
     left: 67px; }
-    #viewer-settings-modal #margin-option-2.selected, #viewer-help-modal #margin-option-2.selected {
+    #viewer-settings-modal #margin-option-2.selected {
       background-image: url("/images/settings_modal/margin2_on.png"); }
-  #viewer-settings-modal #margin-option-3, #viewer-help-modal #margin-option-3 {
+  #viewer-settings-modal #margin-option-3 {
     background-image: url("/images/settings_modal/margin3_off.png");
     left: 134px; }
-    #viewer-settings-modal #margin-option-3.selected, #viewer-help-modal #margin-option-3.selected {
+    #viewer-settings-modal #margin-option-3.selected {
       background-image: url("/images/settings_modal/margin3_on.png"); }
-  #viewer-settings-modal #margin-option-4, #viewer-help-modal #margin-option-4 {
+  #viewer-settings-modal #margin-option-4 {
     background-image: url("/images/settings_modal/margin4_off.png");
     left: 201px; }
-    #viewer-settings-modal #margin-option-4.selected, #viewer-help-modal #margin-option-4.selected {
+    #viewer-settings-modal #margin-option-4.selected {
       background-image: url("/images/settings_modal/margin4_on.png"); }
-  #viewer-settings-modal #margin-option-5, #viewer-help-modal #margin-option-5 {
+  #viewer-settings-modal #margin-option-5 {
     background-image: url("/images/settings_modal/margin5_off.png");
     right: 1px; }
-    #viewer-settings-modal #margin-option-5.selected, #viewer-help-modal #margin-option-5.selected {
+    #viewer-settings-modal #margin-option-5.selected {
       background-image: url("/images/settings_modal/margin5_on.png"); }
-  #viewer-settings-modal .simple-radio, #viewer-help-modal .simple-radio {
+  #viewer-settings-modal .simple-radio {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     background-repeat: no-repeat;
@@ -2029,9 +1931,9 @@ body {
     background-image: url("/images/settings_modal/radiobutton_off.png");
     font-size: 15px;
     font-weight: 400; }
-    #viewer-settings-modal .simple-radio.selected, #viewer-help-modal .simple-radio.selected {
+    #viewer-settings-modal .simple-radio.selected {
       background-image: url("/images/settings_modal/radiobutton_on.png"); }
-  #viewer-settings-modal .theme-option, #viewer-help-modal .theme-option {
+  #viewer-settings-modal .theme-option {
     display: block;
     text-align: left;
     -webkit-border-radius: 4px;
@@ -2040,17 +1942,17 @@ body {
     border: 1px solid #777777;
     padding: 3px;
     margin-bottom: 10px; }
-  #viewer-settings-modal .pagination-option, #viewer-help-modal .pagination-option {
+  #viewer-settings-modal .pagination-option {
     display: block;
     text-align: left;
     margin: 3px 0px; }
-  #viewer-settings-modal .checkbox, #viewer-help-modal .checkbox {
+  #viewer-settings-modal .checkbox {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     text-align: left;
     font-size: 15px;
     font-weight: 400; }
-  #viewer-settings-modal #settings-form-footer, #viewer-help-modal #settings-form-footer {
+  #viewer-settings-modal #settings-form-footer {
     text-align: center;
     background-color: #000;
     padding: 5px 10px;
@@ -2061,10 +1963,38 @@ body {
     background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false)); }
-    #viewer-settings-modal #settings-form-footer button, #viewer-help-modal #settings-form-footer button {
+    #viewer-settings-modal #settings-form-footer button {
       width: 135px;
       margin: 5px;
       padding: 5px; }
+
+#viewer-help-modal {
+  text-align: center;
+  padding: 20px;
+  background-color: #cccccc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#cccccc, white, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false)); }
+  #viewer-help-modal p {
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    text-align: left; }
+  #sviewer-help-modal div {
+    text-align: left; }
+  #viewer-help-modal h1 {
+    line-height: 27px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0;
+    text-rendering: optimizelegibility;
+    display: block; }
 
 /**************** THE TOC PANEL ************************/
 #readium-toc {

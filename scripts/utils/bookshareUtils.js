@@ -118,11 +118,11 @@ window.BookshareUtils = {
 	raiseSystemAlert: function(key, params) {
 		var template = Handlebars.templates[key];
 		$('#system-message-content').html(template((params != null) ? params : {}));
-		$('#system-message').modal({backdrop: 'static', keyboard: false});
+		this.raiseModal('#system-message');
 	},
 
 	dismissSystemAlert: function() {
-		$('#system-message').modal('hide');
+		this.dismissModal('#system-message');
 		$('#system-message-content').html('');
 	},
 
@@ -144,6 +144,7 @@ window.BookshareUtils = {
 			y = y + 10;
 			result = document.elementFromPoint(plumbLine, y);
 		}
+		console.log(result);
 		return result;
 	},
 
@@ -155,7 +156,7 @@ window.BookshareUtils = {
 			// check preceding siblings, then parent
 			if (element.previousElementSibling != null) {
 				result = this.getSelectorForNearestElementWithId(element.previousElementSibling);
-			} else if (element.parentElement != null && this.POSITION_TRACKING_EXCLUSIONS.indexOf(element.parentElement.tagName.toLowerCase()) == -1) {
+			} else if (element.parentElement.id != 'readium-content' && this.POSITION_TRACKING_EXCLUSIONS.indexOf(element.parentElement.tagName.toLowerCase()) == -1) {
 				result = this.getSelectorForNearestElementWithId(element.parentElement);
 			}
 		}
@@ -207,6 +208,75 @@ window.BookshareUtils = {
 		if (href.indexOf(publicationRoot) !== -1) {
 			return href.replace(publicationRoot, "");
 		}
+	},
+
+	raiseModal: function(selector, options) {
+		// create background div
+		var backdrop = document.createElement("div");
+		backdrop.id = "modal-backdrop";
+		backdrop.style.display = "none";
+		backdrop.className = "modal-backdrop";
+		document.body.appendChild(backdrop);
+		$(backdrop).fadeIn(50);
+
+		// fade in the modal
+		$(selector).fadeIn(50);
+
+		// click and keyboard bindings, only if there's a proper cancel function
+		if (options && options.cancelFn) {
+			$(backdrop).bind("click", options.cancelFn);
+			this.bindDialogKeyboardSupport(options.firstElem, options.lastElem, options.cancelFn);
+		}
+
+	},
+
+	dismissModal: function(selector) {
+		$(selector).fadeOut();
+		$('#modal-backdrop').fadeOut(100,
+			function() {
+				document.body.removeChild(document.getElementById("modal-backdrop"));
+			}
+		);
+	},
+
+	/**
+	 * Sets up proper keyboard support for dialog-style
+	 * controls. Provides initial form element focus,
+	 * focus trapping when tabbing through form elements,
+	 * and binds Esc key to an arbitrary close/cancel function.
+	 */
+	bindDialogKeyboardSupport: function(firstElem, lastElem, cancelFn) {
+	    var dialogEscape =
+	        function(evt) {
+	            if (evt.which == 27) {
+	                evt.preventDefault();
+	                evt.stopPropagation();
+	                cancelFn();
+	                $('body').unbind('keydown', dialogEscape);
+	            }
+	        };
+	        
+	    $(firstElem).bind('keydown',
+	        function(evt) {
+	            if (evt.which == 9 && evt.shiftKey) {
+	                evt.preventDefault();
+	                lastElem.focus();
+	            }
+	        } );
+	    $(lastElem).bind('keydown',
+	        function(evt) {
+	            if (evt.which == 9 && !evt.shiftKey) {
+	                evt.preventDefault();
+					firstElem.focus();
+				}
+	        } );
+	    
+	    $('body').bind('keydown', dialogEscape);
+	    
+	    if (firstElem) {
+		    firstElem.focus();
+		    firstElem.focus(); // insurance for IE8
+	    }
 	}
 };
 

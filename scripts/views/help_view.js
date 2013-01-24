@@ -2,30 +2,29 @@ Readium.Views.HelpView = Backbone.View.extend({
 
 	el: '#viewer-help-modal',
 
-	initialize: function() {
-		$('#help-btn').attr('aria-pressed', 'false');
-		$('#viewer-help-modal').on('shown', function(){
-			$('#help-heading').focus();
-			setTimeout(function(){
-				$('#help-btn').attr('aria-pressed', 'true');
-			}, 1);
-		}).on('hidden', function(){
-			setTimeout(function(){
-				$('#help-btn').attr('aria-pressed', 'false').focus();
-			}, 1);
-		});
-	},
-
 	events: {
-    	"click #cancel-help-but": 	"cancelHelp"
+    	"click #cancel-help-but": 	"hide"
+  	},
+
+  	initialize: function(options) {
+		this.parentView = options.parentView;
   	},
 
 	render: function() {
 		return this;
 	},
 
-  	cancelHelp: function(e) {
-  		this.$el.modal('hide');
-		$('#help-btn').focus();
+  	show: function(e) {
+  		var that = this;
+		BookshareUtils.raiseModal(that.el, {
+			firstElem: document.getElementById("help-heading"),
+			lastElem: document.getElementById("cancel-help-but"),
+			cancelFn: function() { that.hide(); }
+		});
+  	},
+
+  	hide: function(e) {
+  		console.log(this.el);
+		BookshareUtils.dismissModal(this.el);
   	}
 });
