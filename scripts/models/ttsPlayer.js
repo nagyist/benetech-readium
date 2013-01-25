@@ -95,10 +95,10 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             return self.get('currentElement');
         } else {
             var selector = self.controller.get("reading_position");
-            var bodyEl = self.controller.paginator.v.getBody().ownerDocument.body;
-            var el = $(bodyEl).find(selector);
+            var contentEl = self.controller.v.el;
+            var el = $(contentEl).find(selector);
             if (el.length == 0) {
-                return bodyEl.children[0];
+                return contentEl.children[0];
             } else {
                 return el[0];
             }
@@ -141,13 +141,8 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             
             if (event.type == 'word') {
                 
-                if (self.controller.options.get('pagination_mode') == 'scrolling') {
-                    data.xOffset = self.controller.paginator.v.getFrame().contentWindow.scrollX;
-                    data.yOffset = self.controller.paginator.v.getFrame().contentWindow.scrollY;
-                } else {
-                    data.xOffset = data._getOffset(data.document.documentElement.style.left);
-                    data.yOffset = data._getOffset(data.document.documentElement.style.top);
-                }
+                data.xOffset = self.controller.v.el.scrollTop;
+                data.yOffset = self.controller.v.el.scrollLeft;
 
                 var sentenceIndex = data.sentenceAt(event.charIndex);
                 if (sentenceIndex >= 0) {
@@ -191,18 +186,8 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     },
     
     _updatePagePosition: function(data) {
-        var v = this.controller.paginator.v;
-        if (v.getElemPageNumber != null) {
-            if (data._wordRects.length > 0) {
-                var pageNum = v.getElemPageNumber(data._wordRects[0]);
-                if (!v.pages.isPageVisible(pageNum)) {
-                    v.pages.goToPage(pageNum);
-                }
-            }
-        } else {
-            if (data._wordRects.length > 0) {
-                v.keepInCenter(data._wordRects[0]);
-            }
+        if (data._wordRects.length > 0) {
+            this.controller.v.keepInCenter(data._wordRects[0]);
         }
     },
     

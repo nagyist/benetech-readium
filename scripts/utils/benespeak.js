@@ -299,6 +299,7 @@ BeneSpeak.SpeechData.prototype.highlightSentence = function(idx) {
         this.clearSentenceHighlight();
         this._highlightedSentence = idx;
         var rects = this.sentences[idx].range.getClientRects();
+        console.log(rects);
         for (var i = 0; i < rects.length; i++) {
             var div = this.document.createElement('div');
             this.document.body.appendChild(div);

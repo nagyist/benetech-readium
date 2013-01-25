@@ -18,20 +18,12 @@
 
 			<div class="navbar-inner" id="top-bar">
 				<div class="container" style="width: 100%">
-
-					<a title="Back to Bookshare.org" accesskey="b" class="brand" href="https://www.bookshare.org/" id='bar-logo' role="button">
+					<a title="Back to Bookshare.org" accesskey="b" class="brand" href="https://www.bookshare.org/" id="bar-logo">
 						<img src="/images/top_bar/bks_web_reader_logo.png" id="bar-logo-img" alt=""/>
 						<span class="offscreenText">Back to Bookshare.org</span>
 					</a>
 
 					<ul class="nav pull-right">
-						<li class="divider-vertical stubby"></li>
-						<li>
-							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
-								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
-								<span class="offscreenText">Table of contents</span>
-							</a>
-						</li>
 						<li>
 							<a title="Previous Section" accesskey="p" href="#" id='prev-section-button' role="button">
 								<img src="/images/top_bar/arrow_previous.png" class="nav-icon" alt=""/>
@@ -44,9 +36,14 @@
 								<span class="offscreenText">Next Section</span>
 							</a>
 						</li>
-						<li class="divider-vertical stubby"></li>
 						<li>
-							<a title="Options" accesskey="o" href="#viewer-settings-modal" id="options-btn" data-toggle="modal" role="button">
+							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
+								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Table of contents</span>
+							</a>
+						</li>
+						<li>
+							<a title="Options" accesskey="o" href="#" id="options-btn" data-toggle="modal" role="button">
 								<img src="/images/top_bar/options.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Options</span>
 							</a>
@@ -92,25 +89,21 @@
 	    	</div>
     	</div>
 
-    	<div id='readium-toc' style="display: none">
-			<div class="offscreenText"> Table of Contents Start </div>
-
-    		<div id="toc-header">
-    		    <div id="toc-page-nav"></div>
-    			<span id="close-toc-button" tabindex="0" role="button">
-					<span class="offscreenText">Close Table of Contents</span>
-				</span>
-    		</div>
-    		<div id="toc-body">
-    		</div>
- 			
-			<div class="offscreenText"> Table of Contents End </div>
+    	<div id="readium-toc" aria-role="region" aria-live="polite" aria-labelledby="toc-heading" style="display: none">
+			<div class="offscreenText"> Navigation Start </div>
+			<h1 tabindex="0" id="toc-heading">Navigation</h1>
+			<div id="toc-page-nav"></div>
+    		<div id="toc-body"></div>
+			<div id="toc-footer" class="clearfix">
+				<button class='btn btn-inverse' id="close-toc-button">Close</button>
+			</div>
+			<div class="offscreenText"> Navigation End </div>
  		</div> 
 
  		<!-- settings modal dialog -->
 		<div class="modal fade" id="viewer-settings-modal" aria-role="dialog" style="display: none">
 				<div class="offscreenText"> Options Start </div>
-				<h1 tabindex="0" id="options-heading">Viewer Options:</h1>
+				<h1 tabindex="0" id="options-heading">VIEWER OPTIONS</h1>
 			<div id='settings-margin'>
 				<div>
 					<h2 class="setting-header">FONT SIZE</h2>

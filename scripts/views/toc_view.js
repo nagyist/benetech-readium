@@ -12,7 +12,7 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 
 	events: {
 		"click a": "handleClick",
-		"click #close-toc-button": "closeToc",
+		"click #close-toc-button": "closeToc"
 	},
 
 	setVisibility: function() {

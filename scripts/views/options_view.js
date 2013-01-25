@@ -168,5 +168,5 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			lastElem: document.getElementById("save-settings-but"),
 			cancelFn: function() { that.cancelSettings(); }
 		});
-  	},
+  	}
 });

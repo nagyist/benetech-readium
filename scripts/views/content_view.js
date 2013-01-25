@@ -142,20 +142,13 @@ Readium.Views.ContentView = Backbone.View.extend({
 	},
 
 	keepInCenter: function(elem) {
-		var f = this.getFrame();
-		var h = this.getFrameHeight();
+		var h = this.getDivHeight();
 		var top = Number(elem.style.top.replace('px', ''));
 		var bottom = top + Number(elem.style.height.replace('px', ''));
 
 		// continuous scrolling
-		f.contentWindow.scrollTo(0, top - Math.round(0.25 * h));
+		this.el.scrollTop = top - Math.round(0.25 * h);
 
-		// pagey scrolling
-		/*
-		if (bottom - f.contentWindow.scrollY > h) {
-			f.contentWindow.scrollTo(0, top);
-		}
-		*/
 	},
 
 	goToReadingPosition: function() {
