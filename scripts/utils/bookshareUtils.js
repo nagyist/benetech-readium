@@ -216,16 +216,23 @@ window.BookshareUtils = {
 		// click and keyboard bindings, only if there's a proper cancel function
 		if (options && options.cancelFn) {
 			$(backdrop).bind("click", options.cancelFn);
-			this.bindDialogKeyboardSupport(options.firstElem, options.lastElem, options.cancelFn);
+			this.modalHandlers = this.bindDialogKeyboardSupport(options.firstElem, options.lastElem, options.cancelFn);
 		}
 
 	},
 
 	dismissModal: function(selector) {
 		$(selector).fadeOut();
+
+		$(selector).find("*").off("keydown.modals");
+		$('body').off('keydown.modals');
+
 		$('#modal-backdrop').fadeOut(100,
 			function() {
-				document.body.removeChild(document.getElementById("modal-backdrop"));
+				var bg = document.getElementById("modal-backdrop");
+				if (bg) {
+					document.body.removeChild(bg);
+				}
 				window._epubController.set("track_position", true);
 			}
 		);
@@ -238,24 +245,16 @@ window.BookshareUtils = {
 	 * and binds Esc key to an arbitrary close/cancel function.
 	 */
 	bindDialogKeyboardSupport: function(firstElem, lastElem, cancelFn) {
-	    var dialogEscape =
-	        function(evt) {
-	            if (evt.which == 27) {
-	                evt.preventDefault();
-	                evt.stopPropagation();
-	                cancelFn();
-	                $('body').unbind('keydown', dialogEscape);
-	            }
-	        };
-	        
-	    $(firstElem).bind('keydown',
+
+	    $(firstElem).on('keydown.modals',
 	        function(evt) {
 	            if (evt.which == 9 && evt.shiftKey) {
 	                evt.preventDefault();
 	                lastElem.focus();
 	            }
 	        } );
-	    $(lastElem).bind('keydown',
+
+	    $(lastElem).on('keydown.modals',
 	        function(evt) {
 	            if (evt.which == 9 && !evt.shiftKey) {
 	                evt.preventDefault();
@@ -263,7 +262,15 @@ window.BookshareUtils = {
 				}
 	        } );
 	    
-	    $('body').bind('keydown', dialogEscape);
+	    $('body').on('keydown.modals',
+	    	function(evt) {
+		    	console.log("I'm still here " + evt.which);
+	            if (evt.which == 27) {
+	                evt.preventDefault();
+	                evt.stopPropagation();
+	                cancelFn();
+	            }
+	        } );
 	    
 	    if (firstElem) {
 		    firstElem.focus();

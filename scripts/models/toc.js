@@ -19,14 +19,11 @@ Readium.Models.Toc = Backbone.Model.extend({
 	},
 
 	updateTocHighlight: function() {
-		var vis = !!this.book.get("toc_visible");
-		if (vis) {
-			var rp = this.book.get("reading_position");
-			var contentBody = this.book.v.$el;
-			var el = contentBody.find(rp);
-			if (el.length > 0) {
-				this.set('toc_highlight_selector', this.findNearestTocItemSelector(el[0]));
-			}
+		var rp = this.book.get("reading_position");
+		var contentBody = this.book.v.$el;
+		var el = contentBody.find(rp);
+		if (el.length > 0) {
+			this.set('toc_highlight_selector', this.findNearestTocItemSelector(el[0]));
 		}
 	},
 

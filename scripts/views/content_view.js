@@ -160,7 +160,7 @@ Readium.Views.ContentView = Backbone.View.extend({
 
 	goToReadingPosition: function() {
 		if (this.model.get("reading_position") != null) {
-			var focEl = $(this.el).find(this.model.get("reading_position"));
+			var focEl = this.$el.find(this.model.get("reading_position"));
 			if (focEl.length > 0) {
 				this.trackScrolling = false;
 				this.el.scrollTop = focEl[0].getClientRects()[0].top - this.getBoundingRect().top;
@@ -292,8 +292,9 @@ Readium.Views.ContentView = Backbone.View.extend({
 
 	setTheme: function() {
 		var theme = this.model.get("current_theme");
-		this.$el.removeClass(this.model.previous("current_theme"));
-		this.$el.addClass(theme);
+		var wrapper = $('#readium-content-wrapper');
+		wrapper.removeClass(this.model.previous("current_theme"));
+		wrapper.addClass(theme);
 	},
 
 	resetEl: function() {

@@ -4,6 +4,8 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 
 	initialize: function() {
 		this.model.book.on("change:toc_visible", this.setVisibility, this);
+		this.model.book.on("change:font_size", this.setFontSize, this);
+		this.model.book.on("change:current_theme", this.setTheme, this);
 		this.model.on("change:toc_highlight_selector", this.updateHighlight, this);
 		this.rendered = false;
 	},
@@ -18,7 +20,11 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 		if (this.model.book.get("toc_visible")) {
 			if (! this.rendered) {
 				this.render();
+				this.rendered = true;
 			}
+
+			// reset the page selector
+			$('#toc-page-select').val(null);
 
 			BookshareUtils.raiseModal(this.el,
 				{
@@ -27,20 +33,35 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 					cancelFn: function() { that.closeToc(); }
 				}
 			);
+
+			// the modal launcher preselects the first element, we actually want
+			// the currently-selected element
+			this.$el.find(".tocHighlight").focus();
 		} 
-		// the modal launcher preselects the first element, we actually want
-		// the currently-selected element
+	},
+
+	setFontSize: function() {
+		var size = (this.model.book.get("font_size") / 30) + 0.5;
+		console.log("TOC font size should be " + size);
+		this.$el.css("font-size", size + "em");
+	},
+
+	setTheme: function() {
+		this.$el.removeClass(this.model.book.previous("current_theme"));
+		this.$el.addClass(this.model.book.get("current_theme"));
 	},
 
 	handleClick: function(e) {
 		e.preventDefault();
 		var href = $(e.currentTarget).attr("href");
+		this.closeToc();
 		this.model.handleLink(href);
 	},
 
 	handlePageSelect : function (e) {
 	    var option = e.target[e.target.selectedIndex];
         var href = option.value;
+		this.closeToc();
         this.model.handleLink(href);
 	},
 
@@ -88,17 +109,19 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 
 	render: function() {
 		this.$('#toc-body').html( this.model.get("body").html() );
+		this.setTheme();
+		this.setFontSize();
 		this.formatPageListNavigation();
 		this.$('#toc-body').append("<div id='toc-end-spacer'>");
-		this.updateTocHighlight();
+		this.updateHighlight();
 		return this;
 	},
 
-	updateTocHighlight: function() {
+	updateHighlight: function() {
+		this.$el.find(".tocHighlight").removeClass("tocHighlight");
 		var selector = this.model.get("toc_highlight_selector");
 		if (selector) {
 			var targetLink = this.$('#toc-body').find(selector).addClass("tocHighlight");
-			this.scrollToNavItem(targetLink[0]);
 		}
 	},
 
@@ -107,11 +130,11 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 	// ------------------------------------------------------------------------------------ //
 
 	formatPageListNavigation: function () {
-
+		console.log("Format page lists...");
 		var $navElements;
 		var $pageListNavElement;
 		var $pageSelect;
-		var selectedPage;
+		var $pageListLinks;
 
 		// Search for a nav element with epub:type="page-list". A nav element of this type must not occur more than once.
 		$navElements = this.$("nav");
@@ -130,11 +153,12 @@ Readium.Views.XhtmlTocView = Readium.Views.TocViewBase.extend({
 		//   loaded in the page-list control
 		// TODO: span elements can be used to create sub-headings. Implement functionality to account for this at some point.
 		$pageSelect = $("#toc-page-select");
-		if ($pageSelect.length == 0 && $pageListNavElement.length != 0) {
+		$pageListLinks = $pageListNavElement.find("a").not(":empty");
+		if ($pageSelect.length == 0 && $pageListLinks.length != 0) {		
             $pageSelect = $("<select id='toc-page-select'></select>");
             $('#toc-page-nav').prepend($pageSelect).prepend("<label for='toc-page-select'>Go to page:</label> ");
             $pageSelect.append($('<option/>', { disabled: true, selected: true }));
-    		$.each($('a', $pageListNavElement), function () { 
+			$pageListLinks.each(function () {
     			var $navTarget = $(this);
     			$pageSelect.append($('<option/>', {
                     value: $navTarget.attr('href'),
