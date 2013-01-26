@@ -60,8 +60,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.model.on("change:has_toc", this.init_toc, this);
 
 		this.addGlobalEventHandlers();
-
-		Acc.title = this.model.get('title') + ', by ' + this.model.get('author');
 	},
 
 	toggleFullscreen: function() {

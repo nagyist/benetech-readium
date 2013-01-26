@@ -191,9 +191,6 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 		if(cp[cp.length - 1] > num) {
 			this.goToLastPage();
 		}
-
-Acc.page = '#' + cp;
-
 	},	
 
 	// REFACTORING CANDIDATE: this is strange in that it does not seem to account for 
