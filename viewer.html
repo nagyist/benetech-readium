@@ -28,7 +28,18 @@
 					</a>
 
 					<ul class="nav pull-right">
-						<li class="divider-vertical stubby"></li>
+						<li>
+							<a title="Previous" accesskey="2" href="#" id='prev-page-button' role="button">
+								<img src="/images/top_bar/arrow_previous.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Previous</span>
+							</a>
+						</li>
+						<li>
+							<a title="Next" accesskey="1" href="#" id='next-page-button' role="button">
+								<img src="/images/top_bar/arrow_next.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Next</span>
+							</a>
+						</li>
 						<li>
 							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
 								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
@@ -94,15 +105,7 @@
  		</div> 
 
  		<div id="readium-right-content">
-
-    	<a id="next-page-button" onclick="void(0)" href="#" role="button" accesskey="2">
-<span class="offscreenText">Next Page</span>
-</a>
-    	<a id="prev-page-button" onclick="void(0)" href="#" role="button" accesskey="1">
-<span class="offscreenText">Previous Page</span>
-</a>
-
-
+ 			
 		<div id="readium-book-view-el">
  			<div id='page-wrap' class='clearfix'>
 				<div id="container" class='clearfix'></div>

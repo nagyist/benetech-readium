@@ -32,7 +32,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
         this.injectHighlightStyles(e.srcElement);
         this.injectPageNumberStyles(e.srcElement);
         this.togglePageNumbers();
-        this.injectMathJax(e.srcElement);
         this.injectLinkHandler(e.srcElement);
         var trigs = this.parseTriggers(e.srcElement.contentDocument);
 		this.applyTriggers(e.srcElement.contentDocument, trigs);
@@ -276,21 +275,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			style.type = "text/css";
 			style.innerHTML = ".bksPageNumberOn { display:block; text-align: center; width: 25%; margin-left: auto; margin-right: auto; font-weight: bold; font-style: italic; border: 1px solid gray; }";
 			head.appendChild(style);
-		}
-    },
-
-	// inject mathML parsing code into an iframe
-    injectMathJax: function (iframe) {
-    	var doc, script, head;
-		doc = iframe.contentDocument;
-		head = doc.getElementsByTagName("head")[0];
-		// if the content doc is SVG there is no head, and thus
-		// mathjax will not be required
-		if(head) {
-			script = doc.createElement("script");
-			script.type = "text/javascript";
-			script.src = MathJax.Hub.config.root+"/MathJax.js?config=readium-iframe";
-			head.appendChild(script);
 		}
     },
 

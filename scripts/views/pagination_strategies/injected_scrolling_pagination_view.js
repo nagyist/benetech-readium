@@ -63,7 +63,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 					if (hashFragmentId) {
 						that.goToHashFragment(hashFragmentId);
 					} else {
-
+						that.getFrame().focus();
 						if(goToLastPage) {
 							that.getFrame().contentWindow.scrollBy(0, that.getBody().scrollHeight);
 						} else if (that.model.get('reading_position') != null) {
@@ -151,7 +151,9 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	},
 
 	goToHashFragment: function(hashFragmentId) {
-		this.$('#readium-scrolling-content')[0].contentDocument.location.hash = hashFragmentId;
+		var frame = this.getFrame();
+		frame.focus();
+		frame.contentDocument.location.hash = hashFragmentId;
 	},
 
 	keepInCenter: function(elem) {
