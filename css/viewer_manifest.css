@@ -1956,7 +1956,7 @@ body {
     font-family: Helvetica,Arial,sans-serif;
     font-size: 14px;
     color: #777;
-    margin: 14px 0px 0px;
+    margin: 14px;
     padding: 0px; }
   #viewer-settings-modal .setting-header, #viewer-help-modal .setting-header {
     text-align: left;
@@ -1966,7 +1966,7 @@ body {
     margin: 12px 0px;
     padding: 0px; }
   #viewer-settings-modal #settings-margin, #viewer-help-modal #settings-margin {
-    padding: 20px; }
+    padding: 0px 20px 0px 20px; }
   #viewer-settings-modal #font-size-icon, #viewer-help-modal #font-size-icon {
     background-image: url("/images/settings_modal/settings_fontsize.png");
     width: 37px;
