@@ -7,12 +7,14 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
+		this.model.ttsPlayer.on("change:tts_playing", this.renderTtsButton, this);
 	},
 
 	render: function() {
 		this.renderBarVibility();
 		this.renderFullScreen();
 		this.renderThemeButton();
+		this.renderTtsButton();
 		return this;
 	},
 
@@ -44,6 +46,15 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.$('#day-to-night-ico').toggle(!isNight);
 		$('#nightmode-btn').attr('title', isNight ? 'Nightmode on' : 'Nightmode off');
 		$('#nmOT').html(isNight ? 'Nightmode on' : 'Nightmode off');
+		return this;
+	},
+
+	renderTtsButton: function() {
+		var isPlaying = this.model.ttsPlayer.get("tts_playing");
+		this.$('#tts-on-ico').toggle(isPlaying);
+		this.$('#tts-off-ico').toggle(!isPlaying);
+		$('#play-tts-btn').attr('title', isPlaying ? 'Stop TTS' : 'Start TTS');
+		$('#ttsOT').html(isPlaying ? 'Start Text to Speech' : 'Stop Text to Speech');
 		return this;
 	},
 
