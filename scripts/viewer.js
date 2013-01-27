@@ -7,8 +7,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	uiVisible: false,
 
 	initialize: function() {
-		var current_theme = Readium.Utils.getCookie("current_theme");
-		this.model.set("current_theme", current_theme ? current_theme : "default-theme");
 		// map fullscreen methods
 		var that = this;
 		for (var i = 0; i < Modernizr._domPrefixes.length; i++) {
