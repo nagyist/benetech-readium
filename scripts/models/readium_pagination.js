@@ -100,7 +100,6 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 		var lastPage = curr_pg[0] - 1;
 
 		if (curr_pg[0] <= 1) {
-
 			this.epubController.goToPrevSection();
 		}
 		// REFACTORING CANDIDATE: The pagination/spine position relationship is still muddied. As a result, 
@@ -147,7 +146,6 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 		var firstPage = curr_pg[curr_pg.length - 1] + 1;
 
 		if (curr_pg[curr_pg.length - 1] >= this.get("num_pages")) {
-
 			this.epubController.goToNextSection();
 		}
 		else if (!this.epubController.get("two_up")) {

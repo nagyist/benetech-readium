@@ -222,6 +222,8 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var pos = this.packageDocument.getNextLinearSpinePostition(cp);
 		if(pos > -1) {
 			this.setSpinePos(pos, false);	
+		} else {
+			alert("You have reached the end of this book.");
 		}
 		
 	},
@@ -233,6 +235,8 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		var pos = this.packageDocument.getPrevLinearSpinePostition(cp);
 		if(pos > -1) {
 			this.setSpinePos(pos, true);	
+		} else {
+			alert("You are at the beginning of this book.");
 		}
 	},
 
