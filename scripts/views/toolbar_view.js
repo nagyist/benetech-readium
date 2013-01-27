@@ -3,18 +3,23 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	el: "#toolbar-el",
 
 	initialize: function() {
-		this.model.set("toolbar_visible", Readium.Utils.getCookie("toolbar_visible") === "true");
+		this.model.set("toolbar_visible", Readium.Utils.getCookie("toolbar_visible") !== "false");
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
-		this.model.ttsPlayer.on("change:tts_playing", this.renderTtsButton, this);
+		this.hasTts = (window.chrome && window.chrome.extension);
+		if (this.hasTts) {
+			this.model.ttsPlayer.on("change:tts_playing", this.renderTtsButton, this);
+		}
 	},
 
 	render: function() {
 		this.renderBarVibility();
 		this.renderFullScreen();
 		this.renderThemeButton();
-		this.renderTtsButton();
+		if (this.hasTts) {
+			this.renderTtsButton();
+		}
 		return this;
 	},
 

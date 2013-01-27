@@ -305,7 +305,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		});
 
 		var body = $(that.getBody()).find("body");
-		body.append($(that.shortcutTemplate({ ttsEnabled : (chrome && chrome.extension)})));
+		body.append($(that.shortcutTemplate({ ttsEnabled : (window.chrome && window.chrome.extension)})));
 		body.find("#hiddenAccessKeys a[accesskey]").bind("click",
 			function(e) {
 				e.preventDefault();
