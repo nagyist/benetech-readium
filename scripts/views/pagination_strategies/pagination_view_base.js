@@ -22,6 +22,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.model.on("change:font_size", this.fontSizeCallback, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
+		this.shortcutTemplate = Handlebars.templates.iframe_keyboard_shortcuts;
 	},
 
     iframeLoadCallback: function(e) {
@@ -33,6 +34,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
         this.injectPageNumberStyles(e.srcElement);
         this.togglePageNumbers();
         this.injectLinkHandler(e.srcElement);
+        this.injectKeyboardSupport(e.srcElement);
         var trigs = this.parseTriggers(e.srcElement.contentDocument);
 		this.applyTriggers(e.srcElement.contentDocument, trigs);
 	},
@@ -283,6 +285,33 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     	$('a', iframe.contentDocument).click(function(e) {
     		that.linkClickHandler(e)
     	});
+    },
+
+    injectKeyboardSupport: function(iframe) {
+    	var that = this;
+    	// inject keyboard shortcuts and access keys
+
+    	// this duplicates code in viewer.js, under addGlobalEventHandlers,
+    	// but this view doesn't know about that one, and that view ends up
+    	// delegating to the paginator view, which this file defines. Lose-lose.
+		$(iframe.contentDocument).keydown(function(e) {
+			if(e.which == 39) {
+				that.model.paginator.v.pages.goRight();
+			}
+							
+			if(e.which == 37) {
+				that.model.paginator.v.pages.goLeft();
+			}
+		});
+
+		var body = $(that.getBody()).find("body");
+		body.append($(that.shortcutTemplate({ ttsEnabled : (chrome && chrome.extension)})));
+		body.find("#hiddenAccessKeys a[accesskey]").bind("click",
+			function(e) {
+				e.preventDefault();
+				$(window.document.body).find("[accesskey='" + e.currentTarget.getAttribute("accesskey") + "']").click();
+			}
+		);
     },
 
 	injectTheme: function(iframe) {

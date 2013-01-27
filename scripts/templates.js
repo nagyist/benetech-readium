@@ -44,6 +44,21 @@ templates['fixed_page_template'] = template(function (Handlebars,depth0,helpers,
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
   buffer += escapeExpression(stack1) + "\"\n			class='content-sandbox'>\n	</iframe>\n</div>";
   return buffer;});
+templates['iframe_keyboard_shortcuts'] = template(function (Handlebars,depth0,helpers,partials,data) {
+  helpers = helpers || Handlebars.helpers;
+  var buffer = "", stack1, self=this;
+
+function program1(depth0,data) {
+  
+  
+  return "\n	<a accesskey=\"p\" href=\"#\">Text to speech</a>\n	";}
+
+  buffer += "<div id=\"hiddenAccessKeys\" style=\"display:none\">\n	<span>Available actions</span>\n	<a accesskey=\"b\" href=\"#\">Back to Bookshare.org</a>\n	<a accesskey=\"1\" href=\"#\">Next</a>\n	<a accesskey=\"2\" href=\"#\">Previous</a>\n	<a accesskey=\"t\" href=\"#\">Table of contents</a>\n	";
+  stack1 = depth0.ttsEnabled;
+  stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "	\n	<a accesskey=\"o\" href=\"#\">Options</a>\n	<a accesskey=\"n\" href=\"#\">Toggle night mode</a>\n	<a accesskey=\"f\" href=\"#\">Toggle fullscreen mode</a>\n	<a accesskey=\"b\" href=\"#\">Help</a>\n	<a accesskey=\"x\" href=\"#\">Hide toolbar</a>\n	<a accesskey=\"v\" href=\"#\">Show toolbar</a>\n</div>";
+  return buffer;});
 templates['image_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
   var buffer = "", stack1, foundHelper, functionType="function", escapeExpression=this.escapeExpression;
@@ -68,7 +83,7 @@ templates['injected_reflowing_template'] = template(function (Handlebars,depth0,
   stack1 = depth0.data;
   stack1 = stack1 == null || stack1 === false ? stack1 : stack1.author;
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
-  buffer += escapeExpression(stack1) + "\"\n			src=\"page.xhtml\"\n			id=\"readium-flowing-content\">\n	</iframe>\n</div>";
+  buffer += escapeExpression(stack1) + "\"\n			src=\"page.xhtml\"\n			id=\"readium-flowing-content\"\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>";
   return buffer;});
 templates['injected_scrolling_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
@@ -83,7 +98,7 @@ templates['injected_scrolling_page_template'] = template(function (Handlebars,de
   stack1 = depth0.data;
   stack1 = stack1 == null || stack1 === false ? stack1 : stack1.author;
   stack1 = typeof stack1 === functionType ? stack1() : stack1;
-  buffer += escapeExpression(stack1) + "\"\n			src=\"page.xhtml\"\n			id='readium-scrolling-content'>\n	</iframe>\n</div>";
+  buffer += escapeExpression(stack1) + "\"\n			src=\"page.xhtml\"\n			id='readium-scrolling-content'\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>";
   return buffer;});
 templates['integration_error'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
