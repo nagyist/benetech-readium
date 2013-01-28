@@ -57,7 +57,7 @@ function program1(depth0,data) {
   stack1 = depth0.ttsEnabled;
   stack1 = helpers['if'].call(depth0, stack1, {hash:{},inverse:self.noop,fn:self.program(1, program1, data)});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "	\n	<a accesskey=\"o\" href=\"#\">Options</a>\n	<a accesskey=\"n\" href=\"#\">Toggle night mode</a>\n	<a accesskey=\"f\" href=\"#\">Toggle fullscreen mode</a>\n	<a accesskey=\"b\" href=\"#\">Help</a>\n	<a accesskey=\"x\" href=\"#\">Hide toolbar</a>\n	<a accesskey=\"v\" href=\"#\">Show toolbar</a>\n</div>";
+  buffer += "	\n	<a accesskey=\"o\" href=\"#\">Options</a>\n	<a accesskey=\"n\" href=\"#\">Toggle night mode</a>\n	<a accesskey=\"f\" href=\"#\">Toggle fullscreen mode</a>\n	<a accesskey=\"h\" href=\"#\">Help</a>\n	<a accesskey=\"x\" href=\"#\">Hide toolbar</a>\n	<a accesskey=\"v\" href=\"#\">Show toolbar</a>\n</div>";
   return buffer;});
 templates['image_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   helpers = helpers || Handlebars.helpers;
