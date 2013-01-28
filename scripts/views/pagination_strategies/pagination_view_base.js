@@ -309,7 +309,12 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		body.find("#hiddenAccessKeys a[accesskey]").bind("click",
 			function(e) {
 				e.preventDefault();
-				$(window.document.body).find("[accesskey='" + e.currentTarget.getAttribute("accesskey") + "']").click();
+				var link = $(window.document.body).find("a[accesskey='" + e.currentTarget.getAttribute("accesskey") + "']");
+				if (link.attr("href").search("#") == 0) {
+					link.click();
+				} else {
+					window.document.location = link.attr("href");
+				}
 			}
 		);
     },
