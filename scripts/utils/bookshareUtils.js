@@ -279,7 +279,7 @@ Readium.Models.PackageDocument.prototype.spineIndexFromHref = function(href) {
 };
 
 // configure XDR transport for IE9
-if ( window.XDomainRequest ) {
+if ( window.XDomainRequest && BookshareUtils.isIE9()) {
 	jQuery.ajaxTransport(function( s ) {
 		if ( s.crossDomain && s.async ) {
 			if ( s.timeout ) {
@@ -324,7 +324,9 @@ if ( window.XDomainRequest ) {
 };
 
 // override isBlockElement for iframe
-BeneSpeak._isBlockElement = function(el) {
-        var style = window.frames[0].getComputedStyle(el);
-        return ((style.display.indexOf('inline') == -1) && (style.display.indexOf('ruby') == -1))
-    };
+if (window.BeneSpeak != null) {
+	BeneSpeak._isBlockElement = function(el) {
+	        var style = window.frames[0].getComputedStyle(el);
+	        return ((style.display.indexOf('inline') == -1) && (style.display.indexOf('ruby') == -1))
+	    };
+};
