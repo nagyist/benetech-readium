@@ -15,6 +15,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
 		this.controller.on("change:spine_position", this.stop, this);
         this.controller.on("goToHref", this.stop, this);
         this.controller.on("change:options-view-shown", this.stop, this);
+        this.controller.on("change:toc_visible", this.stop, this);
         this.controller.on("pagesNextPage", this.stop, this);
         this.controller.on("pagesPrevPage", this.stop, this);
 		this.controller.on("repagination_event", this._windowSizeChangeHandler, this);

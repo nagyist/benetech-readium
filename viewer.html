@@ -24,10 +24,16 @@
 
 					<a title="Back to Bookshare.org" accesskey="b" class="brand" href="https://www.bookshare.org/" id='bar-logo' role="button">
 						<img src="/images/top_bar/bks_web_reader_logo.png" id="bar-logo-img" alt=""/>
-<span class="offscreenText">Back to Bookshare.org</span>
+						<span class="offscreenText">Back to Bookshare.org</span>
 					</a>
 
 					<ul class="nav pull-right">
+						<li>
+							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
+								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Table of contents</span>
+							</a>
+						</li>
 						<li>
 							<a title="Previous" accesskey="2" href="#" id='prev-page-button' role="button">
 								<img src="/images/top_bar/arrow_previous.png" class="nav-icon" alt=""/>
@@ -40,44 +46,38 @@
 								<span class="offscreenText">Next</span>
 							</a>
 						</li>
-						<li>
-							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
-								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Table of contents</span>
-							</a>
-						</li>
 						<li class="divider-vertical stubby"></li>
 						<li>
 							<a title="Options" accesskey="o" href="#viewer-settings-modal" id="options-btn" data-toggle="modal" role="button">
 								<img src="/images/top_bar/options.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Options</span>
+								<span class="offscreenText">Options</span>
 							</a>
 						</li>
 						<li>
 							<a accesskey="n" href="#" id="nightmode-btn" role="button">
 								<img src="/images/top_bar/ico_nightmode_toggle_off.png" class="nav-icon" id="day-to-night-ico" alt=""/>
 								<img src="/images/top_bar/ico_nightmode_toggle_on.png" class="nav-icon" id="night-to-day-ico" alt=""/>
-<span id="nmOT" class="offscreenText"></span>
+								<span id="nmOT" class="offscreenText"></span>
 							</a>
 						</li>
 						<li>
 							<a accesskey="f" href="#" id="fs-toggle-btn" role="button">
 								<img src="/images/top_bar/ico_fs_toggle_on.png" class="nav-icon" id="go-to-fs-ico" alt=""/>
 								<img src="/images/top_bar/ico_fs_toggle_off.png" class="nav-icon" id="leave-fs-ico" alt=""/>
-<span id="fsOT" class="offscreenText"></span>
+								<span id="fsOT" class="offscreenText"></span>
 							</a>
 						</li>
 						<li>
 							<a title="Help" accesskey="h" href="#viewer-help-modal" id="help-btn" data-toggle="modal" role="button">
 								<img src="/images/top_bar/ico_help.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Help</span>
+								<span class="offscreenText">Help</span>
 							</a>
 						</li>
 						<li class="divider-vertical"></li>
 						<li style="margin-right: 15px">
 							<a title="Hide toolbar" accesskey="x" id="hide-toolbar-button" class="toggle-bar-btn" href="#" role="button">
 		 						<img src="/images/top_bar/ico_closeUI.png" class="nav-icon" alt=""/>
-<span class="offscreenText">Hide toolbar</span>
+								<span class="offscreenText">Hide toolbar</span>
 							</a>
 						</li>
 					</ul>
@@ -180,7 +180,8 @@
 <div class="offscreenText"> Options End </div>
 		</div><!-- end le settings modal -->
 		<div class="modal fade" id="viewer-help-modal"  style="display: none"><!-- le help modal -->
-<div class="offscreenText"> Help Start </div>
+				<div class="offscreenText"> Help Start </div>
+				<div id="viewer-help-body">
 				<h1 tabindex="-1" id="help-heading">Overview:</h1>
 				<p>
 					Bookshare Web Reader lets you read books directly from your Internet browser.  
@@ -254,7 +255,7 @@
 							<li>This button appears only on browsers that support this capability.</li>
 						</ul>
 					</li>
-					<li>The <strong>Hide Readium User Interface</strong> button will hide the toolbar.</li>
+					<li>The <strong>Hide Toolbar</strong> button will hide the toolbar.</li>
 				</ul>
 				<h2>Navigating books:</h2>
 				<h3>Next and Previous Page Buttons</h3>
@@ -315,7 +316,8 @@
 					Be sure to mention that you found the quality issue in a book you were reading with Bookshare Web Reader (vs. 
 					another format accessed on a different reading tool).
 				</p>
-			<div id="help-form-footer" class="clearfix">
+			</div>
+			<div id="viewer-help-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
 			</div>
 <div class="offscreenText"> Help End </div>

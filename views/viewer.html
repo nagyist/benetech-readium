@@ -27,6 +27,12 @@
 
 					<ul class="nav pull-right">
 						<li>
+							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
+								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
+								<span class="offscreenText">Table of contents</span>
+							</a>
+						</li>
+						<li>
 							<a title="Previous" accesskey="2" href="#" id='prev-page-button' role="button">
 								<img src="/images/top_bar/arrow_previous.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Previous</span>
@@ -36,12 +42,6 @@
 							<a title="Next" accesskey="1" href="#" id='next-page-button' role="button">
 								<img src="/images/top_bar/arrow_next.png" class="nav-icon" alt=""/>
 								<span class="offscreenText">Next</span>
-							</a>
-						</li>
-						<li>
-							<a title="Table of contents" accesskey="t" href="#" id='toggle-toc-btn' role="button">
-								<img src="/images/top_bar/ico_toc.png" class="nav-icon" alt=""/>
-								<span class="offscreenText">Table of contents</span>
 							</a>
 						</li>
 						<li class="divider-vertical stubby"></li>
@@ -199,7 +199,8 @@
 <div class="offscreenText"> Options End </div>
 		</div><!-- end le settings modal -->
 		<div class="modal fade" id="viewer-help-modal"  style="display: none"><!-- le help modal -->
-<div class="offscreenText"> Help Start </div>
+				<div class="offscreenText"> Help Start </div>
+				<div id="viewer-help-body">
 				<h1 tabindex="-1" id="help-heading">Overview:</h1>
 				<p>
 					Bookshare Web Reader lets you read books directly from your Internet browser.  
@@ -273,7 +274,7 @@
 							<li>This button appears only on browsers that support this capability.</li>
 						</ul>
 					</li>
-					<li>The <strong>Hide Readium User Interface</strong> button will hide the toolbar.</li>
+					<li>The <strong>Hide Toolbar</strong> button will hide the toolbar.</li>
 				</ul>
 				<h2>Navigating books:</h2>
 				<h3>Next and Previous Page Buttons</h3>
@@ -334,7 +335,8 @@
 					Be sure to mention that you found the quality issue in a book you were reading with Bookshare Web Reader (vs. 
 					another format accessed on a different reading tool).
 				</p>
-			<div id="help-form-footer" class="clearfix">
+			</div>
+			<div id="viewer-help-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
 			</div>
 <div class="offscreenText"> Help End </div>
