@@ -96,6 +96,8 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 	//   multiple different cases involved in switching pages.
 	prevPage: function() {
 
+		this.epubController.trigger("pagesPrevPage");
+
 		var curr_pg = this.get("current_page");
 		var lastPage = curr_pg[0] - 1;
 
@@ -141,6 +143,8 @@ Readium.Models.ReadiumPagination = Backbone.Model.extend({
 	},
 
 	nextPage: function() {
+
+		this.epubController.trigger("pagesNextPage");
 
 		var curr_pg = this.get("current_page");
 		var firstPage = curr_pg[curr_pg.length - 1] + 1;

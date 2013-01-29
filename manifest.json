@@ -30,18 +30,7 @@
     }
   ],
    "web_accessible_resources": [
-    "scripts/epub_reading_system.js",
-    "lib/mathjax/MathJax.js",
-    "lib/mathjax/config/readium-iframe.js",
-    "lib/mathjax/extensions/MathMenu.js",
-    "lib/mathjax/extensions/MathZoom.js",
-    "lib/mathjax/jax/input/TeX/config.js",
-    "lib/mathjax/jax/input/MathML/config.js",
-    "lib/mathjax/jax/output/SVG/config.js",
-    "lib/mathjax/extensions/tex2jax.js",
-    "lib/mathjax/extensions/mml2jax.js",
-    "lib/mathjax/extensions/MathEvents.js",
-    "lib/images/MenuArrow-15.png"
+    "scripts/epub_reading_system.js"
    ],
-   "version": "0.1.8"
+   "version": "0.1.9"
 }

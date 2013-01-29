@@ -322,3 +322,9 @@ if ( window.XDomainRequest ) {
 		}
 	});
 };
+
+// override isBlockElement for iframe
+BeneSpeak._isBlockElement = function(el) {
+        var style = window.frames[0].getComputedStyle(el);
+        return ((style.display.indexOf('inline') == -1) && (style.display.indexOf('ruby') == -1))
+    };

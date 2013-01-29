@@ -59,10 +59,7 @@ var BeneSpeak = {
                     this._tokenize(cn[i], d);
                 }
                 
-                // break off the word if this is a block-level element
-                if (this._isBlockElement(node)) {
-                    BeneSpeak._processBlockBoundary(d, node);
-                }
+                BeneSpeak._processElementBoundary(d, node);
                 
                 // BeneSpeak._elementEndAnnouncement(d, node);
                 break;
@@ -173,12 +170,13 @@ var BeneSpeak = {
         
     },
     
-    _processBlockBoundary: function(d, blockNode) {
+    _processElementBoundary: function(d, element) {
         
+        // always end the word in progress
         if (d._wipStart != null) {
             var r = d.document.createRange();
             r.setStart(d._wipStart.node, d._wipStart.offset);
-            r.setEndAfter(blockNode);
+            r.setEndAfter(element);
             
             var w = new BeneSpeak.Fragment(r, d.utterance.length);
             if (w.text.length > 0) {
@@ -189,10 +187,12 @@ var BeneSpeak = {
             d._wipStart = null;
         }
         
-        if (d._sipStart != null) {
+        // end the sentence if a sentence is in progress and
+        // the element is a block-level element
+        if (d._sipStart != null && this._isBlockElement(element)) {
             var r = d.document.createRange();
             r.setStart(d._sipStart.node, d._sipStart.offset);
-            r.setEndAfter(blockNode);
+            r.setEndAfter(element);
             
             var sent = new BeneSpeak.Fragment(r, d._sipOffset);
             if (sent.text.length > 0) {

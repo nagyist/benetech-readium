@@ -132,6 +132,8 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// of the url:
 		var splitUrl = BookshareUtils.getSplitUrl(href);
 
+		this.trigger("goToHref");
+
 		// handle the base url first:
 		if(splitUrl[1]) {
 			var spine_pos = this.packageDocument.spineIndexFromHref(splitUrl[1]);

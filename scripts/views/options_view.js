@@ -52,11 +52,13 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		};
 		$('#options-btn').attr('aria-pressed', 'false');
 		$('#viewer-settings-modal').on('shown', function(){
+			that.model.get("controller").set("options-view-shown", true);
 			$('#options-heading').focus();
 			setTimeout(function(){
 				$('#options-btn').attr('aria-pressed', 'true');
 			}, 1);
 		}).on('hidden', function(){
+			that.model.get("controller").set("options-view-shown", false);
 			setTimeout(function(){
 				$('#options-btn').attr('aria-pressed', 'false').focus();
 			}, 1);
