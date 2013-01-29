@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "description": "THIS IS A DEMO APP FOR BETA USERS ONLY.",
+  "description": "Installing this extension enables text-to-speech and word-level highlighting for the Bookshare Web Reader. Bookshare is the world’s largest online library of copyrighted content for people with qualified print disabilities.",
    
    "icons": {
       "128": "images/booksharelogo.png"
    },
 
    "minimum_chrome_version": "14",
-   "name": "Bookshare Project Overlook Beta",
+   "name": "Bookshare Web Reader",
    "permissions": [ 
       "tts",
       "https://www.bookshare.org/",
