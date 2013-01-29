@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "description": "Installing this extension enables text-to-speech and word-level highlighting for the Bookshare Web Reader. Bookshare is the world’s largest online library of copyrighted content for people with qualified print disabilities.",
+  "description": "Installing this extension enables text-to-speech and word-level highlighting for the Bookshare Web Reader.",
    
    "icons": {
       "128": "images/booksharelogo.png"
