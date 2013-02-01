@@ -153,13 +153,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		if (this.trackPosition && !!this.model.get('track_position')) {
 			var selector = BookshareUtils.getSelectorForNearestElementWithId(BookshareUtils.findTopElement(this));
 			this.model.set('reading_position', selector);
-            // set href of the iframe
-            this.getFrame().focus();
-            var splitUrl = BookshareUtils.getSplitUrl(selector);
-            if (splitUrl[2]) {
-                // set href of the iframe, for screen readers
-            	this.getFrame().contentDocument.location.hash = splitUrl[2];
-            }
 		}
 	},
 
@@ -194,8 +187,6 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
             	this.trackPosition = false;
                 this.pages.goToPage(page);
                 this.goToPage(page);
-                // set href of the iframe, for screen readers
-                this.getFrame().contentDocument.location.hash = hashFragmentId;
             	this.trackPosition = true;
 			}
 		}

@@ -22,6 +22,12 @@ Readium.Views.TocViewBase = Backbone.View.extend({
 		href = $(e.currentTarget).attr("href");
         this.model.hide();
 		this.model.handleLink(href);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
+
+		// handle the base url first:
+		if(splitUrl[1]) {
+			BookshareUtils.setFocus(splitUrl[2]);
+		}		
 	},
 
 	handlePageSelect : function (e) {
@@ -29,6 +35,12 @@ Readium.Views.TocViewBase = Backbone.View.extend({
         var href = option.value;
         this.model.hide();
         this.model.handleLink(href);
+		var splitUrl = BookshareUtils.getSplitUrl(href);
+
+		// handle the base url first:
+		if(splitUrl[1]) {
+			BookshareUtils.setFocus(splitUrl[2]);
+		}		
 	},
 
 	closeToc: function(e) {
