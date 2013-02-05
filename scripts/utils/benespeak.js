@@ -49,7 +49,7 @@ var BeneSpeak = {
         }
         
         switch(node.nodeType) {
-            case 1:
+            case Node.ELEMENT_NODE:
                 var cn = node.childNodes;
                 
                 // note that element-specific processing can happen here
@@ -63,7 +63,7 @@ var BeneSpeak = {
                 
                 // BeneSpeak._elementEndAnnouncement(d, node);
                 break;
-            case 3:
+            case Node.TEXT_NODE:
                 var t = node.textContent;
                 
                 // initialize _wipStart if needed
