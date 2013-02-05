@@ -2,7 +2,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     
     defaults: {
         "tts_playing": false,
-        "currentElement": null,
+        "currentNode": null,
         "bufferSize": 5000
     },
 
@@ -26,12 +26,13 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     play: function() {
         this.set('tts_playing', true);
         this.controller.set('track_position', false);
+        this._setCurrentNode(this._getStartNode());
         this.speak();
     },
     
     stop: function() {
         this.set('tts_playing', false);
-        this.set('currentElement', null);
+        this.set('currentNode', null);
         this.controller.set('track_position', true);
         this.data = null;
         chrome.tts.stop();
@@ -39,17 +40,11 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     
     speak: function() {
         var self = this;
-        var el = self._getCurrentElement();
 
-        // this is a stopgap check to make sure we don't attempt
-        // to voice empty utterances. needs more work
-        if (el.textContent.trim() == "") {
-            self.advanceReadingPosition();
-            el = self._getCurrentElement();
-        }
+        var n = this._getCurrentNode();
 
-        if (el != null) {
-            self.data = BeneSpeak.generateSpeechData(el);
+        if (n != null) {
+            self.data = BeneSpeak.generateSpeechData(n);
             chrome.tts.speak(self.data.utterance,
                 {
                     'rate' : self.controller.options.get("speech_rate"),
@@ -57,64 +52,89 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
                     'onEvent' : self._createCallbackHandler(self)
                 });
         } else {
-            // we've reached the end of the speakable content
-            // resume position tracking
-            this.controller.set('track_position', true);
+            self.stop();
         }
     },
     
     advanceReadingPosition: function() {
-        var self = this;
-        var nextElement = self._getNextElement(self._getCurrentElement());
 
-        while (!self._isReadable(nextElement)) {
-            nextElement = self._getNextElement(nextElement);
-            if ((nextElement != null) && (nextElement.textContent.trim().length > 0) && self._hasBlockLevelChildrenOnly(nextElement)) {
-                nextElement = nextElement.children[0];
-            }
+        // get the current node
+        var n = this._getCurrentNode();
+
+        // get the next readable chunk
+        n = this._getNextReadableNode(n);
+        if (n != null) {
+            this._setCurrentNode(n);
         }
-        self._setCurrentElement(nextElement);
+        return n;
     },
 
-    _isReadable: function(el) {
-        // a little kludgy -- this will still end up reading elements that are hidden
-        // via display:none in class rather than style attribute
-        return (
-            (el != null) &&
-            (el.textContent.trim().length > 0) &&
-            ((el.style.display != "none") || (el.getAttribute("epub:type") == "annotation"))
-            );
-    },
-
-    _setCurrentElement: function(el) {
-        var self = this;
-        self.set('currentElement', el);
-        if (el.getAttribute('id') != null) {
-            self.controller.set('reading_position', el.tagName.toLowerCase() + '#' + el.getAttribute('id'));
-        }
-    },
-
-    _getCurrentElement: function() {
-        var self = this;
-        if (self.get('currentElement') != null) {
-            return self.get('currentElement');
-        } else {
-            var selector = self.controller.get("reading_position");
-            var bodyEl = self.controller.paginator.v.getBody().ownerDocument.body;
-            var el = $(bodyEl).find(selector);
-            if (el.length == 0) {
-                return bodyEl.children[0];
+    _getNextReadableNode: function(node, doNotAdvance) {
+        var n = (doNotAdvance) ? node : this._getNextNode(node);
+        if (n != null) {
+            if (this._shouldRead(n)) {
+                if (this._shouldDescend(n)) {
+                    return this._getNextReadableNode(n.childNodes[0], true);
+                } else {
+                    return n;
+                }
             } else {
-                return el[0];
+                return this._getNextReadableNode(n);
             }
+        } else {
+            return null;
         }
     },
 
-    _getNextElement: function(el) {
-        if (el.nextElementSibling != null) {
-            return el.nextElementSibling;
-        } else if (el.parentElement != null) {
-            return this._getNextElement(el.parentElement);
+    _shouldDescend: function(el) {
+        if (el.nodeType == Node.ELEMENT_NODE) {
+            var hasElementChildren = false;
+            var nodes = el.childNodes;
+            for (var i = 0; i < nodes.length; i++) {
+                var thisNode = nodes[i];
+                if (thisNode.nodeType == Node.ELEMENT_NODE) {
+                    hasElementChildren = true;
+                    if (!BeneSpeak._isBlockElement(thisNode)) {
+                        return false;
+                    }
+                }
+            }
+            return hasElementChildren;
+        } else {
+            return false;
+        }
+    },
+
+    _shouldRead: function(node) {
+        return (
+            (node != null) &&
+            (node.textContent.trim().length > 0) &&
+            ((node.nodeType != Node.ELEMENT_NODE) || (window.frames[0].getComputedStyle(node).display != "none") || (node.getAttribute("epub:type") == "annotation"))
+        );
+    },
+
+    _getStartNode: function() {
+        var bodyEl = this.controller.paginator.v.getBody().ownerDocument.body;
+        return $(bodyEl).find(this.controller.get("reading_position"))[0] || bodyEl.children[0];
+    },
+
+    _setCurrentNode: function(n) {
+        var self = this;
+        self.set('currentNode', n);
+        if ((n.nodeType == Node.ELEMENT_NODE) && (n.getAttribute('id') != null)) {
+            self.controller.set('reading_position', n.tagName.toLowerCase() + '#' + n.getAttribute('id'));
+        }
+    },
+
+    _getCurrentNode: function() {
+        return this.get("currentNode");
+    },
+
+    _getNextNode: function(n) {
+        if (n.nextSibling != null) {
+            return n.nextSibling;
+        } else if (n.parentNode != null) {
+            return this._getNextNode(n.parentNode);
         } else {
             return null;
         }
@@ -176,8 +196,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             } else if (event.type == 'end') {
                 data.clearWordHighlight();
                 data.clearSentenceHighlight();
-                if (self._getNextElement(self._getCurrentElement()) != null) {
-                    self.advanceReadingPosition();
+                if (self.advanceReadingPosition() != null) {
                     self.speak();
                 } else {
                     self.stop();
@@ -251,9 +270,18 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     _logPath: function(el) {
         var n = el;
         var s = "";
-        while (n != null) {
-            s = n.tagName + "/" + s;
+
+        if (n.nodeType == Node.TEXT_NODE) {
+            s = "#text";
             n = n.parentElement;
         }
+
+        while (n != null) {
+            var id = n.getAttribute("id");
+            s = n.tagName + (id != null ? "[" + id + "]" : "") + "/" + s;
+            n = n.parentElement;
+        }
+
+        return s;
     }
 });
