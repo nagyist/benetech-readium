@@ -13,7 +13,7 @@ window.Readium = {
 		$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/'));
 		_router = new Readium.Routers.ViewerRouter();
 
-		if (window.chrome && !window.chrome.extension && (BookshareUtils.environment == 'LIVE')) {
+		if (window.chrome && !window.chrome.extension && (navigator.userAgent.indexOf('Android') == -1) && (BookshareUtils.environment == 'LIVE')) {
 			var options = Readium.Models.ReadiumOptions.getInstance();
 			var myModal = $('#chrome-extension-install');
 			if (false == !!options.get('decline_extension')) {
