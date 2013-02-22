@@ -1935,6 +1935,7 @@ body {
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 450px;
+  color: #111;
 }
 
 #viewer-help-modal {
