@@ -29,6 +29,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 
 		if (BookshareUtils.isIE9()) {
 			ajaxParams.dataType = 'jsonp';
+			ajaxParams.xhrFields = null;
 		}
 
 		$.ajax(ajaxParams);

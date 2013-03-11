@@ -38,8 +38,8 @@ window.BookshareUtils = {
 		        	};
 
 					if (useJSONP) {
-						ajaxParams.cache = true;
 						ajaxParams.dataType = "jsonp " + dataType;
+						ajaxParams.xhrFields = null;
 					}
 
 		        	$.ajax(ajaxParams);
