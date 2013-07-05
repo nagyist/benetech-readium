@@ -12,7 +12,7 @@ window.BookshareUtils = {
 		if (this.environment == 'DEV') {
 		  return s.substr(s.lastIndexOf('/'));
 		}
-        return s.replace(/\//g, "%2F");
+		return s;
 	},
 
 	makeSyncFunction: function(urlFunction, dataType, useJSONP) {
@@ -70,7 +70,11 @@ window.BookshareUtils = {
 		normalized = BookshareUtils.flatten(normalized);
 
 		var manifest = window._epub.packageDocument.get('manifest');
-		var item = manifest.find(function(i) { var uu = new URI(i.get('href')); return (uu.path.indexOf(normalized) > -1);});
+		var item = manifest.find(
+			function(i) {
+				var uu = new URI(i.get('href'));
+				return (uu.path.indexOf(normalized) > -1);
+			});
 		if (item == null) {
 			return null;
 		} else {
