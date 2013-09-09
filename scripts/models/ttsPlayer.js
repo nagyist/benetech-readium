@@ -48,7 +48,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             chrome.tts.speak(self.data.utterance,
                 {
                     'rate' : self.controller.options.get("speech_rate"),
-                    'desiredEventTypes' : ['word'],
+                    'requiredEventTypes' : ['word', 'end'],
                     'onEvent' : self._createCallbackHandler(self)
                 });
         } else {
@@ -163,7 +163,6 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     _createCallbackHandler: function(self) {
         var data = self.data;
         return function(event) {
-            
             if (event.type == 'word') {
                 
                 if (self.controller.options.get('pagination_mode') == 'scrolling') {
