@@ -32,6 +32,13 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 			this.options.set("pagination_mode", "scrolling");
 		}
 
+		// detect for iPad and disable scrolling accordingly
+		var userAgent = window.navigator.userAgent;
+		if ((userAgent.indexOf("Safari") >= 0) && (userAgent.indexOf("Mobile") >= 0)) {
+			this.set("isIosDevice", true);
+			this.options.set("pagination_mode", "single");
+		}
+
 		// apply options
 		this.options.set("controller", this);
 		this.options.applyOptions();
