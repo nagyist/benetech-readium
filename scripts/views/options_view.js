@@ -16,6 +16,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			$('#pagination_mode').toggle(false);
 		}
 
+		// hide scrolling setting for iOS devices
+		if (this.model.get("controller").get("isIosDevice")) {
+			$('#scrolling-option').toggle(false);
+		}
+
 		Acc.rg = {
 			theme: new Acc.RadioGroup('theme-radio-group', ' .' + this.model.get("current_theme"),
 				function(el){
