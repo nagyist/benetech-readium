@@ -7,6 +7,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
 		this.model.on("change:font_size", this.renderFontSize, this);
 		this.model.on("change:speech_rate", this.renderSpeechRate, this);
+		this.model.on("change:current_theme", this.renderTheme, this);
 
 		var that = this;
 
@@ -72,6 +73,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		
 	render: function() {
 		this.renderPagination();
+		this.renderTheme();
 		this.renderMarginRadio();
 		this.renderFontSize();
 		this.renderSpeechRate();
@@ -84,6 +86,14 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.$("#one-up-option").toggleClass("selected", (viewPref == 'single'));
 		this.$("#two-up-option").toggleClass("selected", (viewPref == 'facing'));
 		this.$("#scrolling-option").toggleClass("selected", (viewPref == 'scrolling'));
+		return this;
+	},
+
+	renderTheme: function() {
+		var themePref = this.model.get("current_theme");
+		this.$("#default-theme-option").toggleClass("selected", (themePref == 'default-theme'));
+		this.$("#night-theme-option").toggleClass("selected", (themePref == 'night-theme'));
+		this.$("#parchment-theme-option").toggleClass("selected", (themePref == 'parchment-theme'));
 		return this;
 	},
 

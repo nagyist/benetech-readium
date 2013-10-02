@@ -2093,14 +2093,23 @@ body {
     #viewer-settings-modal .simple-radio.selected {
       background-image: url("/images/settings_modal/radiobutton_on.png"); }
   #viewer-settings-modal .theme-option {
+    font-family: Helvetica,Arial,sans-serif;
     display: block;
     text-align: left;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: 1px solid #777777;
-    padding: 3px;
-    margin-bottom: 10px; }
+    padding: 3px 3px 3px 23px;
+    margin: 3px 0px;
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
+    background-image: url("/images/settings_modal/radiobutton_off.png");
+    font-size: 15px;
+    font-weight: 400;
+    }
+    #viewer-settings-modal .theme-option.selected {
+      background-image: url("/images/settings_modal/radiobutton_on.png"); }
   #viewer-settings-modal .pagination-option {
     display: block;
     text-align: left;
