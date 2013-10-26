@@ -26,11 +26,12 @@
         "https://qa-bookshare-reader.s3.amazonaws.com/viewer.html*",
         "https://staging-bookshare-reader.s3.amazonaws.com/viewer.html*"
         ],
-      "js": ["lib/jquery-1.8.3.min.js", "background/hijack.js"]
+      "js": ["background/hijack.js"]
     }
   ],
    "web_accessible_resources": [
-    "scripts/epub_reading_system.js"
+    "scripts/epub_reading_system.js",
+    "views/viewer.html"
    ],
-   "version": "0.1.14"
+   "version": "0.1.15"
 }
