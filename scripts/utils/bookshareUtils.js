@@ -8,6 +8,12 @@ window.BookshareUtils = {
 
 	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*)/,
 
+	hasSpeechAPI: function() {
+		return (window.speechSynthesis
+			&& window.speechSynthesis.getVoices
+			&& window.SpeechSynthesisUtterance) != undefined;
+	},
+
 	flatten: function(s) {
 		if (this.environment == 'DEV') {
 		  return s.substr(s.lastIndexOf('/'));
@@ -85,7 +91,7 @@ window.BookshareUtils = {
 	setEnvironment: function(href) {
 		BookshareUtils.http = 'https://';
 
-		if (href.indexOf('http://reader.dev.bookshare.org:8080/viewer.html?book=') == 0) {
+		if (/\bdev\b/.test(location.hostname)) {
 			BookshareUtils.environment = 'DEV'; 
 			BookshareUtils.http = 'http://';
 		} else {

@@ -77,6 +77,13 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.renderMarginRadio();
 		this.renderFontSize();
 		this.renderSpeechRate();
+		if (BookshareUtils.hasSpeechAPI()) {
+			this.renderVoiceOptions();
+			if (window.chrome) {
+				speechSynthesis.onvoiceschanged = _.bind(this.renderVoiceOptions, this);
+			}
+			$(".ttsOnly").show();
+		}
 		this.renderDisplayPageNumbers();
 		return this;
 	},
@@ -110,6 +117,18 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.$("#font-size-input").val(val);
 	},
 
+	renderVoiceOptions: function() {
+		var select = $("#voice-input");
+		var voices = speechSynthesis.getVoices();
+		for (i = 0; i < voices.length; i++) {
+			if (voices[i].localService && !/google/i.test(voices[i].voiceURI)) {
+				var option = $("<option>").text(voices[i].name).val(i);
+				select.append(option);
+			}
+		}
+        select.val(this.model.get("voice_index"));
+	},
+
     renderSpeechRate: function() {
         var val = this.model.get("speech_rate");
         this.$("#speech-rate-input").val(val);
@@ -127,7 +146,8 @@ Readium.Views.OptionsView = Backbone.View.extend({
     	"click #cancel-settings-but": 	"cancelSettings",
 		"click #save-settings-but": 	"applySettings",
     	"change #font-size-input": 		"extractFontSize",
-    	"change #speech-rate-input":     "extractSpeechRate"
+    	"change #speech-rate-input":     "extractSpeechRate",
+    	"change #voice-input":			"extractVoice"
   	},
 
   	extractFontSize: function(e) {
@@ -140,6 +160,12 @@ Readium.Views.OptionsView = Backbone.View.extend({
         var val = $("#speech-rate-input").val();
         val = parseFloat(val);
         this.model.set("speech_rate", val);
+    },
+    
+    extractVoice: function(e) {
+    	var val = $("#voice-input").val();
+    	val = parseInt(val, 10);
+    	this.model.set("voice_index", val);
     },
 
   	selectTheme: function(e) {

@@ -1,17 +1,17 @@
 /**
- * ttsPlayer.js for speechSynthesis API
- * Chrome extension version is now sequestered (and frozen) as crx-ttsPlayer.js
+ * Copy of ttsPlayer.js in its original Chrome Extension form, to support existing installations of the
+ * extension. No further development for the Chrome extension is expected.
  */
 Readium.Models.TTSPlayer = Backbone.Model.extend({
     
     defaults: {
         "tts_playing": false,
         "currentNode": null,
-        "bufferSize": 5000,
-        "currentSpeech": null
+        "bufferSize": 5000
     },
 
     ALWAYS_SPEAK: ['ol', 'ul', 'dl', 'table'],
+    FATAL_EVENTS: ['cancelled', 'error'],
     
     initialize: function() {
         this.controller = this.get('controller');
@@ -24,7 +24,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         this.controller.on("pagesPrevPage", this.stop, this);
 		this.controller.on("repagination_event", this._windowSizeChangeHandler, this);
 		
-        $(window).unload( function() { speechSynthesis.cancel(); });
+        $(window).unload( function() { chrome.tts.stop(); });
     },
     
     play: function() {
@@ -35,12 +35,11 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     },
     
     stop: function() {
-        speechSynthesis.pause();
         this.set('tts_playing', false);
         this.set('currentNode', null);
         this.controller.set('track_position', true);
         this.data = null;
-        speechSynthesis.cancel();
+        chrome.tts.stop();
     },
     
     speak: function() {
@@ -49,20 +48,13 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         var n = this._getCurrentNode();
 
         if (n != null) {
-            console.debug("SPEAKING: " + self._getCurrentNode().id);
             self.data = BeneSpeak.generateSpeechData(n);
-            var _speech = new SpeechSynthesisUtterance(self.data.utterance);
-            console.debug("TTS TEXT: " + _speech.text.substr(0,40));
-            // todo set voice, rate from prefs
-            _speech.voice = speechSynthesis.getVoices()[self.controller.options.get("voice_index")];
-            _speech.rate = self.controller.options.get("speech_rate")
-            var _ttsListener = self._createCallbackHandler(self);
-            _speech.onboundary = _ttsListener;
-            _speech.onend = _ttsListener;
-            _speech.onerror = _ttsListener;
-            speechSynthesis.speak(_speech);
-            // Keep in memory so event handlers continue
-            this.set("currentSpeech", _speech);
+            chrome.tts.speak(self.data.utterance,
+                {
+                    'rate' : self.controller.options.get("speech_rate"),
+                    'requiredEventTypes' : ['word', 'end'],
+                    'onEvent' : self._createCallbackHandler(self)
+                });
         } else {
             self.stop();
         }
@@ -175,8 +167,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
     _createCallbackHandler: function(self) {
         var data = self.data;
         return function(event) {
-        	console.debug("EVENT: "+event.type+" "+event.name+" "+event.charIndex);
-            if (event.type == 'boundary' && event.name == 'word') {
+            if (event.type == 'word') {
                 
                 if (self.controller.options.get('pagination_mode') == 'scrolling') {
                     data.xOffset = self.controller.paginator.v.getFrame().contentWindow.scrollX;
@@ -206,30 +197,22 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
                 }
                 
             } else if (event.type == 'end') {
-            	console.debug("END OF: " + self._getCurrentNode());
                 data.clearWordHighlight();
                 data.clearSentenceHighlight();
-                console.debug("TTS PLAYING? " + self.get('tts_playing'));
-                if (self.get('tts_playing') && self.advanceReadingPosition() != null) {
-                    this.onend = null;
-	            	console.debug("NEXT: " + self._getCurrentNode().id);
-	            	// Transition from one SpeechSynthesisUtterance to the next must be done in separate function calls.
-	            	// Otherwise the start and stop events go to both when this function call completes. Chrome will play
-	            	// the previous one on start(), cancel() sends an end event to the new one on Safari. This timeout
-	            	// gets a clean start between ending one utterance and speaking the next.
-                    setTimeout(_.bind(self.speak, self), 100);
+                if (self.advanceReadingPosition() != null) {
+                    self.speak();
                 } else {
-                    setTimeout(_.bind(self.stop, self), 100);
+                    self.stop();
                 }
-            } else if (event.type == 'error') {
-                console.debug("A TTS Error was encountered.");
-                this.onerror = null;
+            } else if (event.type == 'interrupted') {
                 data.clearWordHighlight();
                 data.clearSentenceHighlight();
-                // expect speechSynthesis.cancel() to throw error event in Safari
-                if (self.get('tts_playing')) {
-                    setTimeout(_.bind(self.stop, self), 100);
-                }
+                self.stop();
+            } else if (self.FATAL_EVENTS.indexOf(event.type) >= 0) {
+                console.log("A TTS Error was encountered.");
+                data.clearWordHighlight();
+                data.clearSentenceHighlight();
+                self.stop();
             }
         };        
     },

@@ -7,7 +7,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
-		this.hasTts = (window.chrome && window.chrome.extension);
+		this.hasTts = (BookshareUtils.hasSpeechAPI() || (window.chrome && window.chrome.tts));
 		if (this.hasTts) {
 			this.model.ttsPlayer.on("change:tts_playing", this.renderTtsButton, this);
 		}
@@ -19,6 +19,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.renderThemeButton();
 		if (this.hasTts) {
 			this.renderTtsButton();
+			$(".ttsOnly").show();
 		}
 		return this;
 	},
