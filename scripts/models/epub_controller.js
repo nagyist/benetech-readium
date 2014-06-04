@@ -86,7 +86,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		// save reading position
 		this.on("change:reading_position", this.saveReadingPosition, this);
 
-		if (window.hasOwnProperty('BeneSpeak')) {
+		if (BookshareUtils.hasSpeechAPI()) {
 			this.ttsPlayer = new Readium.Models.TTSPlayer({controller: this});
 		}
 	},

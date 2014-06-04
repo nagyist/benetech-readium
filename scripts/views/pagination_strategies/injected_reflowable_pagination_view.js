@@ -151,8 +151,11 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
         
         // record position
 		if (this.trackPosition && !!this.model.get('track_position')) {
-			var selector = BookshareUtils.getSelectorForNearestElementWithId(BookshareUtils.findTopElement(this));
-			this.model.set('reading_position', selector);
+			var el = BookshareUtils.findTopElement(this);
+			if (el) {
+				var selector = BookshareUtils.getSelectorForNearestElementWithId(BookshareUtils.findTopElement(this));
+				this.model.set('reading_position', selector);
+			}
 		}
 	},
 
