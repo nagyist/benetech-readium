@@ -57,8 +57,8 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		var isPlaying = !!this.model.ttsPlayer && this.model.ttsPlayer.get("tts_playing");
 		this.$('#tts-on-ico').toggle(isPlaying);
 		this.$('#tts-off-ico').toggle(!isPlaying);
-		$('#play-tts-btn').attr('title', isPlaying ? 'Stop TTS' : 'Start TTS');
-		$('#ttsOT').html(isPlaying ? 'Start Text to Speech' : 'Stop Text to Speech');
+		$('#play-tts-btn').attr('title', isPlaying ? 'Stop' : 'Play');
+		$('#ttsOT').html(isPlaying ? 'Play' : 'Stop');
 		return this;
 	},
 
