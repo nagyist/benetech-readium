@@ -1925,6 +1925,41 @@ body {
       margin: 5px;
       padding: 5px; }
 
+#tts-browser-info {
+  text-align: center;
+  padding: 20px;
+  background-color: #cccccc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#cccccc, white, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false)); }
+  #tts-browser-info-body {
+    color: #111;
+  }
+  #tts-browser-info p {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+    text-align: left; }
+  #tts-browser-info #tts-browser-info-footer {
+    text-align: center; }
+    #tts-browser-info #tts-browser-info-footer button {
+      background-color: #000;
+      padding: 5px 10px;
+      background-color: #444444;
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#444444, #222222, false, false, false, false, false, false, false, false)));
+      background-image: -webkit-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+      background-image: -moz-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+      background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+      background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+      background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+      width: 135px;
+      margin: 5px;
+      padding: 5px; }
+
 #scrolling-wrapper {
   text-align: center;
   width: 100%;

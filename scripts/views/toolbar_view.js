@@ -7,7 +7,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.model.on("change:toolbar_visible", this.renderBarVibility, this);
 		this.model.on("change:full_screen", this.renderFullScreen, this);
 		this.model.on("change:current_theme", this.renderThemeButton, this);
-		this.hasTts = (BookshareUtils.hasSpeechAPI() || (window.chrome && window.chrome.tts));
+		this.hasTts = (BookshareUtils.hasSpeechAPI() || (!!window.chrome && !!window.chrome.tts));
 		if (this.hasTts) {
 			this.model.ttsPlayer.on("change:tts_playing", this.renderTtsButton, this);
 		}
@@ -17,10 +17,8 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 		this.renderBarVibility();
 		this.renderFullScreen();
 		this.renderThemeButton();
-		if (this.hasTts) {
-			this.renderTtsButton();
-			$(".ttsOnly").show();
-		}
+		this.renderTtsButton();
+		$(".ttsOnly").show();
 		return this;
 	},
 
@@ -56,7 +54,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	},
 
 	renderTtsButton: function() {
-		var isPlaying = this.model.ttsPlayer.get("tts_playing");
+		var isPlaying = !!this.model.ttsPlayer && this.model.ttsPlayer.get("tts_playing");
 		this.$('#tts-on-ico').toggle(isPlaying);
 		this.$('#tts-off-ico').toggle(!isPlaying);
 		$('#play-tts-btn').attr('title', isPlaying ? 'Stop TTS' : 'Start TTS');
@@ -113,10 +111,17 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 	},
 
 	play_tts: function() {
-		if(this.model.ttsPlayer.get("tts_playing")) {
-			this.model.ttsPlayer.stop();
+		if (this.hasTts) {
+			if(this.model.ttsPlayer.get("tts_playing")) {
+				this.model.ttsPlayer.stop();
+			} else {
+				this.model.ttsPlayer.play();
+			}
 		} else {
-			this.model.ttsPlayer.play();
+			var browserInfoModal = $('#tts-browser-info');
+			$('#tts-browser-info-but').click( function() { browserInfoModal.modal('hide'); });
+			browserInfoModal.modal();
+			$('#tts-browser-info-but').focus();
 		}
 	}
 });
