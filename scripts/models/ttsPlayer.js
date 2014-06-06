@@ -8,7 +8,8 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         "tts_playing": false,
         "currentNode": null,
         "bufferSize": 5000,
-        "currentSpeech": null
+        "currentSpeech": null,
+        "voice": null
     },
 
     ALWAYS_SPEAK: ['ol', 'ul', 'dl', 'table'],
@@ -53,8 +54,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             self.data = BeneSpeak.generateSpeechData(n);
             var _speech = new SpeechSynthesisUtterance(self.data.utterance);
             console.debug("TTS TEXT: " + _speech.text.substr(0,40));
-            // todo set voice, rate from prefs
-            _speech.voice = speechSynthesis.getVoices()[self.controller.options.get("voice_index")];
+            _speech.voice = this.get("voice");
             _speech.rate = self.controller.options.get("speech_rate")
             var _ttsListener = self._createCallbackHandler(self);
             _speech.onboundary = _ttsListener;

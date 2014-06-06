@@ -27,7 +27,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 			"current_theme": 		this.get("current_theme"),
 			"current_margin": 		this.get("current_margin"),
 			"speech_rate":          this.get("speech_rate"),
-			"voice_index":		    this.get("voice_index")
+			"voice_uri":		    this.get("voice_uri")
 		});
 
 		if (this.get("pagination_mode") == 'scrolling') {
