@@ -1967,10 +1967,30 @@ body {
   padding: 0px; }
 
 #viewer-help-body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 12px;
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 450px;
   color: #111;
+}
+
+#viewer-help-body table.toolbar-help {
+    margin: 14px;
+}
+
+#viewer-help-body table.toolbar-help td {
+  background-color: #DDD;
+  text-align: left;
+  vertical-align: top;
+  padding: 0.25em;
+}
+
+#viewer-help-body table.toolbar-help td.ico {
+  background-color: #333333;
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #viewer-help-modal {
