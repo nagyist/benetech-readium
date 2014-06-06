@@ -1,6 +1,7 @@
 Readium.Views.OptionsView = Backbone.View.extend({
 
 	el: '#viewer-settings-modal',
+	DEFAULT_VOICES: [ 'Alex', 'native' ],
 
 	initialize: function() {
 		this.model.on("change:pagination_mode", this.renderPagination, this);
@@ -118,15 +119,25 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	},
 
 	renderVoiceOptions: function() {
+		var voiceDefault;
 		var select = $("#voice-input");
 		var voices = speechSynthesis.getVoices();
 		for (i = 0; i < voices.length; i++) {
-			if (voices[i].localService && !/google/i.test(voices[i].voiceURI)) {
-				var option = $("<option>").text(voices[i].name).val(i);
+			var voice = voices[i];
+			if (voice.localService && !/google/i.test(voice.voiceURI)) {
+				var option = $("<option>").text(voice.name).val(voice.voiceURI);
 				select.append(option);
+				// Default to first available voice, "Alex", or "native", whichever's last
+				if (i == 0 || this.DEFAULT_VOICES.indexOf(voice.name) >= 0) {
+					voiceDefault = voice.voiceURI;
+				}
 			}
 		}
-        select.val(this.model.get("voice_index"));
+		var voicePref = this.model.get("voice_uri");
+        select.val(voicePref ? voicePref : voiceDefault);
+        var controller = this.model.get("controller");
+        controller.set("voice_uri", select.val());
+        controller.trigger("change:voice_uri");
 	},
 
     renderSpeechRate: function() {
@@ -164,8 +175,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
     
     extractVoice: function(e) {
     	var val = $("#voice-input").val();
-    	val = parseInt(val, 10);
-    	this.model.set("voice_index", val);
+    	this.model.set("voice_uri", val);
     },
 
   	selectTheme: function(e) {

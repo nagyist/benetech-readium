@@ -88,6 +88,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 
 		if (BookshareUtils.hasSpeechAPI()) {
 			this.ttsPlayer = new Readium.Models.TTSPlayer({controller: this});
+			this.on("change:voice_uri", this.setTTSVoice, this);
 		}
 	},
 
@@ -292,6 +293,18 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 			});
 		}
 		this.meta_section.on("change:meta_height", this.setMetaSize, this);
+	},
+	
+	setTTSVoice: function() {
+		var voice_uri = this.get("voice_uri");
+		var voices = speechSynthesis.getVoices();
+		for (i = 0; i < voices.length; i++) {
+			var voice = voices[i];
+			if (voice.voiceURI == voice_uri) {
+				this.ttsPlayer.set("voice", voice);
+				break;
+			}
+		}
 	}
 });
 
