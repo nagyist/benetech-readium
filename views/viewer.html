@@ -130,7 +130,6 @@
 				<div>
 					<h2 class="setting-header">FONT SIZE</h2>
 					<div class="clearfix">
-						<span id="font-size-icon"></span>
 						<select name="font-size-input" id="font-size-input">
 							<option value="12">12-point</option>
 							<option value="18">18-point</option>
@@ -148,13 +147,19 @@
 						<span role="radio" id="parchment-theme-option" class="theme-option parchment-theme clickable">Sands of Dune</span>
 					</div>
 				</div>
-				<div>
+				<div id="pagination_mode">
 					<h2 id="setting-header-display-legend" class="setting-header">DISPLAY FORMAT</h2>
-					<div role="radiogroup" aria-labelledby="setting-header-display-legend" class="clearfix" id="pagination_mode">
-						<span role="radio" id="one-up-option" class="simple-radio clickable pagination-option">Single Page</span>
-						<span role="radio" id="two-up-option" class="simple-radio clickable pagination-option">Facing Pages</span>
-						<span role="radio" id="scrolling-option" class="simple-radio clickable pagination-option">Scrolling</span>
-					</div>
+					<select name="pagination-mode-input" id="pagination-mode-input">
+						<option value="single">Single Page</option>
+						<option value="facing">Facing Pages</option>
+						<option value="scrolling">Scrolling</option>
+					</select>
+				</div>
+				<div>
+					<p>
+					<input type="checkbox" name="display-page-numbers" id="display-page-numbers">
+					<label for="display-page-numbers" class="checkbox">Display page numbers</label>
+					</p>
 				</div>
 				<div>
 					<h2 id="setting-header-margins-legend" class="setting-header">MARGINS</h2>
@@ -184,12 +189,12 @@
                         <span id="speech-rate-max" class="checkbox">Faster</span>
 	                </div>
 			    </div>
-				<div>
-					<p>
-					<input type="checkbox" name="display-page-numbers" id="display-page-numbers">
-					<label for="display-page-numbers" class="checkbox">Display page numbers</label>
-					</p>
-				</div>
+			    <div style="display:none;">
+	                <h2 id="voice_legend" class="setting-header">VOICE <span class="note">Read aloud may not work with all voices</span></h2>
+					<div class="clearfix">
+						<select name="voice-input" id="voice-input"></select>
+					</div>
+			    </div>
 			</div>
 			<div id="settings-form-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-settings-but">Cancel</button>
@@ -208,7 +213,7 @@
 				</p>
 				<table class="toolbar-help">
 					<tr>
-						<td class="ico"><img src="/images/top_bar/bks_web_reader_logo.png" alt=""/></td>
+						<td class="ico"><img src="/images/top_bar/bks_web_reader_logo_tiny.png" alt=""/></td>
 						<td>Bookshare Web Reader logo</td>
 						<td>Go back to Bookshare</td>
 					</tr>

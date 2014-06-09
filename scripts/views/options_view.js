@@ -5,6 +5,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 
 	initialize: function() {
 		this.model.on("change:pagination_mode", this.renderPagination, this);
+		this.model.on("change:display_page_numbers", this.renderDisplayPageNumbers, this);
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
 		this.model.on("change:font_size", this.renderFontSize, this);
 		this.model.on("change:speech_rate", this.renderSpeechRate, this);
@@ -32,17 +33,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 					if(id === "parchment-theme-option" ) that.model.set("current_theme", "parchment-theme");
 					if(id === "ballard-theme-option" ) that.model.set("current_theme", "ballard-theme");
 					if(id === "vancouver-theme-option" ) that.model.set("current_theme", "vancouver-theme");
-				}
-			),
-			pagination: new Acc.RadioGroup('pagination_mode', 
-				(this.model.get('pagination_mode') == 'single') ? ' #one-up-option' : ((this.model.get('pagination_mode') == 'facing') ? ' #two-up-option' : ' #scrolling-option'),
-				function(el){
-					if (el.id == 'one-up-option')
-						that.model.set("pagination_mode", "single");
-					else if (el.id == 'two-up-option')
-						that.model.set("pagination_mode", "facing");
-					else
-						that.model.set("pagination_mode", "scrolling");
 				}
 			),
 			margin: new Acc.RadioGroup('margin-radio-wrapper', ' #margin-option-' + this.model.get("current_margin"),
@@ -83,17 +73,8 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			if (window.chrome) {
 				speechSynthesis.onvoiceschanged = _.bind(this.renderVoiceOptions, this);
 			}
-			$(".ttsOnly").show();
 		}
 		this.renderDisplayPageNumbers();
-		return this;
-	},
-
-	renderPagination: function() {
-		var viewPref = this.model.get("pagination_mode");
-		this.$("#one-up-option").toggleClass("selected", (viewPref == 'single'));
-		this.$("#two-up-option").toggleClass("selected", (viewPref == 'facing'));
-		this.$("#scrolling-option").toggleClass("selected", (viewPref == 'scrolling'));
 		return this;
 	},
 
@@ -114,8 +95,12 @@ Readium.Views.OptionsView = Backbone.View.extend({
 
 	renderFontSize: function() {
 		var val = this.model.get("font_size");
-		// set the value of the slider
 		this.$("#font-size-input").val(val);
+	},
+
+	renderPagination: function() {
+		var val = this.model.get("pagination_mode");
+		this.$("#pagination-mode-input").val(val);
 	},
 
 	renderVoiceOptions: function() {
@@ -152,11 +137,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	events: {
     	"click .theme-option": 			"selectTheme",
     	"click .margin-radio": 			"selectMargin",
-    	"click .pagination-option": 	"selectPagination",
     	"change #display-page-numbers":	"clickDisplayPageNumbers",
     	"click #cancel-settings-but": 	"cancelSettings",
 		"click #save-settings-but": 	"applySettings",
     	"change #font-size-input": 		"extractFontSize",
+    	"change #pagination-mode-input":"extractPaginationMode",
     	"change #speech-rate-input":     "extractSpeechRate",
     	"change #voice-input":			"extractVoice"
   	},
@@ -165,6 +150,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		var val = $("#font-size-input").val();
 		val = parseInt(val, 10);
 		this.model.set("font_size", val);
+	},
+
+  	extractPaginationMode: function(e) {
+		var val = $("#pagination-mode-input").val();
+		this.model.set("pagination_mode", val);
 	},
 
     extractSpeechRate: function(e) {
@@ -201,16 +191,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		e.stopPropagation();
   	},
 
-  	selectPagination: function(e) {
-		if (!e.srcElement) e.srcElement = e.target;
-  		var id = e.srcElement.id;
-		if (id && e.srcElement && Acc.rg && Acc.rg.format && e.srcElement != Acc.rg.pagination.selected) Acc.rg.pagination.set(id);
-  		if(id === "one-up-option" ) this.model.set("pagination_mode", 'single');
-  		if(id === "two-up-option" ) this.model.set("pagination_mode", 'facing');
-  		if(id === "scrolling-option" ) this.model.set("pagination_mode", 'scrolling');
-		e.stopPropagation();
-  	},
-
   	clickDisplayPageNumbers: function(e) {
   		if (!e.srcElement) e.srcElement = e.target;
   		this.model.set("display_page_numbers", e.srcElement.checked);
@@ -223,6 +203,8 @@ Readium.Views.OptionsView = Backbone.View.extend({
   	},
 
   	applySettings: function(e) {
+  		// extract options from non-fancy UI elements
+
   		this.model.applyOptions();
   		this.$el.modal('hide');
 		$('#options-btn').focus();

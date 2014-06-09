@@ -2008,14 +2008,14 @@ body {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 14px;
-    color: #777;
+    color: #000;
     margin: 14px;
     padding: 0px; }
 #viewer-help-modal h2, h3 {
       text-align: left;
       font-family: Helvetica,Arial,sans-serif;
       font-size: 14px;
-      color: #777;
+      color: #000;
       margin: 14px;
       padding: 0px; }
 #viewer-help-modal p {
@@ -2025,7 +2025,7 @@ body {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
     font-size: 12px;
-    color: #777;
+    color: #000;
     margin: 12px 0px;
     padding: 0px; }
 
@@ -2057,6 +2057,10 @@ body {
   background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   line-height: 1em; }
+
+#viewer-settings-modal select {
+    font-size: 12px;
+  }
   #viewer-settings-modal .clickable, {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -2068,30 +2072,32 @@ body {
   #viewer-settings-modal #options-heading {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    color: #777;
-    margin: 14px;
+    font-size: 20px;
+    color: #000;
+    margin-top: 12px;
+    margin-left: 14px;
     padding: 0px; }
 
   #viewer-settings-modal .setting-header {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    color: #777;
-    margin: 12px 0px;
+    font-size: 13px;
+    color: #000;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
     padding: 0px; }
-  #viewer-settings-modal #settings-margin {
-    padding: 0px 20px 0px 20px; }
-  #viewer-settings-modal #font-size-icon {
-    background-image: url("/images/settings_modal/settings_fontsize.png");
-    width: 37px;
-    height: 32px;
-    display: inline-block;
-    float: left; }
-  #viewer-settings-modal #font-size-input {
+  #viewer-settings-modal .setting-header span.note {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
     float: right;
-    width: 253px;
-    margin-top: 7px; }
+  }
+
+  #viewer-settings-modal #settings-margin {
+    padding: 0px 20px 10px 20px; }
+  #viewer-settings-modal #font-size-input {
+    width: 100%;
+  }
   #viewer-settings-modal #margin-radio-wrapper {
     width: 312px;
     height: 63px;
