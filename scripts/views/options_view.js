@@ -4,11 +4,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	DEFAULT_VOICES: [ 'Alex', 'native' ],
 
 	initialize: function() {
-		this.model.on("change:pagination_mode", this.renderPagination, this);
-		this.model.on("change:display_page_numbers", this.renderDisplayPageNumbers, this);
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
-		this.model.on("change:font_size", this.renderFontSize, this);
-		this.model.on("change:speech_rate", this.renderSpeechRate, this);
 		this.model.on("change:current_theme", this.renderTheme, this);
 
 		var that = this;
@@ -48,6 +44,9 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			)
 		};
 		$('#options-btn').attr('aria-pressed', 'false');
+		$('#viewer-settings-modal').on('show', function(){
+			that.render();
+		});
 		$('#viewer-settings-modal').on('shown', function(){
 			that.model.get("controller").set("options-view-shown", true);
 			$('#options-heading').focus();
@@ -131,42 +130,15 @@ Readium.Views.OptionsView = Backbone.View.extend({
     },
 
 	renderDisplayPageNumbers: function() {
-		this.$("#display-page-numbers")[0].checked = this.model.get("display_page_numbers");
+		this.$("#display-page-numbers").prop('checked', this.model.get("display_page_numbers"));
 	},
 
 	events: {
     	"click .theme-option": 			"selectTheme",
     	"click .margin-radio": 			"selectMargin",
-    	"change #display-page-numbers":	"clickDisplayPageNumbers",
     	"click #cancel-settings-but": 	"cancelSettings",
 		"click #save-settings-but": 	"applySettings",
-    	"change #font-size-input": 		"extractFontSize",
-    	"change #pagination-mode-input":"extractPaginationMode",
-    	"change #speech-rate-input":     "extractSpeechRate",
-    	"change #voice-input":			"extractVoice"
   	},
-
-  	extractFontSize: function(e) {
-		var val = $("#font-size-input").val();
-		val = parseInt(val, 10);
-		this.model.set("font_size", val);
-	},
-
-  	extractPaginationMode: function(e) {
-		var val = $("#pagination-mode-input").val();
-		this.model.set("pagination_mode", val);
-	},
-
-    extractSpeechRate: function(e) {
-        var val = $("#speech-rate-input").val();
-        val = parseFloat(val);
-        this.model.set("speech_rate", val);
-    },
-    
-    extractVoice: function(e) {
-    	var val = $("#voice-input").val();
-    	this.model.set("voice_uri", val);
-    },
 
   	selectTheme: function(e) {
   		var id = e.srcElement ? e.srcElement.id : '';
@@ -191,11 +163,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		e.stopPropagation();
   	},
 
-  	clickDisplayPageNumbers: function(e) {
-  		if (!e.srcElement) e.srcElement = e.target;
-  		this.model.set("display_page_numbers", e.srcElement.checked);
-  	},
-
   	cancelSettings: function(e) {
   		this.$el.modal('hide');
   		this.model.resetOptions();
@@ -204,6 +171,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 
   	applySettings: function(e) {
   		// extract options from non-fancy UI elements
+		this.model.set("display_page_numbers", this.$("#display-page-numbers").prop('checked'));
+		this.model.set("pagination_mode", $("#pagination-mode-input").val());
+		this.model.set("font_size", parseInt($("#font-size-input").val(), 10));
+        this.model.set("speech_rate", parseFloat($("#speech-rate-input").val()));
+    	this.model.set("voice_uri", $("#voice-input").val());
 
   		this.model.applyOptions();
   		this.$el.modal('hide');
