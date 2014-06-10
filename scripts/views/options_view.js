@@ -20,6 +20,9 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			$('#scrolling-option').toggle(false);
 		}
 
+		// set TTS visibility based on browser support
+		$('.ttsOnly').toggle(BookshareUtils.hasSpeechAPI() || (!!window.chrome && !!window.chrome.tts));
+
 		Acc.rg = {
 			theme: new Acc.RadioGroup('theme-radio-group', ' .' + this.model.get("current_theme"),
 				function(el){
@@ -66,14 +69,14 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.renderTheme();
 		this.renderMarginRadio();
 		this.renderFontSize();
-		this.renderSpeechRate();
+		this.renderDisplayPageNumbers();
 		if (BookshareUtils.hasSpeechAPI()) {
+			this.renderSpeechRate();
 			this.renderVoiceOptions();
-			if (window.chrome) {
+			if (!!window.chrome) {
 				speechSynthesis.onvoiceschanged = _.bind(this.renderVoiceOptions, this);
 			}
 		}
-		this.renderDisplayPageNumbers();
 		return this;
 	},
 
@@ -105,6 +108,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	renderVoiceOptions: function() {
 		var voiceDefault;
 		var select = $("#voice-input");
+		select.children().remove();
 		var voices = speechSynthesis.getVoices();
 		for (i = 0; i < voices.length; i++) {
 			var voice = voices[i];
