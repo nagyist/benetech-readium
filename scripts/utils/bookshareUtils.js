@@ -8,10 +8,21 @@ window.BookshareUtils = {
 
 	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*)/,
 
+	isChromeOS: function() {
+		return (navigator.appVersion.indexOf("CrOs") != -1);
+	},
+
 	hasSpeechAPI: function() {
 		return (window.speechSynthesis
 			&& window.speechSynthesis.getVoices
-			&& window.SpeechSynthesisUtterance) != undefined;
+			&& window.SpeechSynthesisUtterance) != undefined
+			&& !this.isChromeOS();
+	},
+
+	offerChromeExtension: function() {
+		return window.chrome && !this.hasSpeechAPI()
+			&& !window.chrome.extension && (navigator.userAgent.indexOf('Android') == -1) 
+			&& (BookshareUtils.environment == 'LIVE') && (navigator.userAgent.search(/silk/i) == -1);
 	},
 
 	flatten: function(s) {

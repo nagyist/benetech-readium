@@ -13,8 +13,7 @@ window.Readium = {
 		$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/'));
 		_router = new Readium.Routers.ViewerRouter();
 
-		if (window.chrome && !window.speechSynthesis && !window.chrome.extension && (navigator.userAgent.indexOf('Android') == -1) 
-			&& (BookshareUtils.environment == 'LIVE') && (navigator.userAgent.search(/silk/i) == -1)) {
+		if (BookshareUtils.offerChromeExtension()) {
 			var options = Readium.Models.ReadiumOptions.getInstance();
 			var myModal = $('#chrome-extension-install');
 			if (false == !!options.get('decline_extension')) {
