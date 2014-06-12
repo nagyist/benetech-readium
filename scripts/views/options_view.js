@@ -121,6 +121,9 @@ Readium.Views.OptionsView = Backbone.View.extend({
 				}
 			}
 		}
+		// update the default one
+		var defaultOption = select.find("option[value='" + voiceDefault + "']");
+		defaultOption.text(defaultOption.text() + ' (default)');
 		var voicePref = this.model.get("voice_uri");
         select.val(voicePref ? voicePref : voiceDefault);
         var controller = this.model.get("controller");
