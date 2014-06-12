@@ -8,6 +8,14 @@ window.BookshareUtils = {
 
 	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*)/,
 
+	isIOS : function() {
+		if (this.iosFlag == null) {
+			var platforms = ["iPhone", "iPad", "iPod"];
+			this.iosFlag = (platforms.indexOf(navigator.platform) > -1);
+		}
+		return this.iosFlag;
+	},
+
 	isChromeOS: function() {
 		return (navigator.appVersion.indexOf("CrOs") != -1);
 	},
@@ -16,6 +24,7 @@ window.BookshareUtils = {
 		return (window.speechSynthesis
 			&& window.speechSynthesis.getVoices
 			&& window.SpeechSynthesisUtterance) != undefined
+			&& !this.isIOS()
 			&& !this.isChromeOS();
 	},
 
