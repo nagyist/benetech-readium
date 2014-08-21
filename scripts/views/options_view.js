@@ -144,7 +144,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
     	"click .theme-option": 			"selectTheme",
     	"click .margin-radio": 			"selectMargin",
     	"click #cancel-settings-but": 	"cancelSettings",
-		"click #save-settings-but": 	"applySettings",
+		"click #save-settings-but": 	"applySettings"
   	},
 
   	selectTheme: function(e) {
