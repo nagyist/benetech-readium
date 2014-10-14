@@ -24,9 +24,20 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
         this.controller.on("pagesPrevPage", this.stop, this);
 		this.controller.on("repagination_event", this._windowSizeChangeHandler, this);
 		
+		this.setLanguage();
         $(window).unload( function() { chrome.tts.stop(); });
     },
     
+    setLanguage: function() {
+    	var lang = "en-US";
+    	var langs = this.controller.get("language");
+    	if (langs && langs.length && langs[0] != "en") {
+    		lang = langs[0];
+    	}
+    	this.set("voice_language", lang);
+    	console.log("language code: " + lang);
+    },
+
     play: function() {
         this.set('tts_playing', true);
         this.controller.set('track_position', false);
@@ -52,8 +63,10 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
             chrome.tts.speak(self.data.utterance,
                 {
                     'rate' : self.controller.options.get("speech_rate"),
+                    'lang' : self.get("voice_language"),
                     'requiredEventTypes' : ['word', 'end'],
-                    'onEvent' : self._createCallbackHandler(self)
+                    'onEvent' : self._createCallbackHandler(self),
+                    'extensionId' : 'pkidpnnapnfgjhfhkpmjpbckkbaodldb'
                 });
         } else {
             self.stop();
