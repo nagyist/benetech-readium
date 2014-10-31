@@ -17,7 +17,7 @@ window.BookshareUtils = {
 	},
 
 	isChromeOS: function() {
-		return (navigator.appVersion.indexOf("CrOs") != -1);
+		return (navigator.appVersion.indexOf("CrOS") != -1);
 	},
 
 	hasSpeechAPI: function() {
