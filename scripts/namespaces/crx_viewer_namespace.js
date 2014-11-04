@@ -16,6 +16,7 @@ window.Readium = {
 		if (BookshareUtils.offerChromeExtension()) {
 			var options = Readium.Models.ReadiumOptions.getInstance();
 			var myModal = $('#chrome-extension-install');
+			$(BookshareUtils.isChromeOS() ? '#crx-instructions-chromebox' : '#crx-instructions-oldchrome').show();
 			if (false == !!options.get('decline_extension')) {
 				$('#install-extension-but').click(
 					function(e) {
