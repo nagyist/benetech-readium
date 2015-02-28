@@ -10,7 +10,7 @@ window.Readium = {
 	Init: function() {
 		BookshareUtils.setEnvironment(window.location.href);
 
-		$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/'));
+		$('#bar-logo').attr('href', BookshareUtils.resolveEnvironment('https://www.bookshare.org/myBookshare'));
 		_router = new Readium.Routers.ViewerRouter();
 
 		if (BookshareUtils.offerChromeExtension()) {
