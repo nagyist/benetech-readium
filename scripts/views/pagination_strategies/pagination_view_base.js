@@ -20,6 +20,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.pages.on("change:current_page", this.showCurrentPages, this);
 		this.model.on("change:display_page_numbers", this.pageNumberCallback, this);
 		this.model.on("change:font_size", this.fontSizeCallback, this);
+		this.model.on("change:font_face", this.fontFaceCallback, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
 		this.shortcutTemplate = Handlebars.templates.iframe_keyboard_shortcuts;
@@ -92,6 +93,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	destruct: function() {
 		this.pages.off("change:current_page", this.showCurrentPages);
 		this.model.off("change:display_page_numbers", this.pageNumberCallback, this);
+		this.model.off("change:font_face", this.fontFaceCallback);
 		this.model.off("change:font_size", this.fontSizeCallback);
 		this.resetEl();
 	},

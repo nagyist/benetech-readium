@@ -205,6 +205,16 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.setNumPages();
 	},
 
+	setFontFace: function() {
+		var face = this.model.get("font_face");
+
+                // TODO: This is where the magic will happen to implement OpenDyslexic font
+
+		// the content size has changed so recalc the number of 
+		// pages
+		this.setNumPages();
+	},
+
 	// Description: we are using experimental styles so we need to 
 	//   use modernizr to generate prefixes
 	stashModernizrPrefixedProps: function() {
@@ -458,6 +468,11 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 	fontSizeCallback: function() {
 		this.setFontSize();
+		this.goToReadingPosition();
+	},
+
+	fontFaceCallback: function() {
+		this.setFontFace();
 		this.goToReadingPosition();
 	},
 

@@ -9,6 +9,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 		verbose_unpacking: true,
 		display_page_numbers: true,
 		font_size: 10,
+		font_face: "default",
 		speech_rate: 1.0,
 		current_margin: 3,
 		current_theme: "default-theme",		
@@ -23,6 +24,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 		// set everything but two_up
 		controller.set({
 			"font_size": 			this.get("font_size"),
+			"font_face": 			this.get("font_face"),
 			"display_page_numbers":	this.get("display_page_numbers"),
 			"current_theme": 		this.get("current_theme"),
 			"current_margin": 		this.get("current_margin"),

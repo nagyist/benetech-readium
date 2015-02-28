@@ -55,6 +55,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			that.adjustIframe();
 			that.iframeLoadCallback(e);
 			that.setFontSize();
+			that.setFontFace();
 			that.injectTheme();
 			that.getFrame().contentWindow.onscroll = that.makeScrollHandler();
 
@@ -89,6 +90,16 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 	setFontSize: function() {
 		var size = this.model.get("font_size") / 10;
 		$(this.getBody()).css("font-size", size + "em");
+	},
+
+	setFontFace: function() {
+		var face = this.model.get("font_face");
+		if (face == 'default') {
+			$(this.getBody()).css("font-face", '');
+		}
+		else {
+			$(this.getBody()).css("font-face", face);
+		}
 	},
 
 	adjustIframe: function() {
@@ -147,6 +158,11 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 
 	fontSizeCallback: function() {
 		this.setFontSize();
+		this.goToReadingPosition();
+	},
+
+	fontFaceCallback: function() {
+		this.setFontFace();
 		this.goToReadingPosition();
 	},
 

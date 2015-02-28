@@ -69,6 +69,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.renderTheme();
 		this.renderMarginRadio();
 		this.renderFontSize();
+                this.renderFontFace();
 		this.renderDisplayPageNumbers();
 		if (BookshareUtils.hasSpeechAPI()) {
 			this.renderSpeechRate();
@@ -98,6 +99,11 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	renderFontSize: function() {
 		var val = this.model.get("font_size");
 		this.$("#font-size-input").val(val);
+	},
+
+	renderFontFace: function() {
+		var val = this.model.get("font_face");
+		this.$("#font-face-input").val(val);
 	},
 
 	renderPagination: function() {
@@ -181,8 +187,9 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.model.set("display_page_numbers", this.$("#display-page-numbers").prop('checked'));
 		this.model.set("pagination_mode", $("#pagination-mode-input").val());
 		this.model.set("font_size", parseInt($("#font-size-input").val(), 10));
-        this.model.set("speech_rate", parseFloat($("#speech-rate-input").val()));
-    	this.model.set("voice_uri", $("#voice-input").val());
+		this.model.set("font_face", $("#font-face-input").val());
+		this.model.set("speech_rate", parseFloat($("#speech-rate-input").val()));
+		this.model.set("voice_uri", $("#voice-input").val());
 
   		this.model.applyOptions();
   		this.$el.modal('hide');
