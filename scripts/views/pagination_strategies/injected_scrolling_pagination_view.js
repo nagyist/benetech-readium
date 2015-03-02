@@ -94,12 +94,10 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 
 	setFontFace: function() {
 		var face = this.model.get("font_face");
-		if (face == 'default') {
-			$(this.getBody()).css("font-face", '');
-		}
-		else {
-			$(this.getBody()).css("font-face", face);
-		}
+		alert(face);
+		$(this.getBody()).css("font-face", face);
+		$(this.getBody()).css("font-family", face);
+                // TODO: This is where the magic will happen to implement OpenDyslexic font
 	},
 
 	adjustIframe: function() {

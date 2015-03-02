@@ -209,7 +209,8 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		var face = this.model.get("font_face");
 
                 // TODO: This is where the magic will happen to implement OpenDyslexic font
-
+		$(this.getBody()).css("font-face", face);
+		$(this.getBody()).css("font-family", face);
 		// the content size has changed so recalc the number of 
 		// pages
 		this.setNumPages();

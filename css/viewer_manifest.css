@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: local("OpenDyslexic"), local("OpenDyslexic Regular"), local("OpenDyslexic-Regular"), url("/fonts/OpenDyslexic/OpenDyslexic-Regular.eot") format("embedded-opentype"), url("/fonts/OpenDyslexic/OpenDyslexic-Regular.woff") format("woff"), url("/fonts/OpenDyslexic/OpenDyslexic-Regular.ttf") format("truetype"), url("/fonts/OpenDyslexic/OpenDyslexic-Regular.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: local("OpenDyslexic"), local("OpenDyslexic Italic"), local("OpenDyslexic-Italic"), url("/fonts/OpenDyslexic/OpenDyslexic-Italic.eot") format("embedded-opentype"), url("/fonts/OpenDyslexic/OpenDyslexic-Italic.woff") format("woff"), url("/fonts/OpenDyslexic/OpenDyslexic-Italic.ttf") format("truetype"), url("/fonts/OpenDyslexic/OpenDyslexic-Italic.svg") format("svg");
+  font-weight: normal;
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: local("OpenDyslexic"), local("OpenDyslexic Bold"), local("OpenDyslexic-Bold"), url("/fonts/OpenDyslexic/OpenDyslexic-Bold.eot") format("embedded-opentype"), url("/fonts/OpenDyslexic/OpenDyslexic-Bold.woff") format("woff"), url("/fonts/OpenDyslexic/OpenDyslexic-Bold.ttf") format("truetype"), url("/fonts/OpenDyslexic/OpenDyslexic-Bold.svg") format("svg");
+  font-weight: normal;
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: local("OpenDyslexic"), local("OpenDyslexic Bold Italic"), local("OpenDyslexic-BoldItalic"), url("/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.eot") format("embedded-opentype"), url("/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.woff") format("woff"), url("/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.ttf") format("truetype"), url("/fonts/OpenDyslexic/OpenDyslexic-BoldItalic.svg") format("svg");
+  font-weight: normal;
+  font-weight: bold;
+  font-style: italic; }
+
 /**
  * Within this file all sass variables to the Readium Project are defined
  */
@@ -42,7 +69,7 @@ html {
   -ms-text-size-adjust: 100%; }
 
 a:focus {
-  outline: thin dotted #333333;
+  outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -177,7 +204,7 @@ textarea {
   margin: 2px 0 0;
   list-style: none;
   background-color: white;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   *border-right-width: 2px;
   *border-bottom-width: 2px;
@@ -456,7 +483,7 @@ button.close {
     -o-transition: background-position 0.1s linear;
     transition: background-position 0.1s linear; }
   .btn:focus {
-    outline: thin dotted #333333;
+    outline: thin dotted #333;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn.active, .btn:active {
@@ -806,7 +833,7 @@ input[type="submit"].btn {
   line-height: 14px; }
 
 .nav-tabs {
-  border-bottom: 1px solid #dddddd; }
+  border-bottom: 1px solid #ddd; }
 
 .nav-tabs > li {
   margin-bottom: -1px; }
@@ -826,7 +853,7 @@ input[type="submit"].btn {
 .nav-tabs > .active > a:hover {
   color: #555555;
   background-color: white;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default; }
 
@@ -854,7 +881,7 @@ input[type="submit"].btn {
   border-bottom: 0; }
 
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0; }
@@ -963,7 +990,7 @@ input[type="submit"].btn {
   display: block; }
 
 .tabs-below > .nav-tabs {
-  border-top: 1px solid #dddddd; }
+  border-top: 1px solid #ddd; }
 
 .tabs-below > .nav-tabs > li {
   margin-top: -1px;
@@ -979,7 +1006,7 @@ input[type="submit"].btn {
 
 .tabs-below > .nav-tabs > .active > a,
 .tabs-below > .nav-tabs > .active > a:hover {
-  border-color: transparent #dddddd #dddddd #dddddd; }
+  border-color: transparent #ddd #ddd #ddd; }
 
 .tabs-left > .nav-tabs > li,
 .tabs-right > .nav-tabs > li {
@@ -994,7 +1021,7 @@ input[type="submit"].btn {
 .tabs-left > .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #dddddd; }
+  border-right: 1px solid #ddd; }
 
 .tabs-left > .nav-tabs > li > a {
   margin-right: -1px;
@@ -1007,13 +1034,13 @@ input[type="submit"].btn {
 
 .tabs-left > .nav-tabs .active > a,
 .tabs-left > .nav-tabs .active > a:hover {
-  border-color: #dddddd transparent #dddddd #dddddd;
+  border-color: #ddd transparent #ddd #ddd;
   *border-right-color: white; }
 
 .tabs-right > .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #dddddd; }
+  border-left: 1px solid #ddd; }
 
 .tabs-right > .nav-tabs > li > a {
   margin-left: -1px;
@@ -1026,7 +1053,7 @@ input[type="submit"].btn {
 
 .tabs-right > .nav-tabs .active > a,
 .tabs-right > .nav-tabs .active > a:hover {
-  border-color: #dddddd #dddddd #dddddd transparent;
+  border-color: #ddd #ddd #ddd transparent;
   *border-left-color: white; }
 
 .nav > .disabled > a {
@@ -1222,7 +1249,6 @@ input[type="submit"].btn {
 
 .navbar .nav.pull-right {
   float: right;
-  padding: 0;
   margin-right: 0; }
 
 .navbar .nav > li {
@@ -1305,7 +1331,7 @@ input[type="submit"].btn {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #cccccc;
+  border-bottom: 7px solid #ccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
@@ -1321,7 +1347,7 @@ input[type="submit"].btn {
   left: 10px; }
 
 .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
-  border-top: 7px solid #cccccc;
+  border-top: 7px solid #ccc;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-bottom: 0;
   bottom: -7px;
@@ -1493,9 +1519,9 @@ input[type="submit"].btn {
   width: 560px;
   margin: -250px 0 0 -280px;
   background-color: white;
-  border: 1px solid #999999;
+  border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999999;
+  *border: 1px solid #999;
   /* IE6-7 */
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -1518,7 +1544,7 @@ input[type="submit"].btn {
 
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eeeeee; }
+  border-bottom: 1px solid #eee; }
   .modal-header .close {
     margin-top: 2px; }
   .modal-header h3 {
@@ -1538,7 +1564,7 @@ input[type="submit"].btn {
   margin-bottom: 0;
   text-align: right;
   background-color: #f5f5f5;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
@@ -1630,7 +1656,7 @@ html {
 .navbar .divider-vertical {
   height: 52px;
   background-color: black;
-  border-right: 1px solid #3d3d3d; }
+  border-right: 1px solid #3D3D3D; }
 .navbar .divider-vertical.stubby {
   margin-top: 8px;
   height: 35px; }
@@ -1638,7 +1664,7 @@ html {
   height: 36px;
   width: 36px; }
 .navbar #bar-logo-img {
-  width: 213px;
+  width: 241px;
   height: 36px; }
 
 #show-toolbar-button {
@@ -1660,7 +1686,7 @@ html {
   color: #fff;
   border-radius: 5px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #000;
   z-index: 10; }
 
 #settings span {
@@ -1687,7 +1713,7 @@ span.setting-button:hover {
 #settings span.divider {
   width: 0px;
   border-left: 1px solid black;
-  border-right: 1px solid #353f5e; }
+  border-right: 1px solid #353F5E; }
 
 /* stop buttons from highlighting on double click */
 #settings, #settings span, #settings img {
@@ -1728,8 +1754,30 @@ body {
   overflow: hidden;
   width: 100%; }
 
+#next-page-button {
+  right: 0;
+  background-image: url("/images/paginator/next_page.png"); }
+
+#prev-page-button {
+  left: 0;
+  background-image: url("/images/paginator/previous_page.png"); }
+
 #page-wrap {
   position: relative; }
+
+#next-page-button, #prev-page-button {
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 108px;
+  margin-top: -54px;
+  background-repeat: no-repeat;
+  z-index: 2000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none; }
 
 #readium-book-view-el, #container, #page-wrap {
   margin: 0;
@@ -1925,130 +1973,16 @@ body {
       margin: 5px;
       padding: 5px; }
 
-#tts-browser-info {
-  text-align: center;
-  padding: 20px;
-  background-color: #cccccc;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#cccccc, white, false, false, false, false, false, false, false, false)));
-  background-image: -webkit-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -moz-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -ms-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: -o-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
-  background-image: linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false)); }
-  #tts-browser-info-body {
-    color: #111;
-  }
-  #tts-browser-info p {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    line-height: 18px;
-    color: #333;
-    text-align: left; }
-  #tts-browser-info #tts-browser-info-footer {
-    text-align: center; }
-    #tts-browser-info #tts-browser-info-footer button {
-      background-color: #000;
-      padding: 5px 10px;
-      background-color: #444444;
-      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#444444, #222222, false, false, false, false, false, false, false, false)));
-      background-image: -webkit-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-      background-image: -moz-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-      background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-      background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-      background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-      width: 135px;
-      margin: 5px;
-      padding: 5px; }
-
 #scrolling-wrapper {
   text-align: center;
   width: 100%;
   height: 100%;
   padding: 0px; }
 
-#viewer-help-body {
-  font-family: Helvetica,Arial,sans-serif;
-  font-size: 12px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  max-height: 450px;
-  color: #111;
-}
-
-#viewer-help-body table.toolbar-help {
-    margin: 14px;
-}
-
-#viewer-help-body table.toolbar-help td {
-  background-color: #DDD;
+#viewer-settings-modal, #viewer-help-modal {
   text-align: left;
-  vertical-align: top;
-  padding: 0.25em;
-}
-
-#viewer-help-body table.toolbar-help td.ico {
-  background-color: #333333;
-  width: 100px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#viewer-help-modal {
-  overflow: hidden;
-  text-align: left;
-  background-color: white;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(white, #cccccc, false, false, false, false, false, false, false, false)));
-  background-image: -webkit-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
-  background-image: -moz-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
-  background-image: -ms-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
-  background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
-  background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
-  line-height: 1em; }
-#viewer-help-modal #help-heading {
-    text-align: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 14px;
-    padding: 0px; }
-#viewer-help-modal h2, h3 {
-      text-align: left;
-      font-family: Helvetica,Arial,sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 14px;
-      padding: 0px; }
-#viewer-help-modal p {
-      margin: 14px;
-}
-#viewer-help-modal .help-header {
-    text-align: left;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    color: #000;
-    margin: 12px 0px;
-    padding: 0px; }
-
-#viewer-help-modal #viewer-help-footer {
-    text-align: center;
-    background-color: #000;
-    background-color: #444444;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#444444, #222222, false, false, false, false, false, false, false, false)));
-    background-image: -webkit-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-    background-image: -moz-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-    background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-    background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
-    background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false)); }
-#viewer-help-footer button {
-      width: 135px;
-      margin: 5px;
-      padding: 5px; }
-
-
-#viewer-settings-modal {
   width: 352px;
-  margin-left: -176px;
-  text-align: left;
+  margin: -326px 0 0 -176px;
   background-color: white;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(white, #cccccc, false, false, false, false, false, false, false, false)));
   background-image: -webkit-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
@@ -2057,54 +1991,51 @@ body {
   background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   line-height: 1em; }
-
-#viewer-settings-modal select {
-    font-size: 12px;
-  }
-  #viewer-settings-modal .clickable, {
+  #viewer-settings-modal .clickable, #viewer-help-modal .clickable {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    #viewer-settings-modal .clickable:hover {
+    #viewer-settings-modal .clickable:hover, #viewer-help-modal .clickable:hover {
       cursor: pointer; }
-  #viewer-settings-modal #options-heading {
+  #viewer-settings-modal #options-heading, #viewer-help-modal #options-heading {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 20px;
-    color: #000;
-    margin-top: 12px;
-    margin-left: 14px;
+    font-size: 14px;
+    color: #777;
+    margin: 14px 0px 0px;
     padding: 0px; }
-
-  #viewer-settings-modal .setting-header {
+  #viewer-settings-modal .setting-header, #viewer-help-modal .setting-header {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 13px;
-    color: #000;
-    margin-top: 1em;
-    margin-bottom: 0.25em;
-    padding: 0px; }
-  #viewer-settings-modal .setting-header span.note {
     font-size: 12px;
-    font-weight: normal;
-    display: block;
+    color: #777;
+    margin: 12px 0px;
+    padding: 0px; }
+  #viewer-settings-modal #settings-margin, #viewer-help-modal #settings-margin {
+    padding: 20px; }
+  #viewer-settings-modal #font-size-icon, #viewer-help-modal #font-size-icon {
+    background-image: url("/images/settings_modal/settings_fontsize.png");
+    width: 37px;
+    height: 32px;
+    display: inline-block;
+    float: left; }
+  #viewer-settings-modal #font-size-input, #viewer-help-modal #font-size-input {
     float: right;
-  }
-
-  #viewer-settings-modal #settings-margin {
-    padding: 0px 20px 10px 20px; }
-  #viewer-settings-modal #font-size-input {
-    width: 100%;
-  }
-  #viewer-settings-modal #margin-radio-wrapper {
+    width: 253px;
+    margin-top: 7px; }
+  #viewer-settings-modal #font-face-input, #viewer-help-modal #font-face-input {
+    float: right;
+    width: 253px;
+    margin-top: 7px; }
+  #viewer-settings-modal #margin-radio-wrapper, #viewer-help-modal #margin-radio-wrapper {
     width: 312px;
     height: 63px;
     position: relative;
     left: 0px;
     top: 0px; }
-  #viewer-settings-modal .margin-radio {
+  #viewer-settings-modal .margin-radio, #viewer-help-modal .margin-radio {
     display: inline-block;
     position: absolute;
     width: 43px;
@@ -2117,32 +2048,32 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-  #viewer-settings-modal #margin-option-1 {
+  #viewer-settings-modal #margin-option-1, #viewer-help-modal #margin-option-1 {
     background-image: url("/images/settings_modal/margin1_off.png");
     left: 0px; }
-    #viewer-settings-modal #margin-option-1.selected {
+    #viewer-settings-modal #margin-option-1.selected, #viewer-help-modal #margin-option-1.selected {
       background-image: url("/images/settings_modal/margin1_on.png"); }
-  #viewer-settings-modal #margin-option-2 {
+  #viewer-settings-modal #margin-option-2, #viewer-help-modal #margin-option-2 {
     background-image: url("/images/settings_modal/margin2_off.png");
     left: 67px; }
-    #viewer-settings-modal #margin-option-2.selected {
+    #viewer-settings-modal #margin-option-2.selected, #viewer-help-modal #margin-option-2.selected {
       background-image: url("/images/settings_modal/margin2_on.png"); }
-  #viewer-settings-modal #margin-option-3 {
+  #viewer-settings-modal #margin-option-3, #viewer-help-modal #margin-option-3 {
     background-image: url("/images/settings_modal/margin3_off.png");
     left: 134px; }
-    #viewer-settings-modal #margin-option-3.selected {
+    #viewer-settings-modal #margin-option-3.selected, #viewer-help-modal #margin-option-3.selected {
       background-image: url("/images/settings_modal/margin3_on.png"); }
-  #viewer-settings-modal #margin-option-4 {
+  #viewer-settings-modal #margin-option-4, #viewer-help-modal #margin-option-4 {
     background-image: url("/images/settings_modal/margin4_off.png");
     left: 201px; }
-    #viewer-settings-modal #margin-option-4.selected {
+    #viewer-settings-modal #margin-option-4.selected, #viewer-help-modal #margin-option-4.selected {
       background-image: url("/images/settings_modal/margin4_on.png"); }
-  #viewer-settings-modal #margin-option-5 {
+  #viewer-settings-modal #margin-option-5, #viewer-help-modal #margin-option-5 {
     background-image: url("/images/settings_modal/margin5_off.png");
     right: 1px; }
-    #viewer-settings-modal #margin-option-5.selected {
+    #viewer-settings-modal #margin-option-5.selected, #viewer-help-modal #margin-option-5.selected {
       background-image: url("/images/settings_modal/margin5_on.png"); }
-  #viewer-settings-modal .simple-radio {
+  #viewer-settings-modal .simple-radio, #viewer-help-modal .simple-radio {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     background-repeat: no-repeat;
@@ -2151,37 +2082,28 @@ body {
     background-image: url("/images/settings_modal/radiobutton_off.png");
     font-size: 15px;
     font-weight: 400; }
-    #viewer-settings-modal .simple-radio.selected {
+    #viewer-settings-modal .simple-radio.selected, #viewer-help-modal .simple-radio.selected {
       background-image: url("/images/settings_modal/radiobutton_on.png"); }
-  #viewer-settings-modal .theme-option {
-    font-family: Helvetica,Arial,sans-serif;
+  #viewer-settings-modal .theme-option, #viewer-help-modal .theme-option {
     display: block;
     text-align: left;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #777777;
-    padding: 3px 3px 3px 23px;
-    margin: 3px 0px;
-    background-repeat: no-repeat;
-    background-position: 3px 3px;
-    background-image: url("/images/settings_modal/radiobutton_off.png");
-    font-size: 15px;
-    font-weight: 400;
-    }
-    #viewer-settings-modal .theme-option.selected {
-      background-image: url("/images/settings_modal/radiobutton_on.png"); }
-  #viewer-settings-modal .pagination-option {
+    border: 1px solid #777;
+    padding: 3px;
+    margin-bottom: 10px; }
+  #viewer-settings-modal .pagination-option, #viewer-help-modal .pagination-option {
     display: block;
     text-align: left;
     margin: 3px 0px; }
-  #viewer-settings-modal .checkbox {
+  #viewer-settings-modal .checkbox, #viewer-help-modal .checkbox {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     text-align: left;
     font-size: 15px;
     font-weight: 400; }
-  #viewer-settings-modal #settings-form-footer {
+  #viewer-settings-modal #settings-form-footer, #viewer-help-modal #settings-form-footer {
     text-align: center;
     background-color: #000;
     padding: 5px 10px;
@@ -2192,7 +2114,7 @@ body {
     background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false)); }
-    #viewer-settings-modal #settings-form-footer button {
+    #viewer-settings-modal #settings-form-footer button, #viewer-help-modal #settings-form-footer button {
       width: 135px;
       margin: 5px;
       padding: 5px; }
@@ -2211,7 +2133,7 @@ body {
   top: 0;
   z-index: 999;
   bottom: 0;
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #DDD;
   font-size: 0.8em;
   overflow: hidden;
   -webkit-box-shadow: 10px 0px 11px rgba(100, 100, 104, 0.35);
@@ -2222,11 +2144,11 @@ body {
 
 #toc-body, #toc-header {
   margin-right: 10px;
-  border-right: 1px solid #cccccc; }
+  border-right: 1px solid #CCC; }
 
 #toc-header {
   height: 50px;
-  border-bottom: 1px solid #cccccc; }
+  border-bottom: 1px solid #CCC; }
   #toc-header #toc-page-nav {
     font-size: 1.2em;
     padding: 12px 6px; }

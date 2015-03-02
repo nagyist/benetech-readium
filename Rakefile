@@ -43,6 +43,7 @@ task :styles  do
 end
 
 task :css  do
+        puts "gather sass files into viewer_manifest.css"  
 	`sass css/sass/viewer_manifest.scss css/viewer_manifest.css`
 end
 
