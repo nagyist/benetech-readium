@@ -208,7 +208,7 @@ window.BookshareUtils = {
 		    while (
 		        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
 		        all[0]
-		    ) {};
+		    ){};
 
 		    if (v === 9) {
 		    	this.ie9Flag = true;
