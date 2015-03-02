@@ -8,29 +8,8 @@ body {
 	width: 100%;
 }
 
-#next-page-button {
-	right: 0;
-	background-image: url($readium_image_path + 'paginator/next_page.png');
-}
-
-#prev-page-button {
-	left: 0;
-	background-image: url($readium_image_path + 'paginator/previous_page.png');
-}
-
 #page-wrap {
 	position: relative;
-}
-
-#next-page-button, #prev-page-button {
-	position: absolute;
-	top: 50%;
-	width: 60px;
-	height: 108px;
-	margin-top: -54px;
-	background-repeat: no-repeat;
-	z-index: 2000000;
-	@include user-select(none);
 }
 
 #readium-book-view-el, #container, #page-wrap {
