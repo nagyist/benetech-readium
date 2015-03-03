@@ -228,6 +228,7 @@
 }
 .navbar .nav.pull-right {
   float: right; // redeclare due to specificity
+  padding: 0;
   margin-right: 0; // remove margin on float right nav
 }
 .navbar .nav > li {

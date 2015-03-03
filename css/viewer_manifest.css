@@ -1222,6 +1222,7 @@ input[type="submit"].btn {
 
 .navbar .nav.pull-right {
   float: right;
+  padding: 0;
   margin-right: 0; }
 
 .navbar .nav > li {
@@ -1637,7 +1638,7 @@ html {
   height: 36px;
   width: 36px; }
 .navbar #bar-logo-img {
-  width: 241px;
+  width: 213px;
   height: 36px; }
 
 #show-toolbar-button {
@@ -1924,16 +1925,75 @@ body {
       margin: 5px;
       padding: 5px; }
 
+#tts-browser-info {
+  text-align: center;
+  padding: 20px;
+  background-color: #cccccc;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#cccccc, white, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(#cccccc, white, false, false, false, false, false, false, false, false)); }
+
+#tts-browser-info-body {
+  color: #111; }
+
+#tts-browser-info p {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  color: #333;
+  text-align: left; }
+
+#tts-browser-info #tts-browser-info-footer {
+  text-align: center; }
+
+#tts-browser-info #tts-browser-info-footer button {
+  background-color: #444;
+  padding: 5px 10px;
+  background-color: #444444;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#444444, #222222, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  width: 135px;
+  margin: 5px; }
+
 #scrolling-wrapper {
   text-align: center;
   width: 100%;
   height: 100%;
   padding: 0px; }
 
-#viewer-settings-modal, #viewer-help-modal {
+#viewer-help-body {
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 450px;
+  color: #111; }
+
+#viewer-help-body table.toolbar-help {
+  margin: 14px; }
+
+#viewer-help-body table.toolbar-help td {
+  background-color: #DDD;
   text-align: left;
-  width: 352px;
-  margin: -326px 0 0 -176px;
+  vertical-align: top;
+  padding: 0.25em; }
+
+#viewer-help-body table.toolbar-help td.ico {
+  background-color: #333333;
+  width: 100px;
+  text-align: center;
+  vertical-align: middle; }
+
+#viewer-help-modal {
+  overflow: hidden;
+  text-align: left;
   background-color: white;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(white, #cccccc, false, false, false, false, false, false, false, false)));
   background-image: -webkit-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
@@ -1942,51 +2002,103 @@ body {
   background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
   line-height: 1em; }
-  #viewer-settings-modal .clickable, #viewer-help-modal .clickable {
+
+#viewer-help-modal #help-heading {
+  text-align: left;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 14px;
+  padding: 0px; }
+
+#viewer-help-modal h2, h3 {
+  text-align: left;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 14px;
+  padding: 0px; }
+
+#viewer-help-modal p {
+  margin: 14px; }
+
+#viewer-help-modal .help-header {
+  text-align: left;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  color: #000;
+  margin: 12px 0px;
+  padding: 0px; }
+
+#viewer-help-modal #viewer-help-footer {
+  text-align: center;
+  background-color: #444444;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(#444444, #222222, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false)); }
+
+#viewer-help-footer button {
+  width: 135px;
+  margin: 5px;
+  padding: 5px; }
+
+#viewer-settings-modal {
+  width: 352px;
+  margin-left: -176px;
+  text-align: left;
+  background-color: white;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(white, #cccccc, false, false, false, false, false, false, false, false)));
+  background-image: -webkit-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
+  background-image: -moz-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
+  background-image: -ms-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
+  background-image: -o-linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
+  background-image: linear-gradient(top, compact(white, #cccccc, false, false, false, false, false, false, false, false));
+  line-height: 1em; }
+  #viewer-settings-modal select {
+    font-size: 12px; }
+  #viewer-settings-modal .clickable {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-    #viewer-settings-modal .clickable:hover, #viewer-help-modal .clickable:hover {
+    #viewer-settings-modal .clickable:hover {
       cursor: pointer; }
-  #viewer-settings-modal #options-heading, #viewer-help-modal #options-heading {
+  #viewer-settings-modal #options-heading {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    color: #777;
-    margin: 14px 0px 0px;
+    font-size: 20px;
+    color: #000;
+    margin-top: 12px;
+    margin-left: 14px;
     padding: 0px; }
-  #viewer-settings-modal .setting-header, #viewer-help-modal .setting-header {
+  #viewer-settings-modal .setting-header {
     text-align: left;
     font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    color: #777;
-    margin: 12px 0px;
+    font-size: 13px;
+    color: #000;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
     padding: 0px; }
-  #viewer-settings-modal #settings-margin, #viewer-help-modal #settings-margin {
+    #viewer-settings-modal .setting-header span.note {
+      font-size: 12px;
+      font-weight: normal;
+      display: block;
+      float: right; }
+  #viewer-settings-modal #settings-margin {
     padding: 0px 20px 10px 20px; }
-  #viewer-settings-modal #font-size-icon, #viewer-help-modal #font-size-icon {
-    background-image: url("/images/settings_modal/settings_fontsize.png");
-    width: 37px;
-    height: 32px;
-    display: inline-block;
-    float: left; }
-  #viewer-settings-modal #font-size-input, #viewer-help-modal #font-size-input {
-    float: right;
-    width: 253px;
-    margin-top: 7px; }
-  #viewer-settings-modal #font-face-input, #viewer-help-modal #font-face-input {
-    float: right;
-    width: 253px;
-    margin-top: 7px; }
-  #viewer-settings-modal #margin-radio-wrapper, #viewer-help-modal #margin-radio-wrapper {
+  #viewer-settings-modal #font-size-input {
+    width: 100%; }
+  #viewer-settings-modal #margin-radio-wrapper {
     width: 312px;
     height: 63px;
     position: relative;
     left: 0px;
     top: 0px; }
-  #viewer-settings-modal .margin-radio, #viewer-help-modal .margin-radio {
+  #viewer-settings-modal .margin-radio {
     display: inline-block;
     position: absolute;
     width: 43px;
@@ -1999,32 +2111,32 @@ body {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none; }
-  #viewer-settings-modal #margin-option-1, #viewer-help-modal #margin-option-1 {
+  #viewer-settings-modal #margin-option-1 {
     background-image: url("/images/settings_modal/margin1_off.png");
     left: 0px; }
-    #viewer-settings-modal #margin-option-1.selected, #viewer-help-modal #margin-option-1.selected {
+    #viewer-settings-modal #margin-option-1.selected {
       background-image: url("/images/settings_modal/margin1_on.png"); }
-  #viewer-settings-modal #margin-option-2, #viewer-help-modal #margin-option-2 {
+  #viewer-settings-modal #margin-option-2 {
     background-image: url("/images/settings_modal/margin2_off.png");
     left: 67px; }
-    #viewer-settings-modal #margin-option-2.selected, #viewer-help-modal #margin-option-2.selected {
+    #viewer-settings-modal #margin-option-2.selected {
       background-image: url("/images/settings_modal/margin2_on.png"); }
-  #viewer-settings-modal #margin-option-3, #viewer-help-modal #margin-option-3 {
+  #viewer-settings-modal #margin-option-3 {
     background-image: url("/images/settings_modal/margin3_off.png");
     left: 134px; }
-    #viewer-settings-modal #margin-option-3.selected, #viewer-help-modal #margin-option-3.selected {
+    #viewer-settings-modal #margin-option-3.selected {
       background-image: url("/images/settings_modal/margin3_on.png"); }
-  #viewer-settings-modal #margin-option-4, #viewer-help-modal #margin-option-4 {
+  #viewer-settings-modal #margin-option-4 {
     background-image: url("/images/settings_modal/margin4_off.png");
     left: 201px; }
-    #viewer-settings-modal #margin-option-4.selected, #viewer-help-modal #margin-option-4.selected {
+    #viewer-settings-modal #margin-option-4.selected {
       background-image: url("/images/settings_modal/margin4_on.png"); }
-  #viewer-settings-modal #margin-option-5, #viewer-help-modal #margin-option-5 {
+  #viewer-settings-modal #margin-option-5 {
     background-image: url("/images/settings_modal/margin5_off.png");
     right: 1px; }
-    #viewer-settings-modal #margin-option-5.selected, #viewer-help-modal #margin-option-5.selected {
+    #viewer-settings-modal #margin-option-5.selected {
       background-image: url("/images/settings_modal/margin5_on.png"); }
-  #viewer-settings-modal .simple-radio, #viewer-help-modal .simple-radio {
+  #viewer-settings-modal .simple-radio {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     background-repeat: no-repeat;
@@ -2033,28 +2145,36 @@ body {
     background-image: url("/images/settings_modal/radiobutton_off.png");
     font-size: 15px;
     font-weight: 400; }
-    #viewer-settings-modal .simple-radio.selected, #viewer-help-modal .simple-radio.selected {
+    #viewer-settings-modal .simple-radio.selected {
       background-image: url("/images/settings_modal/radiobutton_on.png"); }
-  #viewer-settings-modal .theme-option, #viewer-help-modal .theme-option {
+  #viewer-settings-modal .theme-option {
+    font-family: Helvetica,Arial,sans-serif;
     display: block;
     text-align: left;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #777;
-    padding: 3px;
-    margin-bottom: 10px; }
-  #viewer-settings-modal .pagination-option, #viewer-help-modal .pagination-option {
+    border: 1px solid #777777;
+    padding: 3px 3px 3px 23px;
+    margin: 3px 0px;
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
+    background-image: url("/images/settings_modal/radiobutton_off.png");
+    font-size: 15px;
+    font-weight: 400; }
+  #viewer-settings-modal .theme-option.selected {
+    background-image: url("/images/settings_modal/radiobutton_on.png"); }
+  #viewer-settings-modal .pagination-option {
     display: block;
     text-align: left;
     margin: 3px 0px; }
-  #viewer-settings-modal .checkbox, #viewer-help-modal .checkbox {
+  #viewer-settings-modal .checkbox {
     font-family: Helvetica,Arial,sans-serif;
     color: #111;
     text-align: left;
     font-size: 15px;
     font-weight: 400; }
-  #viewer-settings-modal #settings-form-footer, #viewer-help-modal #settings-form-footer {
+  #viewer-settings-modal #settings-form-footer {
     text-align: center;
     background-color: #000;
     padding: 5px 10px;
@@ -2065,7 +2185,7 @@ body {
     background-image: -ms-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: -o-linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
     background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false)); }
-    #viewer-settings-modal #settings-form-footer button, #viewer-help-modal #settings-form-footer button {
+    #viewer-settings-modal #settings-form-footer button {
       width: 135px;
       margin: 5px;
       padding: 5px; }

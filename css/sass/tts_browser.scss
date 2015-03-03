@@ -1,0 +1,29 @@
+#tts-browser-info {
+text-align:center;
+padding:20px;
+@include linear-gradient(top, #ccc, #fff);
+}
+
+#tts-browser-info-body {
+color:#111;
+}
+
+#tts-browser-info p {
+font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+font-size:13px;
+line-height:18px;
+color:#333;
+text-align:left;
+}
+
+#tts-browser-info #tts-browser-info-footer {
+text-align:center;
+}
+
+#tts-browser-info #tts-browser-info-footer button {
+background-color:#444;
+padding: 5px 10px;
+@include linear-gradient(top, #444, #222);
+width:135px;
+margin:5px;
+}
