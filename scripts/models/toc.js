@@ -23,7 +23,7 @@ Readium.Models.Toc = Backbone.Model.extend({
 	},
 
 	setTocVis: function() {
-		if(!this.book.get("toolbar_visible")) {
+		if(!this.book.get("toolbar_visible") && this.book.get("toc_visible")) {
 			this.book.set("toc_visible", false);
 		}
 	},
