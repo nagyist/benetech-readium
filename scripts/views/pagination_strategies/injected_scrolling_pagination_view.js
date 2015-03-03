@@ -99,10 +99,8 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		  this.$('#readium-scrolling-content').contents().find('head').append('<link id="fontStyle" rel="stylesheet" type="text/css" href="/fonts/OpenDyslexic/OpenDyslexic.css"/>');
 		}
 		$(this.getBody()).css("font-family", face);
-		// the content size has changed so recalc the number of 
-		// pages
-		this.setNumPages();
 	},
+	
 	adjustIframe: function() {
 		var prop_dir = this.offset_dir;
 		var $frame = this.$('#readium-scrolling-content');
