@@ -163,4 +163,4 @@ namespace :build do
 end
 
 #define the default build process
-task :build => ["build:scripts", "build:copy", "build:html", "build:crx"]
+task :build => [:css, "build:scripts", "build:copy", "build:html", "build:crx"]
