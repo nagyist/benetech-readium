@@ -90,6 +90,9 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 			this.ttsPlayer = new Readium.Models.TTSPlayer({controller: this});
 			this.on("change:voice_uri", this.setTTSVoice, this);
 		}
+		
+		// report font face selections
+		this.on("change:font_face", this.reportFontChange, this);
 	},
 
 	defaults: {
@@ -306,6 +309,11 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 				break;
 			}
 		}
+	},
+	
+	reportFontChange: function() {
+		var font_face = this.get("font_face");
+		_gaq.push(['_trackEvent','Set Preference', 'Font Face', font_face ? font_face : "default"])
 	}
 });
 
