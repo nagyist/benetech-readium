@@ -3,11 +3,13 @@
 Readium.Routers.ViewerRouter = Backbone.Router.extend({
 
 	routes: {
-		"viewer.html?book=:key": "openBook",
+        // backbone 0.9.1 does not yet support optional parameters, must be slash separated.
+        "viewer.html?book=:key": "openBook",
+        "viewer.html?book=:key/beeline=:useBeeLine": "openBook",
 		"*splat": "splat_handler"
 	},
 
-	openBook: function(key) {
+	openBook: function(key, useBeeLine) {
 
 		// Ask the server for the book's data
 		var self = this;
@@ -20,7 +22,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 				withCredentials: true
 			},
 			success: function(data, textStatus, jqXHR) {
-				self.initViewer(data);
+				self.initViewer(data, useBeeLine);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				self.handleError(key, jqXHR);
@@ -35,13 +37,23 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 		$.ajax(ajaxParams);
 	},
 
-	initViewer: function(book_data) {
+	initViewer: function(book_data, use_beeline) {
 		// initialize the viewer for that book
 		window._epub = new Readium.Models.EPUB(book_data);
 		window._epubController = new Readium.Models.EPUBController(_.extend({epub : window._epub}, book_data));
 		window._applicationView = new Readium.Views.ViewerApplicationView({
 			model: window._epubController
 		});
+        
+        // Cheating here to set the beeline option in the model 
+        // This if/then statement will go away when it is set from options menu like other options
+        // Setting it here is bad structure
+        if (use_beeline) {
+            window._applicationView.model.set("use_beeline", true);
+        }
+        else {
+             window._applicationView.model.set("use_beeline", false);
+        }
 		window._applicationView.render();
 	},
 

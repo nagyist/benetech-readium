@@ -65,6 +65,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			that.setFontSize();
 			that.setFontFace();
 			that.injectTheme();
+            that.setBeeLine();
 			that.setNumPages();
 			that.disableFocusAutoscroll();
 
@@ -216,6 +217,20 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		// the content size has changed so recalc the number of 
 		// pages
 		this.setNumPages();
+	},
+    
+    setBeeLine: function() {
+		var use_beeline = this.model.get("use_beeline");
+        this.$('#readium-flowing-content').contents().find("link#beeLineStyle").remove();
+        if (use_beeline) {
+            this.$('#readium-flowing-content').contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/line/beeline.min.css"/>');
+            var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+                skipBackgroundColor: true,
+                colorImmediately: true,
+                handleResize: true
+            });
+            beeLine.color();
+        }
 	},
 
 	// Description: we are using experimental styles so we need to 
@@ -476,6 +491,11 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 
 	fontFaceCallback: function() {
 		this.setFontFace();
+		this.goToReadingPosition();
+	},
+    
+    beeLineCallback: function() {
+		this.setBeeLine();
 		this.goToReadingPosition();
 	},
 

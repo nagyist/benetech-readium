@@ -57,6 +57,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 			that.setFontSize();
 			that.setFontFace();
 			that.injectTheme();
+            that.setBeeLine();
 			that.getFrame().contentWindow.onscroll = that.makeScrollHandler();
 
 			setTimeout(
@@ -101,6 +102,20 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		$(this.getBody()).css("font-family", face);
 	},
 	
+    setBeeLine: function() {
+		var use_beeline = this.model.get("use_beeline");
+        this.$('#readium-scrolling-content').contents().find("link#beeLineStyle").remove();
+        if (use_beeline) {
+            this.$('#readium-scrolling-content').contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/line/beeline.min.css"/>');
+            var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+                skipBackgroundColor: true,
+                colorImmediately: true,
+                handleResize: true
+            });
+            beeLine.color();
+        }
+	},
+    
 	adjustIframe: function() {
 		var prop_dir = this.offset_dir;
 		var $frame = this.$('#readium-scrolling-content');
@@ -165,6 +180,11 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.goToReadingPosition();
 	},
 
+    beeLineCallback: function() {
+		this.setBeeLine();
+		this.goToReadingPosition();
+	},
+    
 	goToHashFragment: function(hashFragmentId) {
 		var frame = this.getFrame();
 		frame.focus();
