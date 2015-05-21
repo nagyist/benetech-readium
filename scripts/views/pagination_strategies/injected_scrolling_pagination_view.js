@@ -106,7 +106,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		var use_beeline = this.model.get("use_beeline");
         this.$('#readium-scrolling-content').contents().find("link#beeLineStyle").remove();
         if (use_beeline) {
-            this.$('#readium-scrolling-content').contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/line/beeline.min.css"/>');
+            this.$('#readium-scrolling-content').contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');
             var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
                 skipBackgroundColor: true,
                 colorImmediately: true,
