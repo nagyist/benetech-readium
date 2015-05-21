@@ -220,11 +220,12 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	},
     
     setBeeLine: function() {
-		var use_beeline = this.model.get("use_beeline");
+		var use_beeline = this.model.get("beeline");
         this.$('#readium-flowing-content').contents().find("link#beeLineStyle").remove();
         if (use_beeline) {
             this.$('#readium-flowing-content').contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');
             var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+                theme: use_beeline,
                 skipBackgroundColor: true,
                 colorImmediately: true,
                 handleResize: true
