@@ -313,7 +313,7 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 	
 	reportFontChange: function() {
 		var font_face = this.get("font_face");
-		_gaq.push(['_trackEvent','Set Preference', 'Font Face', font_face ? font_face : "default"])
+		ga('send', 'event', 'Set Preference', 'Font Face', font_face ? font_face : "default");
 	}
 });
 
