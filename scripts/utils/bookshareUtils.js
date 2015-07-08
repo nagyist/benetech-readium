@@ -256,7 +256,7 @@ Readium.Models.SpineItem.prototype.parse = function(htmlContent) {
 	doc.find('head [href]').each(function(i, el) { this.setAttribute('href', BookshareUtils.resolveUrl(this.getAttribute('href'))); });
 	doc.find('[src]').each(function(i, el) { this.setAttribute('src', BookshareUtils.resolveUrl(this.getAttribute('src'))); });
 	doc.find('aside[epub\\\:type=annotation]').each(function(i, el) { el.style.display = "none"; });
-	doc.find('a').each(function(i, el, href) { 
+	doc.find('a[href]').each(function(i, el, href) { 
 		if (el.getAttribute("href").indexOf("#") == "0") {
 			//prepend current file name. XXX this should really be handled server side.
 			this.setAttribute("href", BookshareUtils.getRelativePath(that.get("href")) + el.getAttribute("href"));

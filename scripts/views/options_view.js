@@ -111,20 +111,22 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.$("#pagination-mode-input").val(val);
 	},
 
+	filterVoiceOptions: function(v) {
+		return v.localService && (v.name == "US English Female TTS (by Google)" || !/google/i.test(v.voiceURI));
+	},
+
 	renderVoiceOptions: function() {
 		var voiceDefault;
 		var select = $("#voice-input");
 		select.children().remove();
-		var voices = speechSynthesis.getVoices();
+		var voices = speechSynthesis.getVoices().filter(this.filterVoiceOptions);
 		for (i = 0; i < voices.length; i++) {
 			var voice = voices[i];
-			if (voice.localService && !/google/i.test(voice.voiceURI)) {
-				var option = $("<option>").text(voice.name).val(voice.voiceURI);
-				select.append(option);
-				// Default to first available voice, "Alex", or "native", whichever's last
-				if (i == 0 || this.DEFAULT_VOICES.indexOf(voice.name) >= 0) {
-					voiceDefault = voice.voiceURI;
-				}
+			var option = $("<option>").text(voice.name).val(voice.voiceURI);
+			select.append(option);
+			// Default to first available voice, "Alex", or "native", whichever's last
+			if (i == 0 || this.DEFAULT_VOICES.indexOf(voice.name) >= 0) {
+				voiceDefault = voice.voiceURI;
 			}
 		}
 		// update the default one
