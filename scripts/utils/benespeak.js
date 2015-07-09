@@ -6,6 +6,8 @@ var BeneSpeak = {
     SENTENCE_TERMINATORS: /[\.\?\!]/,
     WORD_SEPARATORS: /[\s",;\u201c\u201d\u2013\u2014]/,
     CONDITIONAL_SEPARATORS: /'\u2018\u2019/,
+    // Ignore these elements that appear at the sub-word level and cause words to be broken up
+    IGNORE_ELEMENTS: /beelinespan/,
     
     SpeechData: function() {
         this.document = null;
@@ -50,10 +52,11 @@ var BeneSpeak = {
         
         switch(node.nodeType) {
             case Node.ELEMENT_NODE:
+               
                 var cn = node.childNodes;
                 
                 // note that element-specific processing can happen here
-                // BeneSpeak._elementStartAnnouncement(d, node);
+                //BeneSpeak._elementStartAnnouncement(d, node);
                 
                 for (var i = 0; i < cn.length; i++) {
                     this._tokenize(cn[i], d);
@@ -61,7 +64,7 @@ var BeneSpeak = {
                 
                 BeneSpeak._processElementBoundary(d, node);
                 
-                // BeneSpeak._elementEndAnnouncement(d, node);
+                //BeneSpeak._elementEndAnnouncement(d, node);
                 break;
             case Node.TEXT_NODE:
                 var t = node.textContent;
@@ -172,8 +175,10 @@ var BeneSpeak = {
     
     _processElementBoundary: function(d, element) {
         
+        var ignoreElement = this.IGNORE_ELEMENTS.test(element.nodeName);
+        
         // always end the word in progress
-        if (d._wipStart != null) {
+        if (d._wipStart != null && !ignoreElement) {
             var r = d.document.createRange();
             r.setStart(d._wipStart.node, d._wipStart.offset);
             r.setEndAfter(element);
@@ -202,7 +207,9 @@ var BeneSpeak = {
             d._sipOffset = 0;
         }
         
-        d.utterance += '\n';
+        if (!ignoreElement) { 
+            d.utterance += '\n';
+        }
     },
     
     _elementStartAnnouncement: function(d, el) {
