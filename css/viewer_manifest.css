@@ -2274,6 +2274,83 @@ body {
     .night-theme #readium-content-container.mo-playing .current-mo-content {
       color: white; }
 
+#beeline-icon {
+  margin: 7px 0px 5px; }
+
+ul#beeline-center-menu {
+  width: auto;
+  padding-left: auto;
+  padding-right: auto; }
+
+li#beeline-beta-menu {
+  padding: 7px 0px; }
+  li#beeline-beta-menu div {
+    background-color: white;
+    padding: 2px 4px;
+    height: 32px; }
+    li#beeline-beta-menu div span {
+      background-color: #eee;
+      color: #666;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 80%;
+      font-weight: bold;
+      display: inline-block;
+      padding: 0px 10px;
+      line-height: 30px; }
+    li#beeline-beta-menu div span.active#bright-button {
+      color: white;
+      background-color: #ff0500;
+      background-image: -moz-linear-gradient(left, blue, #ff0500);
+      background-image: -webkit-gradient(linear, 0 0, 100% 0, from(blue), to(#ff0500));
+      background-image: -webkit-linear-gradient(left, blue, #ff0500);
+      background-image: -o-linear-gradient(left, blue, #ff0500);
+      background-image: linear, compact(to right, blue, #ff0500, false, false, false, false, false, false, false, false);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0000FF', endColorstr='#FFFF0500', GradientType=1); }
+    li#beeline-beta-menu div span.active#dark-button {
+      color: white;
+      background-color: #970000;
+      background-image: -moz-linear-gradient(left, #00057f, #970000);
+      background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#00057f), to(#970000));
+      background-image: -webkit-linear-gradient(left, #00057f, #970000);
+      background-image: -o-linear-gradient(left, #00057f, #970000);
+      background-image: linear, compact(to right, #00057f, #970000, false, false, false, false, false, false, false, false);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF00057F', endColorstr='#FF970000', GradientType=1); }
+    li#beeline-beta-menu div span.active#blues-button {
+      color: white;
+      background-color: #840dd2;
+      background-image: -moz-linear-gradient(left, blue, #840dd2);
+      background-image: -webkit-gradient(linear, 0 0, 100% 0, from(blue), to(#840dd2));
+      background-image: -webkit-linear-gradient(left, blue, #840dd2);
+      background-image: -o-linear-gradient(left, blue, #840dd2);
+      background-image: linear, compact(to right, blue, #840dd2, false, false, false, false, false, false, false, false);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0000FF', endColorstr='#FF840DD2', GradientType=1); }
+    li#beeline-beta-menu div span.active#gray-button {
+      color: black;
+      background-color: white;
+      background-image: -moz-linear-gradient(left, #666666, white);
+      background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#666666), to(white));
+      background-image: -webkit-linear-gradient(left, #666666, white);
+      background-image: -o-linear-gradient(left, #666666, white);
+      background-image: linear, compact(to right, #666666, white, false, false, false, false, false, false, false, false);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF666666', endColorstr='#FFFFFFFF', GradientType=1); }
+    li#beeline-beta-menu div span.active#inverted-button {
+      color: white;
+      background-color: black;
+      background-image: -moz-linear-gradient(left, #666666, black);
+      background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#666666), to(black));
+      background-image: -webkit-linear-gradient(left, #666666, black);
+      background-image: -o-linear-gradient(left, #666666, black);
+      background-image: linear, compact(to right, #666666, black, false, false, false, false, false, false, false, false);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF666666', endColorstr='#FF000000', GradientType=1); }
+    li#beeline-beta-menu div span.active#off-button {
+      color: black;
+      background-color: white; }
+
 /* Necessary for screen reader users. Must not include display:none or visibility:hidden */
 .offscreenText {
   position: absolute;

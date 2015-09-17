@@ -1,0 +1,55 @@
+
+#beeline-icon {
+	margin: 7px 0px 5px;
+}
+
+ul#beeline-center-menu {
+	width: auto;
+	padding-left: auto;
+	padding-right: auto;
+}
+
+li#beeline-beta-menu {
+	padding: 7px 0px;
+	div {
+		background-color: white;
+		padding: 2px 4px;
+		height: 32px;
+
+		span {
+			background-color: #eee;
+			color: #666;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 80%;
+			font-weight: bold;
+			display: inline-block;
+			padding: 0px 10px;
+			line-height: 30px;
+		}
+
+		span.active#bright-button{
+			color: white;
+			@include gradient-horizontal(#0000FF, #FF0500);
+		}
+		span.active#dark-button{
+			color: white;
+			@include gradient-horizontal(#00057F, #970000);
+		}
+		span.active#blues-button{
+			color: white;
+			@include gradient-horizontal(#0000FF, #840DD2);
+		}
+		span.active#gray-button{
+			color: black;
+			@include gradient-horizontal(#666666, #FFFFFF);
+		}	
+		span.active#inverted-button{
+			color: white;
+			@include gradient-horizontal(#666666, #000000);			
+		}
+		span.active#off-button{
+			color: black;
+			background-color: white;
+		}
+	}
+}
