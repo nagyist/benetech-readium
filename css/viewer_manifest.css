@@ -2332,7 +2332,7 @@ ul#beeline-beta-menu {
     background-image: linear, compact(to right, #666666, white, false, false, false, false, false, false, false, false);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF666666', endColorstr='#FFFFFFFF', GradientType=1); }
-  ul#beeline-beta-menu li.active#inverted-button {
+  ul#beeline-beta-menu li.active#night_gray-button {
     color: white;
     background-color: black;
     background-image: -moz-linear-gradient(left, #666666, black);

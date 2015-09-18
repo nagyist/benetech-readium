@@ -21,9 +21,11 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.model.on("change:display_page_numbers", this.pageNumberCallback, this);
 		this.model.on("change:font_size", this.fontSizeCallback, this);
 		this.model.on("change:font_face", this.fontFaceCallback, this);
+		this.model.on("change:beeline_theme", this.beeLineCallback, this);
         
 		this.bindingTemplate = Handlebars.templates.binding_template;
 		this.shortcutTemplate = Handlebars.templates.iframe_keyboard_shortcuts;
+
 	},
 
     iframeLoadCallback: function(e) {
@@ -341,6 +343,32 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		setTimeout(function() {
 			$("#flowing-wrapper").css("visibility", "visible");	
 		}, 100);
+	},
+
+	commonBeelineLogic: function(contentEl) {
+		var use_beeline = this.model.get("beeline");
+        this.$(contentEl).contents().find("link#beeLineStyle").remove();
+
+       	if (use_beeline) {
+       		var beeline_theme = this.model.get("beeline_theme");
+       		$("ul#beeline-beta-menu li").removeClass("active");
+			$("li#" + beeline_theme + "-button").addClass("active");
+       		if (beeline_theme == "night_gray") {
+       			this.model.set("current_theme","night-theme");
+       		} else {
+       			this.model.set("current_theme","default-theme");
+       		}
+       		if (beeline_theme != 'off') {
+	           	this.$(contentEl).contents().find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');            
+	           	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+		        	theme: beeline_theme,
+		            skipBackgroundColor: true,
+		            colorImmediately: true,
+		            handleResize: true
+	            });
+	            beeLine.color();
+            }
+        }
 	},
 	
 	themes: {

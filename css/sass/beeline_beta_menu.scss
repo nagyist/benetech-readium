@@ -1,7 +1,4 @@
 
-
-
-
 	img#beeline-icon {
 		margin:  8px 4px 4px;
 	}
@@ -40,9 +37,9 @@
 			color: black;
 			@include gradient-horizontal(#666666, #FFFFFF);
 		}	
-		li.active#inverted-button{
+		li.active#night_gray-button{
 			color: white;
-			@include gradient-horizontal(#666666, #000000);			
+			@include gradient-horizontal(#666666, #000000);
 		}
 		li.active#off-button{
 			color: black;

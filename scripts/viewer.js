@@ -43,6 +43,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.model.on("change:current_theme", this.renderTheme, this);
 		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
 		this.model.on("change:toc_visible", this.renderTocVisible, this);
+		this.model.on("change:beeline", this.renderBeeline, this);
 
 		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
 		this.optionsView.render();
@@ -113,6 +114,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.renderTheme();
 		this.renderPageButtons();
 		this.renderTocVisible();
+		this.renderBeelineMenu();
 		return this; 
 	},
 
@@ -160,6 +162,15 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 		}
 	},	
+
+	renderBeelineMenu: function() {
+		var vis = false;
+		if( this.model.get("beeline") && this.model.get("beeline") == 'on') {
+			vis = true;
+		}
+		this.$("#beeline-beta-menu").toggle(vis);
+		this.$("#beeline-icon").toggle(vis);
+	},	
 	
 	events: {
 		"click #prev-page-button": 	function() { 
@@ -167,6 +178,24 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		},
 		"click #next-page-button": 	function() { 
 			this.model.paginator.v.pages.goRight();
+		},
+		"click #bright-button": 	function() { 
+			this.model.set("beeline_theme", "bright");
+		},
+		"click #dark-button": 	function() { 
+			this.model.set("beeline_theme", "dark");
+		},
+		"click #blues-button": 	function() { 
+			this.model.set("beeline_theme", "blues");
+		},
+		"click #gray-button": 	function() { 
+			this.model.set("beeline_theme", "gray");
+		},
+		"click #night_gray-button": 	function() { 
+			this.model.set("beeline_theme", "night_gray");
+		},
+		"click #off-button": 	function() { 
+			this.model.set("beeline_theme", "off");
 		}
   	}
 });
