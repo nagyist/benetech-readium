@@ -30,6 +30,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.model.on("change:two_up", this.setUpMode, this);
 		this.model.on("change:two_up", this.windowSizeChangeHandler, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
+		this.model.on("change:beeline_theme", this.beeLineCallback, this);
         
 	},
 
@@ -140,6 +141,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		this.model.off("change:two_up", this.setUpMode);
 		this.model.off("change:two_up", this.windowSizeChangeHandler);
 		this.model.off("change:current_margin", this.marginCallback);
+		this.model.off("change:beeline_theme", this.beeLineCallback);
 		// call the super destructor
 		Readium.Views.PaginationViewBase.prototype.destruct.call(this);
 	},
@@ -220,7 +222,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 	},
     
     setBeeLine: function() {
-        this.commonBeelineLogic('#readium-flowing-content');
+        this.commonBeelineLogic(this.$('#readium-flowing-content').contents());
 	},
 
 	// Description: we are using experimental styles so we need to 

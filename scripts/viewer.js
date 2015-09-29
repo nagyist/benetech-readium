@@ -43,7 +43,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.model.on("change:current_theme", this.renderTheme, this);
 		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
 		this.model.on("change:toc_visible", this.renderTocVisible, this);
-		this.model.on("change:beeline", this.renderBeeline, this);
 
 		this.optionsView = new Readium.Views.OptionsView({model: this.model.options});
 		this.optionsView.render();
