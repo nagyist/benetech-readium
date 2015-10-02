@@ -367,6 +367,20 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	            });
 	            beeLine.color();
             }
+            else {
+            	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+		        	theme: "custom",
+		            skipBackgroundColor: true,
+		            colorImmediately: true,
+		            handleResize: true,
+					customColor1: "#000000",
+					customColor2: "#000000",
+					customColor3: "#000000",
+					customColor4: "#000000",
+					customBackground: "#FFFFFF"
+	            });
+	            beeLine.uncolor();
+            }
         }
 	},
 	
