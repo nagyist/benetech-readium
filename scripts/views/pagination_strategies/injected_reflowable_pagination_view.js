@@ -66,7 +66,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			that.setFontSize();
 			that.setFontFace();
 			that.injectTheme();
-            that.setBeeLine();
+			that.setBeeLine();
 			that.setNumPages();
 			that.disableFocusAutoscroll();
 
