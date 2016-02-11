@@ -6,7 +6,7 @@ window.BookshareUtils = {
 
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
-	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/viewer\.html\?book=(\d*)/,
+	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/(?:\w+\/)?viewer\.html\?book=(\d*)/,
 
 	isIOS : function() {
 		if (this.iosFlag == null) {
@@ -110,6 +110,8 @@ window.BookshareUtils = {
 
 	setEnvironment: function(href) {
 		BookshareUtils.http = 'https://';
+		var siteMatch = /\/(\w+)\/viewer.html/.exec(location.pathname);
+		BookshareUtils.domain = (siteMatch ? siteMatch[1] : 'bookshare') + '.org';
 
 		if (/\bdev\b/.test(location.hostname)) {
 			BookshareUtils.environment = 'DEV'; 
@@ -134,11 +136,13 @@ window.BookshareUtils = {
 
 		if (uri.authority == 'www.bookshare.org') {
 			if (BookshareUtils.environment == 'QA') {
-				uri.authority = 'public.qa.bookshare.org';
+				uri.authority = 'public.qa.' + BookshareUtils.domain;
 			} else if (BookshareUtils.environment == 'STAGING') {
-				uri.authority = 'public.staging.bookshare.org';
+				uri.authority = 'public.staging.' + BookshareUtils.domain;
 			} else if (BookshareUtils.environment == 'DEV') {
-				uri.authority = 'public.dev.bookshare.org:8080';
+				uri.authority = 'public.dev.' + BookshareUtils.domain + ':8080';
+			} else {
+				uri.authority = 'www.' + BookshareUtils.domain;
 			}
 		}
 
