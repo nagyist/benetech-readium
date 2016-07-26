@@ -41,6 +41,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		// event handlers
 		this.model.on("change:full_screen", this.toggleFullscreen, this);
 		this.model.on("change:current_theme", this.renderTheme, this);
+		this.model.on("change:beeline_theme", this.renderTheme, this);
 		this.model.on("change:toolbar_visible", this.renderPageButtons, this);
 		this.model.on("change:toc_visible", this.renderTocVisible, this);
 
@@ -113,7 +114,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.renderTheme();
 		this.renderPageButtons();
 		this.renderTocVisible();
-		this.renderBeelineMenu();
 		return this; 
 	},
 
@@ -126,17 +126,28 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 
 	renderTheme: function() {
 		var theme = this.model.get("current_theme");
+		var beeline_theme = this.model.get("beeline_theme");
+		if (theme != "beeline-theme") {
+			this.$el.find('link#beeLineStyle').remove();
+		}
+
 		this.$el.toggleClass("default-theme", "default-theme" === theme);
 		this.$el.toggleClass("night-theme", "night-theme" === theme);
 		this.$el.toggleClass("parchment-theme", "parchment-theme" === theme);
 		this.$el.toggleClass("ballard-theme", "ballard-theme" === theme);
 		this.$el.toggleClass("vancouver-theme", "vancouver-theme" === theme);
+		// Use existing day/night style sets for Beeline.  These color page borders & areas not covered by Beeline itself
+		console.log("renderTheme theme in viewer.js: " + theme + " beeline_theme: " + beeline_theme);
+		this.$el.toggleClass("default-theme", "beeline-theme" === theme  && beeline_theme != "night_gray");
+		this.$el.toggleClass("night-theme", "beeline-theme" === theme  && beeline_theme == "night_gray");
 
 		this.$("#readium-book-view-el").toggleClass("default-theme", "default-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("night-theme", "night-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("parchment-theme", "parchment-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("ballard-theme", "ballard-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("vancouver-theme", "vancouver-theme" === theme);
+		this.$("#readium-book-view-el").toggleClass("default-theme", "beeline-theme" === theme  && beeline_theme != "night_gray");
+		this.$("#readium-book-view-el").toggleClass("night-theme", "beeline-theme" === theme && beeline_theme == "night_gray");
 	},
 
 	renderTocVisible: function() {
@@ -162,14 +173,7 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		}
 	},	
 
-	renderBeelineMenu: function() {
-		var vis = false;
-		if( this.model.get("beeline") && this.model.get("beeline") == 'on') {
-			vis = true;
-		}
-		this.$("#beeline-beta-menu").toggle(vis);
-		this.$("#beeline-icon").toggle(vis);
-	},	
+	
 	
 	events: {
 		"click #prev-page-button": 	function() { 
@@ -177,24 +181,6 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		},
 		"click #next-page-button": 	function() { 
 			this.model.paginator.v.pages.goRight();
-		},
-		"click #bright-button": 	function() { 
-			this.model.set("beeline_theme", "bright");
-		},
-		"click #dark-button": 	function() { 
-			this.model.set("beeline_theme", "dark");
-		},
-		"click #blues-button": 	function() { 
-			this.model.set("beeline_theme", "blues");
-		},
-		"click #gray-button": 	function() { 
-			this.model.set("beeline_theme", "gray");
-		},
-		"click #night_gray-button": 	function() { 
-			this.model.set("beeline_theme", "night_gray");
-		},
-		"click #off-button": 	function() { 
-			this.model.set("beeline_theme", "off");
 		}
   	}
 });

@@ -27,6 +27,7 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 			"font_face": 			this.get("font_face"),
 			"display_page_numbers":	this.get("display_page_numbers"),
 			"current_theme": 		this.get("current_theme"),
+			"beeline_theme": 		this.get("beeline_theme"),
 			"current_margin": 		this.get("current_margin"),
 			"speech_rate":          this.get("speech_rate"),
 			"voice_uri":		    this.get("voice_uri")

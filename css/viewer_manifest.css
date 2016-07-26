@@ -2274,14 +2274,16 @@ body {
     .night-theme #readium-content-container.mo-playing .current-mo-content {
       color: white; }
 
-img#beeline-icon {
-  margin: 8px 4px 4px; }
-
 ul#beeline-beta-menu {
   background-color: white;
-  padding: 4px 2px;
-  margin: 8px 36px 4px 0px;
-  height: 28px; }
+  padding: 4px 0px;
+  margin: 4px 0px 4px 0px;
+  height: 28px;
+  /* CSS3 Flexbox */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: nowrap; }
   ul#beeline-beta-menu li {
     background-color: #eee;
     color: #666;
@@ -2289,10 +2291,12 @@ ul#beeline-beta-menu {
     font-size: 80%;
     font-weight: bold;
     display: inline-block;
-    padding: 0px 10px;
-    margin: 0px 2px;
-    line-height: 28px;
+    padding: 1px 5px;
+    margin: 0px 1px 0px 0px;
+    line-height: 24px;
     cursor: pointer; }
+  ul#beeline-beta-menu li:last-child {
+    margin: 0px; }
   ul#beeline-beta-menu li.active#bright-button {
     color: white;
     background-color: #ff0500;

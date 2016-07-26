@@ -254,6 +254,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     	var doc, head, style;
 		doc = iframe.contentDocument;
 		head = doc.getElementsByTagName("head")[0];
+
 		if(head) {
 			//Remove any previous ones.
 			var previousHighlightStyles = $(head).find("#highlightStyle");
@@ -323,8 +324,16 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     },
 
 	injectTheme: function(iframe) {
+		console.log("Injecting theme...");
+		// Clear BeeLine style
 		var theme = this.model.get("current_theme");
+		var beeline_theme = this.model.get("beeline_theme");
+
 		if(theme === "default") theme = "default-theme";
+		if (theme != "beeline-theme") {
+			this.$el.find('link#beeLineStyle').remove();
+		}
+		
 		$(this.getBody()).css({
 			"color": this.themes[theme]["color"],
 			"background-color": this.themes[theme]["background-color"]
@@ -345,42 +354,27 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 	},
 
 	commonBeelineLogic: function(contentEl) {
-		var use_beeline = this.model.get("beeline");
+		var theme = this.model.get("current_theme");
+		console.log("commonBeelineLogic theme: " + theme);
+		var use_beeline = this.model.get("beeline") && (theme=="beeline-theme");
         contentEl.find("link#beeLineStyle").remove();
+
+        // Clear out generated styles when reloading
+        this.$el.find('style[id^="beeline-custom-styles-"]').remove();
+        console.log("commonBeelineLogic use_beeline: " + use_beeline);
 
        	if (use_beeline) {
        		var beeline_theme = this.model.get("beeline_theme");
-       		$("ul#beeline-beta-menu li").removeClass("active");
-			$("li#" + beeline_theme + "-button").addClass("active");
-       		if (beeline_theme == "night_gray") {
-       			this.model.set("current_theme","night-theme");
-       		} else {
-       			this.model.set("current_theme","default-theme");
-       		}
-       		if (beeline_theme != 'off') {
-	           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');            
-	           	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
-		        	theme: beeline_theme,
-		            skipBackgroundColor: true,
-		            colorImmediately: true,
-		            handleResize: true
-	            });
-	            beeLine.color();
-            }
-            else {
-            	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
-		        	theme: "custom",
-		            skipBackgroundColor: true,
-		            colorImmediately: true,
-		            handleResize: true,
-					customColor1: "#000000",
-					customColor2: "#000000",
-					customColor3: "#000000",
-					customColor4: "#000000",
-					customBackground: "#FFFFFF"
-	            });
-	            beeLine.uncolor();
-            }
+
+           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');            
+           	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+	        	theme: beeline_theme,
+	            skipBackgroundColor: false,
+	            colorImmediately: true,
+	            handleResize: true
+            });
+            beeLine.color();
+           
         }
 	},
 	
@@ -413,6 +407,12 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			"background-color": "#141414",
 			"color": "white",
 			"mo-color": "#666"
+		},
+
+		"beeline-theme": {
+			"background-color": "white",
+			"color": "000000",
+			"mo-color": "#777"
 		}
 	},
 

@@ -24,6 +24,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.model.on("repagination_event", this.windowSizeChangeHandler, this);
 		this.model.on("change:current_theme", this.injectTheme, this);
 		this.model.on("change:current_margin", this.marginCallback, this);
+		this.model.on("change:beeline_theme", this.injectTheme, this);
 		this.model.on("change:beeline_theme", this.beeLineCallback, this);
 
 	},
@@ -232,6 +233,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		this.model.off("repagination_event", this.windowSizeChangeHandler);
 		this.model.off("change:current_theme", this.injectTheme);
 		this.model.off("change:current_margin", this.marginCallback);
+		this.model.off("change:beeline_theme", this.injectTheme);
 		this.model.off("change:beeline_theme", this.beeLineCallback);
 
 		// remove the scroll handler

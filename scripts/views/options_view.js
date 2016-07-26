@@ -4,6 +4,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	DEFAULT_VOICES: [ 'Alex', 'native' ],
 
 	initialize: function() {
+		console.log("Initializing options menu.");
 		this.model.on("change:current_margin", this.renderMarginRadio, this);
 		this.model.on("change:current_theme", this.renderTheme, this);
 
@@ -32,6 +33,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 					if(id === "parchment-theme-option" ) that.model.set("current_theme", "parchment-theme");
 					if(id === "ballard-theme-option" ) that.model.set("current_theme", "ballard-theme");
 					if(id === "vancouver-theme-option" ) that.model.set("current_theme", "vancouver-theme");
+					if(id === "beeline-theme-option" ) that.model.set("current_theme", "beeline-theme");
 				}
 			),
 			margin: new Acc.RadioGroup('margin-radio-wrapper', ' #margin-option-' + this.model.get("current_margin"),
@@ -63,13 +65,34 @@ Readium.Views.OptionsView = Backbone.View.extend({
 			}, 1);
 		});
 	},
+
+	renderBeelineMenu: function() {
+		var vis = false;
+		var beeline = this.model.get("controller").get("beeline");
+		console.log("renderBeelineMenu: " + beeline);
+		if( beeline && beeline == 'on') {
+			vis = true;
+		}
+		// Only display if beta option was selected
+		this.$("#beeline-beta-menu").toggle(vis);
+		this.$("#beeline-theme-option").toggle(vis);
+		this.renderBeelineOption();
+
+	},
+
+	renderBeelineOption: function() {
+		var theme = this.model.get("beeline_theme");
+		$("ul#beeline-beta-menu li").removeClass("active");
+		$("li#" + theme + "-button").addClass("active");
+	},
 		
 	render: function() {
 		this.renderPagination();
 		this.renderTheme();
+		this.renderBeelineMenu();
 		this.renderMarginRadio();
 		this.renderFontSize();
-                this.renderFontFace();
+        this.renderFontFace();
 		this.renderDisplayPageNumbers();
 		if (BookshareUtils.hasSpeechAPI()) {
 			this.renderSpeechRate();
@@ -82,10 +105,12 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	},
 
 	renderTheme: function() {
+		console.log("Toggling the theme option in options_view.js");
 		var themePref = this.model.get("current_theme");
 		this.$("#default-theme-option").toggleClass("selected", (themePref == 'default-theme'));
 		this.$("#night-theme-option").toggleClass("selected", (themePref == 'night-theme'));
 		this.$("#parchment-theme-option").toggleClass("selected", (themePref == 'parchment-theme'));
+		this.$("#beeline-theme-option").toggleClass("selected", (themePref == 'beeline-theme'));
 		return this;
 	},
 
@@ -152,7 +177,32 @@ Readium.Views.OptionsView = Backbone.View.extend({
     	"click .theme-option": 			"selectTheme",
     	"click .margin-radio": 			"selectMargin",
     	"click #cancel-settings-but": 	"cancelSettings",
-		"click #save-settings-but": 	"applySettings"
+		"click #save-settings-but": 	"applySettings",
+		"click #bright-button": 	function() { 
+			this.selectBeelineTheme("bright");
+		},
+		"click #dark-button": 	function() { 
+			this.selectBeelineTheme("dark");
+		},
+		"click #blues-button": 	function() { 
+			this.selectBeelineTheme("blues");
+		},
+		"click #gray-button": 	function() { 
+			this.selectBeelineTheme("gray");
+		},
+		"click #night_gray-button": 	function() { 
+			this.selectBeelineTheme("night_gray");
+		}
+  	},
+
+  	selectBeelineTheme: function(theme) {
+  		if(theme == "gray") {
+  			console.log("Selecting gray theme.");
+  		}
+		this.model.set("current_theme", "beeline-theme");
+  		this.model.set("beeline_theme", theme);
+  		this.renderTheme();
+		this.renderBeelineOption();
   	},
 
   	selectTheme: function(e) {
@@ -163,6 +213,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		if(id === "parchment-theme-option" ) this.model.set("current_theme", "parchment-theme");
 		if(id === "ballard-theme-option" ) this.model.set("current_theme", "ballard-theme");
 		if(id === "vancouver-theme-option" ) this.model.set("current_theme", "vancouver-theme");
+		if(id === "beeline-theme-option" ) this.model.set("current_theme", "beeline-theme");
 		e.stopPropagation();
   	},
 

@@ -1,13 +1,15 @@
 
-	img#beeline-icon {
-		margin:  8px 4px 4px;
-	}
 
 	ul#beeline-beta-menu {
 		background-color: white;
-		padding: 4px 2px;
-		margin: 8px 36px 4px 0px;
+		padding: 4px 0px;
+		margin: 4px 0px 4px 0px;
 		height: 28px;
+		/* CSS3 Flexbox */
+		display: flex;
+  		flex-direction: row;
+  		justify-content: space-around;
+  		flex-wrap: nowrap;
 
 		li {
 			background-color: #eee;
@@ -16,10 +18,14 @@
 			font-size: 80%;
 			font-weight: bold;
 			display: inline-block;
-			padding: 0px 10px;
-			margin: 0px 2px;
-			line-height: 28px;
+			padding: 1px 5px;
+			margin: 0px 1px 0px 0px;
+			line-height: 24px;
 			cursor: pointer;
+		}
+
+		li:last-child{
+		    margin: 0px;
 		}
 
 		li.active#bright-button{

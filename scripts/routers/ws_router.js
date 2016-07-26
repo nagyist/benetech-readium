@@ -12,7 +12,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 	},
 
 	openBook: function(key, beeline) {
-
+		console.log("Key: " + key + " BeeLine: " + beeline);
 		// Ask the server for the book's data
 		var self = this;
 
@@ -41,6 +41,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 
 	initViewer: function(book_data, beeline) {
 		// initialize the viewer for that book
+		console.log("Initializing Book Viewer");
 		window._epub = new Readium.Models.EPUB(book_data);
 		window._epubController = new Readium.Models.EPUBController(_.extend({epub : window._epub}, book_data));
 		window._applicationView = new Readium.Views.ViewerApplicationView({
