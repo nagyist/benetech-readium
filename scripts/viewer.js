@@ -127,10 +127,16 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 	renderTheme: function() {
 		var theme = this.model.get("current_theme");
 		var beeline_theme = this.model.get("beeline_theme");
-		if (theme != "beeline-theme") {
-			this.$el.find('link#beeLineStyle').remove();
+		var beeline_object = this.model.get("beeline_object");
+		
+		if (beeline_object) {
+			if (theme == "beeline-theme") {
+				beeline_object.recolor();
+			} else {
+				this.$el.find('link#beeLineStyle').remove();
+				beeline_object.uncolor();
+			}
 		}
-
 		// Use existing day/night style sets for Beeline.  These color page borders & areas not covered by Beeline itself
 		console.log("renderTheme theme in viewer.js: " + theme + " beeline_theme: " + beeline_theme);
 
