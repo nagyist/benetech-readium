@@ -137,14 +137,10 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 		this.$el.toggleClass("default-theme", "default-theme" === theme || ( "beeline-theme" === theme  && beeline_theme != "night_gray"));
 		this.$el.toggleClass("night-theme", "night-theme" === theme || ("beeline-theme" === theme && beeline_theme == "night_gray"));
 		this.$el.toggleClass("parchment-theme", "parchment-theme" === theme);
-		this.$el.toggleClass("ballard-theme", "ballard-theme" === theme);
-		this.$el.toggleClass("vancouver-theme", "vancouver-theme" === theme);
 
 		this.$("#readium-book-view-el").toggleClass("default-theme", "default-theme" === theme || ( "beeline-theme" === theme  && beeline_theme != "night_gray"));
 		this.$("#readium-book-view-el").toggleClass("night-theme", "night-theme" === theme || ("beeline-theme" === theme && beeline_theme == "night_gray"));
 		this.$("#readium-book-view-el").toggleClass("parchment-theme", "parchment-theme" === theme);
-		this.$("#readium-book-view-el").toggleClass("ballard-theme", "ballard-theme" === theme);
-		this.$("#readium-book-view-el").toggleClass("vancouver-theme", "vancouver-theme" === theme);
 	},
 
 	renderTocVisible: function() {

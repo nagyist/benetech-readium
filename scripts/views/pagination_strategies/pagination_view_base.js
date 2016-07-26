@@ -405,18 +405,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			"mo-color": "#777"
 		},
 
-		"vancouver-theme": {
-			"background-color": "#DDD",
-			"color": "#576b96",
-			"mo-color": "#777"
-		},
-
-		"ballard-theme": {
-			"background-color": "#576b96",
-			"color": "#DDD",
-			"mo-color": "#888"
-		},
-
 		"parchment-theme": {
 			"background-color": "#f7f1cf",
 			"color": "#774c27",

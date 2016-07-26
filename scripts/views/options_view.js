@@ -31,8 +31,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 					if(id === "default-theme-option" ) that.model.set("current_theme", "default-theme");
 					if(id === "night-theme-option" ) that.model.set("current_theme", "night-theme");
 					if(id === "parchment-theme-option" ) that.model.set("current_theme", "parchment-theme");
-					if(id === "ballard-theme-option" ) that.model.set("current_theme", "ballard-theme");
-					if(id === "vancouver-theme-option" ) that.model.set("current_theme", "vancouver-theme");
 					if(id === "beeline-theme-option" ) that.model.set("current_theme", "beeline-theme");
 				}
 			),
@@ -211,8 +209,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
   		if(id === "default-theme-option" ) this.model.set("current_theme", "default-theme");
 		if(id === "night-theme-option" ) this.model.set("current_theme", "night-theme");
 		if(id === "parchment-theme-option" ) this.model.set("current_theme", "parchment-theme");
-		if(id === "ballard-theme-option" ) this.model.set("current_theme", "ballard-theme");
-		if(id === "vancouver-theme-option" ) this.model.set("current_theme", "vancouver-theme");
 		if(id === "beeline-theme-option" ) this.model.set("current_theme", "beeline-theme");
 		e.stopPropagation();
   	},
