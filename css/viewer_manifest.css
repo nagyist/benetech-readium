@@ -2242,22 +2242,6 @@ body {
     .default-theme #readium-content-container.mo-playing .current-mo-content {
       color: #000000; }
 
-.vancouver-theme {
-  background-color: #DDD;
-  color: #576b96; }
-  .vancouver-theme #readium-content-container.mo-playing {
-    color: #777; }
-    .vancouver-theme #readium-content-container.mo-playing .current-mo-content {
-      color: #576b96; }
-
-.ballard-theme {
-  background-color: #576b96;
-  color: #DDD; }
-  .ballard-theme #readium-content-container.mo-playing {
-    color: #888; }
-    .ballard-theme #readium-content-container.mo-playing .current-mo-content {
-      color: #DDD; }
-
 .parchment-theme {
   background-color: #f7f1cf;
   color: #774c27; }
