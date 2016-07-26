@@ -49,14 +49,15 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		
 		// Apply night theme for the book; nothing will be applied if the ePub's style sheets do not contain a style
 		// set with the 'night' tag
-	    if (this.model.get("current_theme") === "night-theme") {
-
+	    if (this.model.get("current_theme") === "night-theme" 
+	    	|| (this.model.get("current_theme") === "beeline-theme" && this.model.get("beeline_theme") == "night_gray")) {
+	    	console.log("Applying night theme.");
 	    	selector = new Readium.Models.AlternateStyleTagSelector;
 	    	bookDom = selector.activateAlternateStyleSet(["night"], bookDom);
 
 	    }
 	    else {
-
+			console.log("Applying default (day) theme.");
 			selector = new Readium.Models.AlternateStyleTagSelector;
 	    	bookDom = selector.activateAlternateStyleSet([""], bookDom);
 	    }
@@ -265,7 +266,12 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 			$(style).attr("id", "highlightStyle");
 			style.type = "text/css";
 			var theme = this.model.get("current_theme");
-			style.innerHTML = theme == "night-theme" ? this.highlightThemes["night"] : this.highlightThemes["default"];
+			var beeline_theme = this.model.get("beeline_theme");
+			if (theme == "night-theme" || beeline_theme == "night_gray") {
+				style.innerHTML  = this.highlightThemes["night"];
+			} else {
+				style.innerHTML = this.highlightThemes["default"];
+			}
 			head.appendChild(style);
 		}
     },
@@ -328,14 +334,23 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		// Clear BeeLine style
 		var theme = this.model.get("current_theme");
 		var beeline_theme = this.model.get("beeline_theme");
+		var beeline_object = this.model.get("beeline_object");
 
-		if(theme === "default") theme = "default-theme";
+		if (theme === "default") theme = "default-theme";
 		if (theme != "beeline-theme") {
 			this.$el.find('link#beeLineStyle').remove();
+			if (beeline_object) { beeline_object.uncolor(); }
+		} else {
+			if (beeline_object) { beeline_object.recolor(); }
 		}
 		
+		var color = this.themes[theme]["color"];
+		if (theme == "beeline-theme" && beeline_theme == "night_gray") {
+			color = "#FFFFFF";
+		}
+		console.log("Coloring text " + color);
 		$(this.getBody()).css({
-			"color": this.themes[theme]["color"],
+			"color": color,
 			"background-color": this.themes[theme]["background-color"]
 		});
 		
@@ -355,26 +370,31 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 
 	commonBeelineLogic: function(contentEl) {
 		var theme = this.model.get("current_theme");
-		console.log("commonBeelineLogic theme: " + theme);
+
 		var use_beeline = this.model.get("beeline") && (theme=="beeline-theme");
         contentEl.find("link#beeLineStyle").remove();
 
         // Clear out generated styles when reloading
         this.$el.find('style[id^="beeline-custom-styles-"]').remove();
-        console.log("commonBeelineLogic use_beeline: " + use_beeline);
+        console.log("commonBeelineLogic theme: " + theme + " use_beeline: " + use_beeline);
 
        	if (use_beeline) {
        		var beeline_theme = this.model.get("beeline_theme");
 
-           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');            
-           	var beeLine = new BeeLineReader($(this.getBody()).get(0), { 
+           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');
+           	var beeline_object = this.model.get("beeline_object");
+           	if (beeline_object) {
+           		beeline_object.cleanup();
+           	}
+       		console.log("New Beeline object with theme " + beeline_theme);
+       		var new_beeline_object = new BeeLineReader($(this.getBody()).get(0), { 
 	        	theme: beeline_theme,
 	            skipBackgroundColor: false,
 	            colorImmediately: true,
 	            handleResize: true
             });
-            beeLine.color();
-           
+            new_beeline_object.color();
+            this.model.set("beeline_object", new_beeline_object);       
         }
 	},
 	

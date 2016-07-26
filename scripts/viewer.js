@@ -131,23 +131,20 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 			this.$el.find('link#beeLineStyle').remove();
 		}
 
-		this.$el.toggleClass("default-theme", "default-theme" === theme);
-		this.$el.toggleClass("night-theme", "night-theme" === theme);
+		// Use existing day/night style sets for Beeline.  These color page borders & areas not covered by Beeline itself
+		console.log("renderTheme theme in viewer.js: " + theme + " beeline_theme: " + beeline_theme);
+
+		this.$el.toggleClass("default-theme", "default-theme" === theme || ( "beeline-theme" === theme  && beeline_theme != "night_gray"));
+		this.$el.toggleClass("night-theme", "night-theme" === theme || ("beeline-theme" === theme && beeline_theme == "night_gray"));
 		this.$el.toggleClass("parchment-theme", "parchment-theme" === theme);
 		this.$el.toggleClass("ballard-theme", "ballard-theme" === theme);
 		this.$el.toggleClass("vancouver-theme", "vancouver-theme" === theme);
-		// Use existing day/night style sets for Beeline.  These color page borders & areas not covered by Beeline itself
-		console.log("renderTheme theme in viewer.js: " + theme + " beeline_theme: " + beeline_theme);
-		this.$el.toggleClass("default-theme", "beeline-theme" === theme  && beeline_theme != "night_gray");
-		this.$el.toggleClass("night-theme", "beeline-theme" === theme  && beeline_theme == "night_gray");
 
-		this.$("#readium-book-view-el").toggleClass("default-theme", "default-theme" === theme);
-		this.$("#readium-book-view-el").toggleClass("night-theme", "night-theme" === theme);
+		this.$("#readium-book-view-el").toggleClass("default-theme", "default-theme" === theme || ( "beeline-theme" === theme  && beeline_theme != "night_gray"));
+		this.$("#readium-book-view-el").toggleClass("night-theme", "night-theme" === theme || ("beeline-theme" === theme && beeline_theme == "night_gray"));
 		this.$("#readium-book-view-el").toggleClass("parchment-theme", "parchment-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("ballard-theme", "ballard-theme" === theme);
 		this.$("#readium-book-view-el").toggleClass("vancouver-theme", "vancouver-theme" === theme);
-		this.$("#readium-book-view-el").toggleClass("default-theme", "beeline-theme" === theme  && beeline_theme != "night_gray");
-		this.$("#readium-book-view-el").toggleClass("night-theme", "beeline-theme" === theme && beeline_theme == "night_gray");
 	},
 
 	renderTocVisible: function() {
