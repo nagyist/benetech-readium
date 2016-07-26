@@ -51,13 +51,11 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		// set with the 'night' tag
 	    if (this.model.get("current_theme") === "night-theme" 
 	    	|| (this.model.get("current_theme") === "beeline-theme" && this.model.get("beeline_theme") == "night_gray")) {
-	    	console.log("Applying night theme.");
 	    	selector = new Readium.Models.AlternateStyleTagSelector;
 	    	bookDom = selector.activateAlternateStyleSet(["night"], bookDom);
 
 	    }
 	    else {
-			console.log("Applying default (day) theme.");
 			selector = new Readium.Models.AlternateStyleTagSelector;
 	    	bookDom = selector.activateAlternateStyleSet([""], bookDom);
 	    }
@@ -330,7 +328,6 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
     },
 
 	injectTheme: function(iframe) {
-		console.log("Injecting theme...");
 		// Clear BeeLine style
 		var theme = this.model.get("current_theme");
 		var beeline_theme = this.model.get("beeline_theme");
@@ -348,7 +345,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		if (theme == "beeline-theme" && beeline_theme == "night_gray") {
 			color = "#FFFFFF";
 		}
-		console.log("Coloring text " + color);
+
 		$(this.getBody()).css({
 			"color": color,
 			"background-color": this.themes[theme]["background-color"]

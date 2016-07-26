@@ -12,7 +12,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 	},
 
 	openBook: function(key, beeline) {
-		console.log("Key: " + key + " BeeLine: " + beeline);
+		console.log("Beeline beta is enabled? " + beeline);
 		// Ask the server for the book's data
 		var self = this;
 

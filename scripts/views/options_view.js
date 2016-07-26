@@ -103,7 +103,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	},
 
 	renderTheme: function() {
-		console.log("Toggling the theme option in options_view.js");
 		var themePref = this.model.get("current_theme");
 		this.$("#default-theme-option").toggleClass("selected", (themePref == 'default-theme'));
 		this.$("#night-theme-option").toggleClass("selected", (themePref == 'night-theme'));
