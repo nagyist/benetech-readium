@@ -497,32 +497,31 @@
     				
     				//close this modal
     				$('#new-feature-beeline-modal').modal('hide');
+    				
     				//open settings modal
     				$('#viewer-settings-modal').modal('show');
-    				//select beeline
     				
-					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
-  					
-  					//unselect all options
+    				//unselect all options
   					$('#theme-radio-group span').each(function(){
    						$(this).attr({"aria-selected": "false", "aria-checked": "false"}).removeClass('selected');
 					})
-					
-					//select the beeline option
+    				
+    				
+    				//select beeline option
 					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
-					
-					//unselect beeline beta color options
-					
+  					
+  					//unselect beeline beta color options
 					$('#beeline-beta-menu li').each(function(){
    						$(this).removeClass('active');
 					})
-					$('#beeline-beta-menu #bright-button').addClass('active');
 					
-  					
+					//select the beeline beta color option for bright 
+					$('#beeline-beta-menu #bright-button').addClass('active');
+							
 				});
 				
 				$("#new-feature-beeline-remindme").click(function() {
-					createCookie('new-feature-beeline','hide',1);
+					createCookie('new-feature-beeline','hide',14);
   					
 				});
 				
