@@ -5,14 +5,79 @@
 		<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo">
 		<title>Bookshare Web Reader</title>
 		<meta name="viewport" content="initial-scale=1.0"/> 
-		<!-- Jason Test Comment here -->
 		<!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
 
 		<!-- Only include Modernizr and GA at the top, everything else is at the bottom -->
 		<script src="/scripts/utils/google_analytics_loader.js" type="text/javascript" ></script>
 		<script src="/lib/modernizr-2.5.3.min.js" type="text/javascript" ></script>
-		
+		<script>
+			function createCookie(name,value,days) {
+			    if (days) {
+			        var date = new Date();
+			        date.setTime(date.getTime()+(days*24*60*60*1000));
+			        var expires = "; expires="+date.toGMTString();
+			    }
+			    else var expires = "";
+			    document.cookie = name+"="+value+expires+"; path=/";
+			}
+
+			function readCookie(name) {
+			    var nameEQ = name + "=";
+			    var ca = document.cookie.split(';');
+			    for(var i=0;i < ca.length;i++) {
+			        var c = ca[i];
+			        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			    }
+			    return null;
+			}
+			$(document).ready(function(){
+				var x = readCookie('new-feature-beeline')
+				if (x=='show'||x==null) {
+				    $('#new-feature-beeline-modal').model('show');
+				}
+    			
+    			$("#new-feature-beeline-yes").click(function() {
+    				createCookie('new-feature-beeline','hide',20*365);
+    				
+    				//close this modal
+    				$('#new-feature-beeline-modal').model('hide');
+    				//open settings modal
+    				$('#viewer-settings-modal').model('show');
+    				//select beeline
+    				
+					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
+  					
+  					//unselect all options
+  					$('#theme-radio-group span').each(function(){
+   						$(this).attr({"aria-selected": "false", "aria-checked": "false"}).removeClass('selected');
+					})
+					
+					//select the beeline option
+					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
+					
+					//unselect beeline beta color options
+					
+					$('#beeline-beta-menu li').each(function(){
+   						$(this).removeClass('active');
+					})
+					$('#beeline-beta-menu #bright-button').addClass('active');
+					
+  					
+				});
+				
+				$("#new-feature-beeline-remindme").click(function() {
+					createCookie('new-feature-beeline','hide',1);
+  					
+				});
+				
+				$("#new-feature-beeline-no").click(function() {
+					createCookie('new-feature-beeline','hide',20*365);
+  					
+				});	
+			});
+		</script>
 	</head>
 	<body>
 
@@ -218,9 +283,19 @@
 		</div><!-- end le settings modal -->
 		
 		<!-- start beeline notification modal -->
-		<div class="modal fade" id="beeline-notification-modal"  style="display: none">
+		<div class="modal fade" id="new-feature-beeline-modal"  style="display: none">
 			<div class="offscreenText"> Try Beeline </div>
-			<h1 tabindex="-1" id="beeline-notification-heading">New Feature</h1>
+			<h1 tabindex="-1" id="new-feature-beeline-heading">New Feature</h1>
+			<p>
+				Bookshare is pleased to partner with BeeLine Reader to offer their new assistive technology to our readers with dyslexia, attention deficits, and visual difficulties.  BeeLine Reader's technology assists visual tracking and reduces line-skipping and repeating, and we have now integrated it into our Web Reader.  Visit the Web Reader setting to toggle this new feature or to try different color settings.
+				<br/><br/>
+				To learn more about BeeLine Reader, or to get tools that can be used outside Web Reader, visit <a href="www.BeeLineReader.com" target="_blank">www.BeeLineReader.com</a?
+			</p>
+			<div id="viewer-help-footer" class="clearfix">
+				<button class='btn btn-inverse' id="new-feature-beeline-yes">Yes, I'll try it!</button>
+				<button class='btn btn-inverse' id="new-feature-beeline-remindme">Remind me</button>
+				<button class='btn btn-inverse' id="new-feature-beeline-no">No thanks</button>
+			</div>
 		</div>
 		<!-- end beeline notification modal -->
 		
