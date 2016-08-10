@@ -489,16 +489,16 @@
 			$(document).ready(function(){
 				var x = readCookie('new-feature-beeline')
 				if (x=='show'||x==null) {
-				    $('#new-feature-beeline-modal').model('show');
+				    $('#new-feature-beeline-modal').modal('show');
 				}
     			
     			$("#new-feature-beeline-yes").click(function() {
     				createCookie('new-feature-beeline','hide',20*365);
     				
     				//close this modal
-    				$('#new-feature-beeline-modal').model('hide');
+    				$('#new-feature-beeline-modal').modal('hide');
     				//open settings modal
-    				$('#viewer-settings-modal').model('show');
+    				$('#viewer-settings-modal').modal('show');
     				//select beeline
     				
 					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
