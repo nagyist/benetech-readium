@@ -465,72 +465,7 @@
 		
 		<!-- end scripts -->
 		
-		<script>
-			function createCookie(name,value,days) {
-			    if (days) {
-			        var date = new Date();
-			        date.setTime(date.getTime()+(days*24*60*60*1000));
-			        var expires = "; expires="+date.toGMTString();
-			    }
-			    else var expires = "";
-			    document.cookie = name+"="+value+expires+"; path=/";
-			}
-
-			function readCookie(name) {
-			    var nameEQ = name + "=";
-			    var ca = document.cookie.split(';');
-			    for(var i=0;i < ca.length;i++) {
-			        var c = ca[i];
-			        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-			        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-			    }
-			    return null;
-			}
-			$(document).ready(function(){
-				var x = readCookie('new-feature-beeline')
-				if (x=='show'||x==null) {
-				    $('#new-feature-beeline-modal').modal('show');
-				}
-    			
-    			$("#new-feature-beeline-yes").click(function() {
-    				createCookie('new-feature-beeline','hide',20*365);
-    				
-    				//close this modal
-    				$('#new-feature-beeline-modal').modal('hide');
-    				
-    				//open settings modal
-    				$('#viewer-settings-modal').modal('show');
-    				
-    				//unselect all options
-  					$('#theme-radio-group span').each(function(){
-   						$(this).attr({"aria-selected": "false", "aria-checked": "false"}).removeClass('selected');
-					})
-    				
-    				
-    				//select beeline option
-					$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
-  					
-  					//unselect beeline beta color options
-					$('#beeline-beta-menu li').each(function(){
-   						$(this).removeClass('active');
-					})
-					
-					//select the beeline beta color option for bright 
-					$('#beeline-beta-menu #bright-button').addClass('active');
-							
-				});
-				
-				$("#new-feature-beeline-remindme").click(function() {
-					createCookie('new-feature-beeline','hide',14);
-  					
-				});
-				
-				$("#new-feature-beeline-no").click(function() {
-					createCookie('new-feature-beeline','hide',20*365);
-  					
-				});	
-			});
-		</script>
+		
 
 	</body>
 </html>
