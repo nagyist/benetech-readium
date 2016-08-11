@@ -83,11 +83,27 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		$("ul#beeline-beta-menu li").removeClass("active");
 		$("li#" + theme + "-button").addClass("active");
 	},
+	
+	renderBeelineNotification: function() {
+		alert("Something");
+		
+		//var vis = false;
+		//var beeline = this.model.get("controller").get("beeline");
+		//console.log("renderBeelineMenu: " + beeline);
+		//if( beeline && beeline == 'on') {
+		//	vis = true;
+		//}
+		// Only display if beta option was selected
+		//this.$("#beeline-beta-menu").toggle(vis);
+		//this.$("#beeline-theme-option").toggle(vis);
+		//this.renderBeelineOption();
+	},
 		
 	render: function() {
 		this.renderPagination();
 		this.renderTheme();
 		this.renderBeelineMenu();
+		this.renderBeelineNotification();
 		this.renderMarginRadio();
 		this.renderFontSize();
         this.renderFontFace();
