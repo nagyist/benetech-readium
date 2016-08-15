@@ -26,11 +26,20 @@ window.BookshareUtils = {
 		console.log("window.SpeechSynthesisUtterance: "+ window.SpeechSynthesisUtterance);
 		//console.log(!this.isIOS());
 		console.log("Chrome: "+ this.isChromeOS());
+		
+		console.log("HERE:"+
+				(window.speechSynthesis
+						&& window.speechSynthesis.getVoices
+						&& window.SpeechSynthesisUtterance) != undefined
+						&& !this.isIOS()
+						&& !this.isChromeOS()
+		);
+		
 		return (window.speechSynthesis
 			&& window.speechSynthesis.getVoices
 			&& window.SpeechSynthesisUtterance) != undefined
 			&& !this.isIOS()
-			&& !this.isChromeOS();
+			&& !this.isChromeOS()
 	},
 
 	offerChromeExtension: function() {
