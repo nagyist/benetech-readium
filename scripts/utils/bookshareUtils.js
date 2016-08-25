@@ -21,11 +21,6 @@ window.BookshareUtils = {
 	},
 
 	hasSpeechAPI: function() {
-		console.log("window.speechSynthesis: "+ window.speechSynthesis);
-		console.log("window.speechSynthesis.getVoices: "+ window.speechSynthesis.getVoices);
-		console.log("window.SpeechSynthesisUtterance: "+ window.SpeechSynthesisUtterance);
-		//console.log(!this.isIOS());
-		console.log("Chrome: "+ this.isChromeOS());
 		return (window.speechSynthesis
 			&& window.speechSynthesis.getVoices
 			&& window.SpeechSynthesisUtterance) != undefined
