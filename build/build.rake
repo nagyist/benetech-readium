@@ -48,6 +48,11 @@ namespace :build do
 	# 	`mv #{@config[:publish_dir]}.crx #{@config[:crx_path]}`
 	# end
 
+	desc "create git tag file"
+        task :gittag do
+                `git describe > version`
+        end
+
 	desc "create a zip of the extension" 
 	task :crx do
 		`zip readium.zip -r readium/*`
@@ -163,4 +168,4 @@ namespace :build do
 end
 
 #define the default build process
-task :build => ["build:scripts", "build:copy", "build:html", "build:crx"]
+task :build => ["build:scripts", "build:copy", "build:html", "build:crx", "build:gittag"]
