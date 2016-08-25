@@ -64,20 +64,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		});
 	},
 
-	renderBeelineMenu: function() {
-		var vis = false;
-		var beeline = this.model.get("controller").get("beeline");
-		console.log("renderBeelineMenu: " + beeline);
-		if( beeline && beeline == 'on') {
-			vis = true;
-		}
-		// Only display if beta option was selected
-		this.$("#beeline-beta-menu").toggle(vis);
-		this.$("#beeline-theme-option").toggle(vis);
-		this.renderBeelineOption();
-
-	},
-
 	renderBeelineOption: function() {
 		var theme = this.model.get("beeline_theme");
 		$("ul#beeline-beta-menu li").removeClass("active");
@@ -87,7 +73,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	render: function() {
 		this.renderPagination();
 		this.renderTheme();
-		this.renderBeelineMenu();
+		this.renderBeelineOption();
 		this.renderMarginRadio();
 		this.renderFontSize();
         this.renderFontFace();
@@ -199,7 +185,7 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		this.model.set("current_theme", "beeline-theme");
   		this.model.set("beeline_theme", theme);
   		this.renderTheme();
-		this.renderBeelineOption();
+  		this.renderBeelineOption();
   	},
 
   	selectTheme: function(e) {
