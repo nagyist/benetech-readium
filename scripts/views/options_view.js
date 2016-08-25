@@ -85,7 +85,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 	},
 	
 	renderBeelineNotification: function() {
-		console.log("renderBeelineNotification Entered");
 		function createCookie(name,value,days) {
 		    if (days) {
 		        var date = new Date();
@@ -106,7 +105,6 @@ Readium.Views.OptionsView = Backbone.View.extend({
 		    }
 		    return null;
 		}
-		console.log("renderBeelineNotification cookie Functions added");
 		var beeline = this.model.get("controller").get("beeline");
 		console.log("renderBeelineNotification: " + beeline);
 		if( beeline && beeline == 'on') {
