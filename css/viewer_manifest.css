@@ -2340,6 +2340,10 @@ ul#beeline-beta-menu {
   background-color: #444444;
   text-align: left; }
 
+.modal-footer .btn-link {
+  color: #FFFFFF;
+  text-shadow: none; }
+
 /* Margin 5px */
 .m5 {
   margin: 5px; }
