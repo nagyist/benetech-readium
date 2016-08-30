@@ -2348,13 +2348,13 @@ ul#beeline-beta-menu {
   margin-top: 5px; }
 
 .mr5 {
-  margin-top: 5px; }
+  margin-right: 5px; }
 
 .mb5 {
-  margin-top: 5px; }
+  margin-bottom: 5px; }
 
 .ml5 {
-  margin-top: 5px; }
+  margin-left: 5px; }
 
 /* Margin 10px */
 .m10 {
@@ -2364,13 +2364,13 @@ ul#beeline-beta-menu {
   margin-top: 10px; }
 
 .mr10 {
-  margin-top: 10px; }
+  margin-right: 10px; }
 
 .mb10 {
-  margin-top: 10px; }
+  margin-bottom: 10px; }
 
 .ml10 {
-  margin-top: 10px; }
+  margin-left: 10px; }
 
 /* Necessary for screen reader users. Must not include display:none or visibility:hidden */
 .offscreenText {
