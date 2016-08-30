@@ -2336,6 +2336,42 @@ ul#beeline-beta-menu {
     color: black;
     background-color: white; }
 
+.modal-footer {
+  background-color: #444444;
+  text-align: left; }
+
+/* Margin 5px */
+.m5 {
+  margin: 5px; }
+
+.mt5 {
+  margin-top: 5px; }
+
+.mr5 {
+  margin-top: 5px; }
+
+.mb5 {
+  margin-top: 5px; }
+
+.ml5 {
+  margin-top: 5px; }
+
+/* Margin 10px */
+.m10 {
+  margin: 10px; }
+
+.mt10 {
+  margin-top: 10px; }
+
+.mr10 {
+  margin-top: 10px; }
+
+.mb10 {
+  margin-top: 10px; }
+
+.ml10 {
+  margin-top: 10px; }
+
 /* Necessary for screen reader users. Must not include display:none or visibility:hidden */
 .offscreenText {
   position: absolute;
