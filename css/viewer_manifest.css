@@ -2339,23 +2339,9 @@ ul#beeline-beta-menu {
 .modal-header {
   padding: 0px 15px; }
 
-/*
-
 .modal-footer {
-	background-color: #444444;
-	text-align: left;
-}
+  text-align: center; }
 
-.modal-footer .btn-link {
-	color: #FFFFFF;
-	text-shadow: none;
-}
-
-h4.modal-title {
-	color:#F29000;
-}
-
-*/
 /* Margin 5px */
 .m5 {
   margin: 5px; }
