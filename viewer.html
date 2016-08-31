@@ -121,7 +121,8 @@
 		</div>
 		</div> <!-- end readium-right-content -->
 
-		<div class="modal fade" id="viewer-settings-modal"  style="display: none"><!-- le settings modal -->
+		<!-- START settings modal -->
+		<div class="modal fade" id="viewer-settings-modal"  style="display: none">
 			<div class="offscreenText"> Options Start </div>
 			<h1 tabindex="-1" id="options-heading">SETTINGS</h1>
 			<div id='settings-margin'>
@@ -214,9 +215,13 @@
 				<button class='btn btn-inverse' id="save-settings-but">Save</button>
 			</div>
 			
-<div class="offscreenText"> Options End </div>
-		</div><!-- end le settings modal -->
-		<div class="modal fade" id="viewer-help-modal"  style="display: none"><!-- le help modal -->
+			<div class="offscreenText"> Options End </div>
+		</div>
+		<!-- END settings modal -->
+		
+		
+		<!-- START help modal -->
+		<div class="modal fade" id="viewer-help-modal"  style="display: none">
 				<div class="offscreenText"> Help Start </div>
 				<div id="viewer-help-body">
 				<h1 tabindex="-1" id="help-heading">Web Reader Help:</h1>
@@ -318,9 +323,11 @@
 			<div id="viewer-help-footer" class="clearfix">
 				<button class='btn btn-inverse' id="cancel-help-but">Close</button>
 			</div>
-<div class="offscreenText"> Help End </div>
-		</div><!-- end le help modal -->
-		<!-- le system modal -->
+			<div class="offscreenText"> Help End </div>
+		</div>
+		<!-- END help modal -->
+		
+		<!-- START system modal -->
 		<div class="modal fade" id="system-message" role="alert" aria-live="assertive" style="display: none">
 			<div class="offscreenText"> System Message Start </div>
 			<div id="system-message-content">
@@ -328,7 +335,7 @@
 			</div>
 			<div class="offscreenText"> System Message End </div>
 		</div>
-		<!-- end le system modal -->
+		<!-- END system modal -->
 
 		<!-- START install modal -->
 		<div class="modal fade" id="chrome-extension-install"  style="display: none">
