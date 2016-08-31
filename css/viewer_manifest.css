@@ -2336,6 +2336,9 @@ ul#beeline-beta-menu {
     color: black;
     background-color: white; }
 
+.modal-header {
+  padding: 0px 15px; }
+
 /*
 
 .modal-footer {
