@@ -2336,17 +2336,23 @@ ul#beeline-beta-menu {
     color: black;
     background-color: white; }
 
+/*
+
 .modal-footer {
-  background-color: #444444;
-  text-align: left; }
+	background-color: #444444;
+	text-align: left;
+}
 
 .modal-footer .btn-link {
-  color: #FFFFFF;
-  text-shadow: none; }
+	color: #FFFFFF;
+	text-shadow: none;
+}
 
 h4.modal-title {
-  color: #F29000; }
+	color:#F29000;
+}
 
+*/
 /* Margin 5px */
 .m5 {
   margin: 5px; }
