@@ -15,7 +15,7 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 
 	render: function() {
 		return this;
-	},
+	}
   	
   	//BeelineYes: function(e) {
   		//this.$el.modal('hide');
