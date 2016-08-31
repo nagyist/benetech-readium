@@ -3,6 +3,9 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 	el: '#beeline-notification-modal',
 
 	initialize: function() {
+		console.log("Initializing Beeline Notification Modal.");
+		
+		
 		// if cookie is not set
 		$('#beeline-notification-modal').modal('show');
 		//else do nothing

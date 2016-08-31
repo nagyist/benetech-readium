@@ -3,6 +3,7 @@ Readium.Views.HelpView = Backbone.View.extend({
 	el: '#viewer-help-modal',
 
 	initialize: function() {
+		console.log("Initializing Help Modal.");
 		$('#help-btn').attr('aria-pressed', 'false');
 		$('#viewer-help-modal').on('shown', function(){
 			$('#help-heading').focus();
