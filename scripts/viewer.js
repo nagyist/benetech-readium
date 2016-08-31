@@ -51,8 +51,8 @@ Readium.Views.ViewerApplicationView = Backbone.View.extend({
 //		this.helpView = new Readium.Views.HelpView({model: _epubController});
 //		this.helpView.render();
 
-		this.beelineNotificationView = new Readium.Views.BeelineNotificationView({model: _epubController});
-		this.beelineNotificationView.render();
+//		this.beelineNotificationView = new Readium.Views.BeelineNotificationView({model: _epubController});
+//		this.beelineNotificationView.render();
 		
 		// the top bar
 		this.toolbar = new Readium.Views.ToolbarView({model: _epubController});
