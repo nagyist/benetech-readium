@@ -44,18 +44,18 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 
 	initialize: function() {
 		console.log("Initializing Beeline Notification Modal");
+		this.$el.modal('show');
 	},
 
 	events: {
-    	"click #cancel-help-but": 	"cancelHelp"
+    	"click #beeline-notification-button-yes": 	"BeelineYes"
   	},
 
 	render: function() {
 		return this;
 	},
 
-  	cancelHelp: function(e) {
+	BeelineYes: function(e) {
   		this.$el.modal('hide');
-		//$('#help-btn').focus();
   	}
 });
