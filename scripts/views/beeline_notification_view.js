@@ -43,7 +43,7 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 	el: '#viewer-help-modal',
 
 	initialize: function() {
-		console.log("Initializing Help Modal.");
+		console.log("Initializing Help Modal(new).");
 		$('#help-btn').attr('aria-pressed', 'false');
 		$('#viewer-help-modal').on('shown', function(){
 			$('#help-heading').focus();
