@@ -48,7 +48,7 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 	},
 
 	events: {
-    	//"click #beeline-notification-button-yes": 	"BeelineYes"
+    	"click #beeline-notification-button-yes": 	"BeelineYes"
   	},
 
 	render: function() {
