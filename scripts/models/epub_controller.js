@@ -93,6 +93,10 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 		
 		// report font face selections
 		this.on("change:font_face", this.reportFontChange, this);
+		
+		// report theme selections
+		this.on("change:current_theme", this.reportThemeChange, this);
+		this.on("change:beeline_theme", this.reportThemeChange, this);
 	},
 
 	defaults: {
@@ -315,6 +319,13 @@ Readium.Models.EPUBController = Backbone.Model.extend({
 	reportFontChange: function() {
 		var font_face = this.get("font_face");
 		ga('send', 'event', 'Set Preference', 'Font Face', font_face ? font_face : "default");
+	},
+
+	reportThemeChange: function() {
+		var current_theme = this.get("current_theme");
+		var beeline_theme = this.get("beeline_theme");
+		var theme_value = current_theme + (current_theme == "beeline-theme" ? ("-" + beeline_theme) : '');
+		ga('send', 'event', 'Set Preference', 'Theme', theme_value);
 	}
 });
 
