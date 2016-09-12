@@ -2281,7 +2281,9 @@ ul#beeline-beta-menu {
     line-height: 24px;
     cursor: pointer; }
   ul#beeline-beta-menu li:last-child {
-    margin: 0px; }
+    margin: 0px;
+    background: transparent;
+    font-weight: normal; }
   ul#beeline-beta-menu li.active#bright-button {
     color: white;
     background-color: #FF0500;
