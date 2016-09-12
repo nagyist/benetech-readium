@@ -2010,8 +2010,8 @@ body {
 
 #viewer-settings-modal {
   top: 35%;
-  width: 352px;
-  margin-left: -176px;
+  width: 480px;
+  margin-left: -240px;
   text-align: left;
   background-color: white;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(100%, compact(white, #cccccc, false, false, false, false, false, false, false, false)));
