@@ -4,7 +4,7 @@ Readium.Views.BeelineNotificationView = Backbone.View.extend({
 
 	initialize: function() {
 		console.log("Initializing Beeline Notification Modal");
-		$('#beeline-notification-modal'.modal('show');
+		$('#beeline-notification-modal').modal('show');
 		
 		//this.$el.modal('show');
 	},
