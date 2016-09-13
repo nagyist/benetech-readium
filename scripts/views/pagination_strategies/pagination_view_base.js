@@ -362,8 +362,11 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		// wait for new stylesheets to parse before setting back to visible
 		setTimeout(function() {
 			$("#flowing-wrapper").css("visibility", "visible");	
+			BookshareUtils.beelineNotification();
 		}, 100);
 	},
+	
+	
 
 	commonBeelineLogic: function(contentEl) {
 		var theme = this.model.get("current_theme");

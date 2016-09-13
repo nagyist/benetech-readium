@@ -159,6 +159,41 @@ window.BookshareUtils = {
 		$('#system-message').modal('hide');
 		$('#system-message-content').html('');
 	},
+	
+	beelineNotification: function() {
+		//RUN THE BEELINE JS ON THE MODAL CONTENT
+
+		
+		//WIRE UP THE YES BUTTON
+		$("#beeline-notification-button-yes").click(function() {
+			//SET THE LOCAL STORAGE VARIABLE HERE
+
+			$('#beeline-notification-modal').modal('hide');
+			$('#viewer-settings-modal').modal('show');
+			//unselect all options
+				$('#theme-radio-group span').each(function(){
+					$(this).attr({"aria-selected": "false", "aria-checked": "false"}).removeClass('selected');
+			})
+			//select beeline option
+			$('#beeline-theme-option').attr({"aria-selected": "true", "aria-checked": "true"}).addClass('selected');
+			//unselect beeline beta color options
+			$('#beeline-beta-menu li').each(function(){
+					$(this).removeClass('active');
+			})
+			//select the beeline beta color option for bright 
+			$('#beeline-beta-menu #bright-button').addClass('active');
+					
+		});
+		//WIRE UP THE NO BUTTON
+		$("#beeline-notification-button-no").click(function() {
+			//SET THE LOCAL STORAGE VARIABLE HERE
+			$('#beeline-notification-modal').modal('hide');
+		});
+		
+		//SHOW THE NOTIFIFICATION
+		$('#beeline-notification-modal').modal('show');
+    },
+    
 
 	findTopElement: function(viewObject) {
 		var contentFrame = viewObject.getFrame();
