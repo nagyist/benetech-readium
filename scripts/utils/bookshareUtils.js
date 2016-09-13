@@ -160,10 +160,11 @@ window.BookshareUtils = {
 		$('#system-message-content').html('');
 	},
 	
-	beelineNotification: function() {
+	beelineNotification: function(readiumOptions) {
+		if (!readiumOptions.get("show_beeline_alert")) {
+			return;
+		}
 		//RUN THE BEELINE JS ON THE MODAL CONTENT
-
-		
 		//WIRE UP THE YES BUTTON
 		$("#beeline-notification-button-yes").click(function() {
 			//SET THE LOCAL STORAGE VARIABLE HERE
@@ -182,7 +183,6 @@ window.BookshareUtils = {
 			})
 			//select the beeline beta color option for bright 
 			$('#beeline-beta-menu #bright-button').addClass('active');
-					
 		});
 		//WIRE UP THE NO BUTTON
 		$("#beeline-notification-button-no").click(function() {
@@ -192,6 +192,10 @@ window.BookshareUtils = {
 		
 		//SHOW THE NOTIFIFICATION
 		$('#beeline-notification-modal').modal('show');
+		// Don't show the alert again in this session
+		readiumOptions.set("show_beeline_alert", false);
+		// Don't show the alert again on this browser
+		readiumOptions.applyOptions();
     },
     
 

@@ -360,9 +360,10 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		this.injectHighlightStyles(this.getFrame());
 
 		// wait for new stylesheets to parse before setting back to visible
+		var readiumOptions = this.model.options;
 		setTimeout(function() {
 			$("#flowing-wrapper").css("visibility", "visible");	
-			BookshareUtils.beelineNotification();
+			BookshareUtils.beelineNotification(readiumOptions);
 		}, 100);
 	},
 	
