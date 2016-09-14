@@ -78,6 +78,7 @@
   top: 35%;
   width: 480px;
   margin-left: -240px;
+  overflow-y: hidden;
   text-align: left;
   @include linear-gradient(top, white, #cccccc);
   line-height: 1em;
