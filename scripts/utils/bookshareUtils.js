@@ -164,6 +164,13 @@ window.BookshareUtils = {
 		if (!readiumOptions.get("show_beeline_alert")) {
 			return;
 		}
+		var beeline_modal_text = new BeeLineReader($("#beeline-notification-modal .modal-body p").get(0), { 
+        	theme: 'bright',
+            skipBackgroundColor: false,
+            colorImmediately: true,
+            handleResize: true
+        });
+		beeline_modal_text.color();
 		//RUN THE BEELINE JS ON THE MODAL CONTENT
 		//WIRE UP THE YES BUTTON
 		$("#beeline-notification-button-yes").click(function() {
