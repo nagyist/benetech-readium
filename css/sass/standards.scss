@@ -4,5 +4,8 @@
 
 .modal-footer {
 	text-align: center;
+	background-color: #000;
+	@include linear-gradient(top, #444444, #222222);
+	border-top: 0px;
 }
 
