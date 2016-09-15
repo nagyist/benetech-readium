@@ -13,7 +13,6 @@ Readium.Models.ReadiumOptions = Backbone.Model.extend({
 		speech_rate: 1.0,
 		current_margin: 3,
 		current_theme: "default-theme",
-    	beeline_theme: "bright",
 		pagination_mode: 'scrolling', //values are scrolling, single, facing
 		show_beeline_alert: 'true'
 	},
