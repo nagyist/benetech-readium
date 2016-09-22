@@ -180,7 +180,7 @@ window.BookshareUtils = {
 			readiumOptions.applyOptions();
 			
 			$('#beeline-notification-modal').modal('hide');
-			$('#viewer-settings-modal').modal('show');
+			$('#viewer-settings-modal').modal('show').attr("aria-hidden","true");
 			$('#theme-radio-group span').each(function(){
 					$(this).attr({"aria-selected": "false", "aria-checked": "false"}).removeClass('selected');
 			});
@@ -194,11 +194,11 @@ window.BookshareUtils = {
 			readiumOptions.set("show_beeline_alert", false);
 			// Don't show the alert again on this browser
 			readiumOptions.applyOptions();
-			$('#beeline-notification-modal').modal('hide');
+			$('#beeline-notification-modal').modal('hide').attr("aria-hidden","true");
 		});
 		
 		//SHOW THE NOTIFIFICATION
-		$('#beeline-notification-modal').modal('show');
+		$('#beeline-notification-modal').modal('show').attr("aria-hidden","false");
     },
     
 
