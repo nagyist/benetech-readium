@@ -2354,13 +2354,6 @@ ul#beeline-beta-menu {
   background-image: linear-gradient(top, compact(#444444, #222222, false, false, false, false, false, false, false, false));
   border-top: 0px; }
 
-.screen-reader-only-text {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  position: absolute !important; }
-
 /* Margin 5px */
 .m5 {
   margin: 5px; }
