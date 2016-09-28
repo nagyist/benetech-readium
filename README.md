@@ -5,24 +5,17 @@ _an open source library for handling EPUB documents_
 This project is a fork of the the [Readium Project](http://readium.org/), modified to be used with [Bookshare](https://www.bookshare.org).
 
 
-##  Testing
+## Quickstart
 
-We are using [Jasmine](https://github.com/pivotal/jasmine/wiki) to perform javascript unit tests. The best way to get these running is to install the [Jasmine rubygem](http://rubygems.org/gems/jasmine).
-
-    $ gem install jasmine
-
-Then the specs can be run via the command:
-
-    $ rake jasmine
-
-This will start a webserver running on `port 8888`. To run the spect navigate to (or refresh) `localhost:8888`.
+Developers internal to Benetech should read the [Web Reader Developer Quickstart]
+(https://wiki.benetech.org/display/bookshare/Web+Reader+Developer+Quickstart).
 
 
-## License
+## Readium License
 [BSD](https://github.com/readium/readium/blob/master/LICENSE)
 
 
-## Contributors
+## Contributors to Readium
 
 * [IDPF](http://idpf.org/)
 * [Evident Point Software Corp.](http://www.evidentpoint.com/)
