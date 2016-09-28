@@ -1,6 +1,6 @@
 # Bookshare Web Reader (fka Readium)
 
-_an open source library for handling EPUB documents_
+_a web-based reader for EPUB documents in Bookshare_
 
 This project is a fork of the the [Readium Project](http://readium.org/), modified to be used with [Bookshare](https://www.bookshare.org).
 
