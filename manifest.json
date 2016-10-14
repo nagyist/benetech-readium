@@ -33,5 +33,5 @@
     "scripts/epub_reading_system.js",
     "views/viewer.html"
    ],
-   "version": "0.1.16	"
+   "version": "5.3.11"
 }
