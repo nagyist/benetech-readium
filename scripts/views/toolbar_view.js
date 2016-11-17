@@ -118,17 +118,17 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 			}
 		} else {
 			// set message variable with the default message
-			var message = "1To read books aloud with text-to-speech and synchronized highlighting, please use the latest version of Google Chrome or Apple Safari on a computer. You can also read text aloud with a screen reader.";
+			var message = "To read books aloud with text-to-speech and synchronized highlighting, please use the latest version of Google Chrome or Apple Safari on a computer. You can also read text aloud with a screen reader.";
 			//isIOS
 			if (BookshareUtils.isIOS()) {
 				//isIOS
-				message = "2This browser does not support text-to-speech with synchronized highlighting, but you can use VoiceOver to have the contents of the book of the book read aloud.";
+				message = "This browser does not support text-to-speech with synchronized highlighting, but you can use VoiceOver to have the contents of the book of the book read aloud.";
 			} else if (BookshareUtils.isEdge()) {
 				//isEdge
-				message = "3We are awaiting updates from Microsoft that will support text-to-speech with synchronized highlighting in this brower. Until then, please use the latest version of Google Chrome or Apple Safari on a computer or you can also read text aloud with a screen reader.";
+				message = "We are awaiting updates from Microsoft that will support text-to-speech with synchronized highlighting in this brower. Until then, please use the latest version of Google Chrome or Apple Safari on a computer or you can also read text aloud with a screen reader.";
 			} else if (BookshareUtils.isAndroidOrWindowsPhone()) {
 				//isAndroidOrWindowsPhone
-				message = "4This browser does not support text-to-speech with synchronized highlighting, but you can use TalkBack to have the contents of the book of the book read aloud.";
+				message = "This browser does not support text-to-speech with synchronized highlighting, but you can use TalkBack to have the contents of the book of the book read aloud.";
 			}  
 			
 			$('#tts-browser-info .modal-body p').text(message);
