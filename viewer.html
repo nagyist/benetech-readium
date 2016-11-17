@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>Bookshare Web Reader</title>
 		<meta name="viewport" content="initial-scale=1.0"/> 
-
+		<link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo">
 		<!-- Le styles -->
 		<link rel="stylesheet" type="text/css" href="/css/viewer_manifest.css">
 
@@ -398,18 +398,20 @@
 		<!-- END install modal -->
 
 		<!-- START TTS Notification -->
-		<div class="modal fade" id="tts-browser-info" style="display: none">
-			<div id="tts-browser-info-body">
-				<p>
-				To read books aloud with text-to-speech and synchronized
-				highlighting, please use the latest version of Google Chrome
-				or Apple Safari on a computer. You can also read text aloud
-				with a screen reader.
-				</p>
-			</div>
-			<div id="tts-browser-info-footer" class="clearfix">
-				<button class='btn btn-inverse' id="tts-browser-info-but">OK</button>
-			</div>
+		<div class="modal fade" id="tts-browser-info" style="display: none"  tabindex="-1" role="dialog" aria-labelledby="Text To Speech Warning!" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-header">
+		        <h4 class="modal-title">Text to Speech Warning!</h4>
+		        <span class="sr-only"></span>
+		      </div>
+		      <div class="modal-body">
+		        <p>
+		        </p>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-inverse" data-dismiss="modal">Close</button>
+		      </div> 
+			</div>	
 		</div>
 		<!-- END TTS Notification -->
 		

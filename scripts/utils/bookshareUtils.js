@@ -15,9 +15,29 @@ window.BookshareUtils = {
 		}
 		return this.iosFlag;
 	},
+	
+	isAndroidOrWindowsPhone: function() {
+		var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+		return (/android/i.test(userAgent));
+	},
 
 	isChromeOS: function() {
 		return (navigator.appVersion.indexOf("CrOS") != -1);
+	},
+	
+	isFirefox: function() {
+		// Firefox 1.0+
+		return (typeof InstallTrigger !== 'undefined');
+	},
+	
+	isIE: function() {
+		// Internet Explorer 6-11
+		return(/*@cc_on!@*/false || !!document.documentMode);
+	},
+
+	isEdge: function() {
+		// Edge 20+
+		return (!this.isIE() && !!window.StyleMedia);
 	},
 
 	hasSpeechAPI: function() {
