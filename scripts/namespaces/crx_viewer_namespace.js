@@ -13,48 +13,51 @@ window.Readium = {
 		$('a[href*="//www.bookshare.org"]').each(function(){this.href=BookshareUtils.resolveEnvironment(this.href)});
 		_router = new Readium.Routers.ViewerRouter();
 
-		if (BookshareUtils.offerChromeExtension()) {
-			var options = Readium.Models.ReadiumOptions.getInstance();
-			var myModal = $('#chrome-extension-install');
-			$(BookshareUtils.isChromeOS() ? '#crx-instructions-chromebox' : '#crx-instructions-oldchrome').show();
-			if (false == !!options.get('decline_extension')) {
-				$('#install-extension-but').click(
-					function(e) {
-						chrome.webstore.install(
-							'https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo',
-							function() {
-								$('#crx-install-instructions').hide();
-								$('#crx-install-success').show();
-							},
-							function() {
-								$('#crx-install-instructions').hide();
-								$('#crx-install-fail').show();
-							}
-						);
-					});
-				$('#no-thanks-but').click(
-					function(e) {
-						options.set('decline_extension', true);
-						options.save();
-						myModal.modal('hide');
-					});
-				$('#crx-install-fail-but').click(
-					function(e) {
-						myModal.modal('hide');
-					});
-				$('#crx-install-success-but').click(
-					function(e) {
-						window.location.reload();
-					});
-				// wire up Start to kick off after the dialog goes away
-				myModal.on('hide', window.Readium.Start);
-				myModal.modal();
-			} else {
-				this.Start();
-			}
-		} else {
-			this.Start();
-		}
+		this.Start();
+		
+//		This is the code that pops up a modal offering a chrome extension.  Leaving this code here in case we want to instead offer a voice extension instead in 5.3.14
+//		if (BookshareUtils.offerChromeExtension()) {
+//			var options = Readium.Models.ReadiumOptions.getInstance();
+//			var myModal = $('#chrome-extension-install');
+//			$(BookshareUtils.isChromeOS() ? '#crx-instructions-chromebox' : '#crx-instructions-oldchrome').show();
+//			if (false == !!options.get('decline_extension')) {
+//				$('#install-extension-but').click(
+//					function(e) {
+//						chrome.webstore.install(
+//							'https://chrome.google.com/webstore/detail/bkfmjmjngglphchhiemnghidpnddofmo',
+//							function() {
+//								$('#crx-install-instructions').hide();
+//								$('#crx-install-success').show();
+//							},
+//							function() {
+//								$('#crx-install-instructions').hide();
+//								$('#crx-install-fail').show();
+//							}
+//						);
+//					});
+//				$('#no-thanks-but').click(
+//					function(e) {
+//						options.set('decline_extension', true);
+//						options.save();
+//						myModal.modal('hide');
+//					});
+//				$('#crx-install-fail-but').click(
+//					function(e) {
+//						myModal.modal('hide');
+//					});
+//				$('#crx-install-success-but').click(
+//					function(e) {
+//						window.location.reload();
+//					});
+//				// wire up Start to kick off after the dialog goes away
+//				myModal.on('hide', window.Readium.Start);
+//				myModal.modal();
+//			} else {
+//				this.Start();
+//			}
+//		} else {
+//			this.Start();
+//		}
 	},
 
 	Start: function() {
