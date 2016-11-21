@@ -125,7 +125,7 @@ Readium.Views.ToolbarView = Backbone.View.extend({
 				message = "This browser does not support text-to-speech with synchronized highlighting, but you can use VoiceOver to have the contents of the book of the book read aloud.";
 			} else if (BookshareUtils.isEdge()) {
 				//isEdge
-				message = "We are awaiting updates from Microsoft that will support text-to-speech with synchronized highlighting in this brower. Until then, please use the latest version of Google Chrome or Apple Safari on a computer or you can also read text aloud with a screen reader.";
+				message = "We are awaiting updates from Microsoft that will support text-to-speech with synchronized highlighting in this browser. Until then, please use the latest version of Google Chrome or Apple Safari on a computer or you can also read text aloud with a screen reader.";
 			} else if (BookshareUtils.isFirefox()) {
 				//isFirefox
 				message = "To read books aloud with text-to-speech and synchronized highlighting, please use the latest version of Google Chrome or Apple Safari on a computer. You can also read text aloud with a screen reader.";
