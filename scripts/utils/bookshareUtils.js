@@ -22,7 +22,7 @@ window.BookshareUtils = {
 	},
 
 	isChromeOS: function() {
-		return (navigator.appVersion.indexOf("CrOS") != -1 || navigator.userAgent.indexOf('Android') == -1);
+		return (navigator.appVersion.indexOf("CrOS") != -1 || navigator.userAgent.indexOf('Android') == -1 || window.chrome);
 	},
 	
 	isFirefox: function() {
