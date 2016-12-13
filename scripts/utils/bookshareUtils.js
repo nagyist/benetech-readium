@@ -41,12 +41,11 @@ window.BookshareUtils = {
 	},
 
 	hasSpeechAPI: function() {
-		return true;
-//		return (window.speechSynthesis
-//			&& window.speechSynthesis.getVoices
-//			&& window.SpeechSynthesisUtterance) != undefined
-//			&& !this.isIOS()
-//			&& !this.isChromeOS();
+		return (window.speechSynthesis
+			&& window.speechSynthesis.getVoices
+			&& window.SpeechSynthesisUtterance) != undefined
+			&& !this.isIOS()
+			&& !this.isChromeOS();
 	},
 
 	offerChromeExtension: function() {
