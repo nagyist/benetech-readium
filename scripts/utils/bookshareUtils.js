@@ -45,7 +45,6 @@ window.BookshareUtils = {
 			&& window.speechSynthesis.getVoices
 			&& window.SpeechSynthesisUtterance) != undefined
 			&& !this.isIOS();
-//			&& !this.isChromeOS();
 	},
 
 	offerChromeExtension: function() {
