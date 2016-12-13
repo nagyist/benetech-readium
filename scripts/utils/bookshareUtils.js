@@ -22,7 +22,7 @@ window.BookshareUtils = {
 	},
 
 	isChromeOS: function() {
-		return ((navigator.appVersion.indexOf("CrOS") != -1) || (navigator.userAgent.toLowerCase().indexOf('chrome') > -1));
+		return (navigator.appVersion.indexOf("CrOS") != -1);
 	},
 	
 	isFirefox: function() {
@@ -44,8 +44,8 @@ window.BookshareUtils = {
 		return (window.speechSynthesis
 			&& window.speechSynthesis.getVoices
 			&& window.SpeechSynthesisUtterance) != undefined
-			&& !this.isIOS()
-			&& !this.isChromeOS();
+			&& !this.isIOS();
+//			&& !this.isChromeOS();
 	},
 
 	offerChromeExtension: function() {
