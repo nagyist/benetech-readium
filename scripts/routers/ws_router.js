@@ -5,6 +5,7 @@ Readium.Routers.ViewerRouter = Backbone.Router.extend({
 	routes: {
         // backbone 0.9.1 does not yet support optional parameters, must be slash separated.
         "viewer.html?book=:key": "openBook",
+        "rnibbookshare/viewer.html?book=:key": "openBook",
         "load2learn/viewer.html?book=:key": "openBook",
 		"*splat": "splat_handler"
 	},
