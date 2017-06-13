@@ -308,7 +308,11 @@ window.BookshareUtils = {
 
 Readium.Models.PackageDocument.prototype.sync = BookshareUtils.makeSyncFunction(
 	function(m) {
-		return BookshareUtils.resolveEnvironment(BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + m.get('book').get('key'));
+		var epub3book = m.get('book');
+		var manifestUrl = BookshareUtils.http + 'www.bookshare.org/getManifest?titleInstanceId=' + epub3book.get('key');
+		var bookTag = epub3book.get('tagId');
+		manifestUrl = manifestUrl + (bookTag ? '&tag=' + bookTag : '');
+		return BookshareUtils.resolveEnvironment(manifestUrl);
 	}, 'xml', BookshareUtils.isIE9());
 Readium.Models.Toc.prototype.sync = BookshareUtils.makeSyncFunction(function(m) { return m.file_path;}, 'xml');
 Readium.Models.SpineItem.prototype.sync = window.BookshareUtils.makeSyncFunction( function(m) {return m.get('href');}, 'xml');
