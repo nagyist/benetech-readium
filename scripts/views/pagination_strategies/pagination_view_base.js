@@ -380,7 +380,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
        	if (theme=="beeline-theme") {
        		var beeline_theme = this.model.get("beeline_theme");
 
-           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="/lib/beeline.min.css"/>');
+           	contentEl.find('head').append('<link id="beeLineStyle" rel="stylesheet" type="text/css" href="lib/beeline.min.css"/>');
            	var beeline_object = this.model.get("beeline_object");
            	if (beeline_object) {
            		beeline_object.cleanup();

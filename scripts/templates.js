@@ -88,7 +88,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.data)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " by "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.data)),stack1 == null || stack1 === false ? stack1 : stack1.author)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"\n			src=\"/page.xhtml\"\n			id=\"readium-flowing-content\"\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>";
+    + "\"\n			src=\"page.xhtml\"\n			id=\"readium-flowing-content\"\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>\n";
   return buffer;
   });
 templates['injected_scrolling_page_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -101,7 +101,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.data)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " by "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.data)),stack1 == null || stack1 === false ? stack1 : stack1.author)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"\n			src=\"/page.xhtml\"\n			id='readium-scrolling-content'\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>";
+    + "\"\n			src=\"page.xhtml\"\n			id='readium-scrolling-content'\n			aria-live=\"polite\"\n			>\n	</iframe>\n</div>\n";
   return buffer;
   });
 templates['integration_error'] = template(function (Handlebars,depth0,helpers,partials,data) {
@@ -209,7 +209,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<h3>Loading book content...</h3>\n<p style=\"text-align:center\">\n<img src=\"/images/progress_bar.gif\" alt=\"Loading content...\">\n</p>\n";
+  return "<h3>Loading book content...</h3>\n<p style=\"text-align:center\">\n<img src=\"images/progress_bar.gif\" alt=\"Loading content...\">\n</p>\n";
   });
 templates['ncx_nav_template'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];

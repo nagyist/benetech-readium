@@ -6,7 +6,8 @@ window.BookshareUtils = {
 
 	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
 
-	AWS_URL_PATTERN: /https\:\/\/(?:(qa|staging)\-){0,1}bookshare\-reader\.s3\.amazonaws\.com\/(?:\w+\/)?viewer\.html\?book=(\d*)/,
+    AWS_URL_PATTERN: /https\:\/\/(?:www|public)\.(?:(qa|staging)\.){0,1}(?:rnib)?bookshare\.org\/reader\/(?:rnib)?viewer\.html\?book=(\d*)/,
+
 
 	isIOS : function() {
 		if (this.iosFlag == null) {
@@ -129,7 +130,7 @@ window.BookshareUtils = {
 
 	setEnvironment: function(href) {
 		BookshareUtils.http = 'https://';
-		var siteMatch = /\/(\w+)\/viewer.html/.exec(location.pathname);
+		var siteMatch = /\.(\w+).org/.exec(location.host);
 		BookshareUtils.domain = (siteMatch ? siteMatch[1] : 'bookshare') + '.org';
 
 		if (/\bdev\b/.test(location.hostname)) {

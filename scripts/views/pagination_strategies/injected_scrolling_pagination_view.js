@@ -99,7 +99,7 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
 		var face = this.model.get("font_face");
 		this.$('#readium-scrolling-content').contents().find("link#fontStyle").remove();
 		if (face == 'OpenDyslexic') {
-		  this.$('#readium-scrolling-content').contents().find('head').append('<link id="fontStyle" rel="stylesheet" type="text/css" href="/fonts/OpenDyslexic/OpenDyslexic.css"/>');
+		  this.$('#readium-scrolling-content').contents().find('head').append('<link id="fontStyle" rel="stylesheet" type="text/css" href="fonts/OpenDyslexic/OpenDyslexic.css"/>');
 		}
 		$(this.getBody()).css("font-family", face);
 	},

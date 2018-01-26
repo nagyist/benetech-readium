@@ -215,7 +215,7 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 		var face = this.model.get("font_face");
 		this.$('#readium-flowing-content').contents().find("link#fontStyle").remove();
 		if (face == 'OpenDyslexic') {
-		  this.$('#readium-flowing-content').contents().find('head').append('<link id="fontStyle" rel="stylesheet" type="text/css" href="/fonts/OpenDyslexic/OpenDyslexic.css"/>');
+		  this.$('#readium-flowing-content').contents().find('head').append('<link id="fontStyle" rel="stylesheet" type="text/css" href="fonts/OpenDyslexic/OpenDyslexic.css"/>');
 		}
 		$(this.getBody()).css("font-family", face);
 		// the content size has changed so recalc the number of 
