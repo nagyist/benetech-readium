@@ -120,7 +120,7 @@ namespace :build do
 			concat_scripts srcs, script_name
 
 			hash_name = hash_script_name script_name
-			hash_name = File.join "/", @config[:scripts_dir], hash_name
+			hash_name = File.join @config[:scripts_dir], hash_name
 			File.rename script_name, File.join(@config[:publish_dir], hash_name)
 
 			
