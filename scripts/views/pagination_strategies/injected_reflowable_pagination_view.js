@@ -62,6 +62,14 @@ Readium.Views.InjectedReflowablePaginationView = Readium.Views.PaginationViewBas
 			if (!e.srcElement) e.srcElement = this;
 			e.srcElement.contentDocument.documentElement.appendChild(xhtml.children[0].cloneNode(true));
 			e.srcElement.contentDocument.documentElement.appendChild(xhtml.children[1].cloneNode(true));
+            // Transfer dir and lang from incoming document to iframe html element
+            if (xhtml.dir && ! /^\s*$/.test(xhtml.dir)) {
+                e.srcElement.contentDocument.documentElement.setAttribute("dir", xhtml.dir);
+            }
+            var language = xhtml.attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace","lang").value;
+            if (language && ! /^\s*$/.test(language)) {
+                e.srcElement.contentDocument.documentElement.setAttribute("xml:lang", language);
+            }
 			that.adjustIframeColumns();
 			that.iframeLoadCallback(e);
 			that.setFontSize();

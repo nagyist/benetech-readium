@@ -334,7 +334,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		var beeline_object = this.model.get("beeline_object");
 
 		if (theme === "default") theme = "default-theme";
-		if (theme != "beeline-theme") {
+		if (theme !== "beeline-theme") {
 			this.$el.find('link#beeLineStyle').remove();
 			if (beeline_object) { beeline_object.uncolor(); }
 		} else {
@@ -342,7 +342,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		}
 		
 		var color = this.themes[theme]["color"];
-		if (theme == "beeline-theme" && beeline_theme == "night_gray") {
+		if (theme === "beeline-theme" && beeline_theme === "night_gray") {
 			color = "#FFFFFF";
 		}
 
