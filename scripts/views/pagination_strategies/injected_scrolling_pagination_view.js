@@ -58,7 +58,9 @@ Readium.Views.InjectedScrollingPaginationView = Readium.Views.PaginationViewBase
             if (xhtml.dir && ! /^\s*$/.test(xhtml.dir)) {
                 e.srcElement.contentDocument.documentElement.setAttribute("dir", xhtml.dir);
             }
-            var language = xhtml.attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace","lang").value;
+            var language = xhtml.attributes.getNamedItemNS("http://www.w3.org/XML/1998/namespace","lang");
+            language = language ? language.value : null;
+
             if (language && ! /^\s*$/.test(language)) {
                 e.srcElement.contentDocument.documentElement.setAttribute("xml:lang", language);
             }
