@@ -284,7 +284,7 @@ Readium.Views.PaginationViewBase = Backbone.View.extend({
 		    style = doc.createElement("style");
 			style.type = "text/css";
 			style.innerHTML = ".bksPageNumberOn { display:block; text-align: center; width: 25%; margin-left: auto; margin-right: auto; font-weight: bold; font-style: italic; border: 1px solid gray; }\n"
-			+ "html#bkswr-content-container[dir=\"rtl\"]> body { margin-right: 20px; }";
+			+ "html#bkswr-content-container[dir=\"rtl\"]> body, html#bkswr-content-container p[dir=\"rtl\"] { margin-right: 20px; }";
 
 			head.appendChild(style);
 		}
