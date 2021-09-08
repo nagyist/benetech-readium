@@ -127,7 +127,7 @@ Readium.Models.TTSPlayer = Backbone.Model.extend({
 
     _getStartNode: function() {
         var bodyEl = this.controller.paginator.v.getBody().ownerDocument.body;
-        return $(bodyEl).find(this.controller.get("reading_position"))[0] || bodyEl.children[0];
+        return BookshareUtils.findTopElement(this.controller.paginator.v) || bodyEl.children[0];
     },
 
     _setCurrentNode: function(n) {
