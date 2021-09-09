@@ -4,7 +4,7 @@ window.BookshareUtils = {
 
 	ie9Flag: null,
 
-	POSITION_TRACKING_EXCLUSIONS: ['html', 'section', 'div'],
+	POSITION_TRACKING_EXCLUSIONS: ['html', 'body', 'section', 'div'],
 
     AWS_URL_PATTERN: /https\:\/\/(?:www|public)\.(?:(qa|staging)\.){0,1}(?:rnib)?bookshare\.org\/reader\/(?:rnib)?viewer\.html\?book=(\d*)/,
 
